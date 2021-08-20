@@ -1,0 +1,25 @@
+.film-detail {
+  background: #fff;
+  padding: 16px 24px;
+  border-radius: 2px;
+}
+
+.film-detail .ant-progress-circle .ant-progress-inner {
+  background-color: #000;
+  border: 3px solid #000;
+}
+
+.film-detail .ant-progress-circle .ant-progress-text {
+  color: #fff;
+  font-size: 20px;
+}
+
+.film-detail .actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.film-detail .actions .ant-btn {
+  margin-left: 16px;
+}

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Layout, Tooltip } from 'antd';
-import CustomMenu from '../components/Menu';
-import './Layout.css';
-import { FacebookFilled, GithubFilled, GlobalOutlined, InstagramOutlined, TranslationOutlined, TwitterOutlined, YoutubeFilled } from '@ant-design/icons';
-import SunIcon from './SunIcon';
-import MoonIcon from './MoonIcon';
+import React, { useEffect, useState } from 'react'
+import { Grid, BackTop, Button, Layout } from 'antd'
+import CustomMenu from '../components/Menu'
+import { ArrowUpOutlined, TranslationOutlined } from '@ant-design/icons'
+import SunIcon from './SunIcon'
+import MoonIcon from './MoonIcon'
+import './Layout.css'
 
 const { Header, Content, Footer } = Layout;
+const { useBreakpoint } = Grid
 
 function CustomLayout (props) {        
-    const [darkMode, setDarkMode] = useState(getInitialMode());    
+    const screens = useBreakpoint()
+    const [darkMode, setDarkMode] = useState(getInitialMode())    
 
     useEffect(() => {
         localStorage.setItem('dark', JSON.stringify(darkMode))        
@@ -17,52 +19,22 @@ function CustomLayout (props) {
 
     function getInitialMode() {
         const isReturningUser = "dark" in localStorage;
-        const savedMode = JSON.parse(localStorage.getItem('dark'));
-        const userPrefersDark = getPrefColorScheme();
+        const savedMode = JSON.parse(localStorage.getItem('dark'))
+        const userPrefersDark = getPrefColorScheme()
         if (isReturningUser) {
-            return savedMode;
+            return savedMode
         } else if (userPrefersDark) {
-            return true;
+            return true
         } else {
-            return false;
+            return false
         }        
     }
 
     function getPrefColorScheme() {
-        if (!window.matchMedia) return;
+        if (!window.matchMedia) return
 
-        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
     }
-
-    // const styleHeader = {
-    //     background: scrollTop ? 'transparent' : '',    
-    //     display: 'inline-block',
-    //     zIndex: '99', 
-    //     position: 'fixed',      
-    //     padding: '0',    
-    //     margin: '0',
-    //     height: '80px',
-    //     width: '100%',        
-    // }
-    
-    const styleContentSwitch = {
-        position: 'fixed',
-        zIndex: '2',
-        top: '50%',
-        right: '6%'
-    }
-    
-    // const styleFooter = {    
-    //     background: darkMode ? '#161b22' : '#fff',    
-    //     color: darkMode ? 'rgba(255, 255, 255, 0.85)' : 'rgba(0, 0, 0, 0.85)',
-    //     padding: 0,                            
-    //     minHeight: '200px',
-    //     width: '100%',    
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     textAlign: 'center',    
-    // }
 
     return(
         <Layout className={darkMode ? "layout-dark" : "layout-light"}>
@@ -70,13 +42,13 @@ function CustomLayout (props) {
                 <CustomMenu {...props} darkMode={darkMode} />                
             </Header>
             <Content className="content">                                     
-                <div className="content-item">                    
+                <div className={ screens.xl ? 'content-item-xl' : screens.lg ? 'content-item-lg' : 'content-item-xs' }>                    
                     {props.children} 
                 </div>                
-                <div className="theme-switch-container">
+                <div className={ screens.xl ? 'content-side content-side-xl' : screens.lg ? 'content-side content-side-lg' : 'content-side content-side-xs' }>
                     {/* <Tooltip title={darkMode ? "Light Mode" : "Dark Mode"}> */}
                     <Button 
-                        className="them-switch"
+                        className="theme-switch"
                         type="text"         
                         size="large"
                         shape="circle"                                                                    
@@ -98,7 +70,11 @@ function CustomLayout (props) {
                         }
                     />
                     {/* </Tooltip> */}
+                    <BackTop>
+                        <Button type="text" size="large" shape="circle" icon={<ArrowUpOutlined />} />
+                    </BackTop>
                 </div>
+                
             </Content>
             <Footer className="footer">    
                 <div>

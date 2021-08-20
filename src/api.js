@@ -1,18 +1,33 @@
+// const baseUrl = "http://localhost:8000/"
+// const baseUrl = "http://192.168.0.113:8000/"
+const baseUrl = "https://movieplusback.herokuapp.com/"
+
 const api = {
-    items: 'http://127.0.0.1:8000/api/items/items',
-    posts: 'http://127.0.0.1:8000/api/items/posts',
-    users: 'http://127.0.0.1:8000/api/users',
-    signin: 'http://127.0.0.1:8000/rest-auth/login/',
-    signup: 'http://127.0.0.1:8000/rest-auth/registration/',
-    passwordreset: 'http://127.0.0.1:8000/rest-auth/password/reset/',
-    passwordresetconfirm: 'http://127.0.0.1:8000/rest-auth/password/reset/confirm/',
-    authFacebook: 'http://127.0.0.1:8000/rest-auth/facebook/',
-    authGoogle: 'http://127.0.0.1:8000/rest-auth/google/',
-    profile: 'http://127.0.0.1:8000/rest-auth/user/',
-    mediaItems: 'http://127.0.0.1:8000/media/items',
-    mediaUsers: 'http://127.0.0.1:8000/media/users',
-    mediaUploads: 'http://127.0.0.1:8000/media/uploads',
-    ckeditor: 'http://127.0.0.1:8000/ckeditor/',
+    movies: baseUrl + 'api/movies/movies',
+    films: baseUrl + 'api/movies/films',
+    tempfilms: baseUrl + 'api/movies/tempfilms',
+    series: baseUrl + 'api/movies/series',
+    ratings: baseUrl + 'api/movies/ratings',
+    genres: baseUrl + 'api/movies/genres',
+    productions: baseUrl + 'api/movies/productions',
+    occupations: baseUrl + 'api/movies/occupations',
+    scores: baseUrl + 'api/movies/scores',
+    comments: baseUrl + 'api/movies/comments',
+    reviews: baseUrl + 'api/movies/reviews',
+    tempartists: baseUrl + 'api/movies/tempartists',
+    artists: baseUrl + 'api/movies/artists',
+    members: baseUrl + 'api/movies/members',
+    tempmembers: baseUrl + 'api/movies/tempmembers',
+    actors: baseUrl + 'api/movies/actors',
+    tempactors: baseUrl + 'api/movies/tempactors',
+    users: baseUrl + 'api/users',
+    authFacebook: baseUrl + 'rest-auth/facebook/',
+    authGoogle: baseUrl + 'rest-auth/google/',
+    profile: baseUrl + 'rest-auth/user/',
+    mediaItems: baseUrl + 'media/items',
+    mediaUsers: baseUrl + 'media/users',    
+    mediaUploads: baseUrl + 'media/uploads',
+    ckeditor: baseUrl + 'ckeditor/',
 }
 
 export default api;

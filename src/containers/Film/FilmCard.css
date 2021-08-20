@@ -1,0 +1,96 @@
+.film-card .ant-card-body {
+  padding: 8px;
+  height: 80px;
+}
+
+.film-card .ant-typography {
+  margin-bottom: 0%;
+}
+
+.film-card .film-title {
+  font-weight: bold;
+}
+
+.film-card .film-releasedate {
+  display: block;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.film-card .film-poster-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.film-card .film-poster {
+  width: 100%;
+  height: auto;
+}
+
+.film-card .film-score {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}
+
+.film-card .film-score .ant-progress-circle .ant-progress-inner {
+  background-color: #000;
+  border: 2px solid #000;
+}
+
+.film-card .film-score .ant-progress-circle .ant-progress-text {
+  color: #fff;
+}
+
+.film-card .film-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.film-card .film-actions .button-more {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.film-card .film-actions .button-more:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.film-poster-container .drawer {
+  position: absolute;
+}
+
+.film-poster-container .drawer .ant-drawer-body {
+  padding: 16px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.film-poster-container .drawer .ant-btn {
+  margin-bottom: 16px;
+  transition: 0.4s ease-in-out;
+}
+
+.film-poster-container .drawer .like:hover {
+  background: rgba(231, 76, 60, 0.25);
+  color: #c0392b;
+}
+
+.film-poster-container .drawer .watchlist:hover {
+  background: rgba(224, 86, 253, 0.25);
+  color: #be2edd;
+}
+
+.film-poster-container .drawer .addlist:hover {
+  background: rgba(72, 52, 212, 0.25);
+  color: #130f40;
+}
+
+.film-poster-container .drawer .rate:hover {
+  background: #f1c40f;
+  color: #2c3e50;
+}
