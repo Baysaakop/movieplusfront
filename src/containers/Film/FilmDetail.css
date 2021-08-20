@@ -1,7 +1,10 @@
 .film-detail {
-  background: #fff;
-  padding: 16px 24px;
-  border-radius: 2px;
+  height: 100%;
+}
+
+.layout-dark .film-detail .ant-tag {
+  background: #11181e;
+  color: #fff;
 }
 
 .film-detail .ant-progress-circle .ant-progress-inner {
@@ -11,7 +14,23 @@
 
 .film-detail .ant-progress-circle .ant-progress-text {
   color: #fff;
-  font-size: 20px;
+  font-size: 24px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.film-detail .play-trailer {
+  background: #f0f2f5;
+  transition: 0.3s ease-in-out;
+}
+
+.film-detail .play-trailer:hover,
+.layout-dark .film-detail .play-trailer:hover {
+  background: rgba(0, 148, 50, 0.25);  
+}
+
+.layout-dark .film-detail .play-trailer {
+  background: #22282e;
+  transition: 0.3s ease-in-out;
 }
 
 .film-detail .actions {
@@ -20,6 +39,69 @@
   align-items: center;
 }
 
-.film-detail .actions .ant-btn {
-  margin-left: 16px;
+.film-detail .actions .action {
+  text-align: center;
+  margin-right: 24px;
+}
+
+.film-detail .actions .ant-btn {  
+  background: #f0f2f5;
+  transition: 0.3s ease-in-out;
+}
+
+.layout-dark .film-detail .actions .ant-btn {  
+  background: #22282e;
+  transition: 0.3s ease-in-out;
+}
+
+.film-detail .actions .like:hover {
+  background: rgba(231, 76, 60, 0.25);
+  color: #c0392b;
+}
+
+.film-detail .actions .watchlist:hover {
+  background: rgba(224, 86, 253, 0.25);
+  color: #be2edd;
+}
+
+.film-detail .actions .addlist:hover {
+  background: rgba(72, 52, 212, 0.25);
+  color: #130f40;
+}
+
+.film-detail .actions .rate:hover {
+  background: rgba(253, 204, 13, 0.75);
+  color: #2c3e50;
+}
+
+.layout-dark .film-detail .actions .like:hover {
+  background: rgba(231, 76, 60, 0.25);
+  color: #c0392b;
+}
+
+.layout-dark .film-detail .actions .watchlist:hover {
+  background: rgba(224, 86, 253, 0.25);
+  color: #be2edd;
+}
+
+.layout-dark .film-detail .actions .addlist:hover {
+  background: rgba(72, 52, 212, 0.25);
+  color: #a1a2a8;
+}
+
+.layout-dark .film-detail .actions .rate:hover {
+  background: rgba(253, 204, 13, 0.5);
+  color: #dedede;
+}
+
+.film-plot {
+  margin-top: 24px;
+}
+
+.film-crew {
+  margin-top: 24px;
+}
+
+.film-cast {
+  margin-top: 24px;
 }

@@ -38,7 +38,7 @@ function FilmList (props) {
     }
 
     function showTotal() {
-        return <strong>Нийт {total} кино:</strong>;
+        return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total} кино:</Typography.Text>;
     }  
 
     return (
@@ -51,7 +51,7 @@ function FilmList (props) {
                     Кино
                 </Breadcrumb.Item>
             </Breadcrumb>
-            <div className="filter">
+            <div className="container film-filter">
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>

@@ -65,9 +65,6 @@ function CustomLayout (props) {
                         size="large"
                         shape="circle"                                                                    
                         icon={<TranslationOutlined />} 
-                        onClick={() => 
-                            setDarkMode(prevMode => !prevMode)                                
-                        }
                     />
                     {/* </Tooltip> */}
                     <BackTop>
@@ -78,7 +75,7 @@ function CustomLayout (props) {
             </Content>
             <Footer className="footer">    
                 <div>
-                    © 2021 Movie Plus Project. All Rights Reserved. Designed and developed by On Plus Tech.                  
+                    © 2021 FILM+ Project. All Rights Reserved. Designed and developed by ON+ LLC                 
                 </div>            
             </Footer>
         </Layout>

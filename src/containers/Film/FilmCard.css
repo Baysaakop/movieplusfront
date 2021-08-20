@@ -40,6 +40,8 @@
 
 .film-card .film-score .ant-progress-circle .ant-progress-text {
   color: #fff;
+  font-size: 14px;
+  font-family: 'Rubik', sans-serif;
 }
 
 .film-card .film-actions {
@@ -72,7 +74,7 @@
 
 .film-poster-container .drawer .ant-btn {
   margin-bottom: 16px;
-  transition: 0.4s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .film-poster-container .drawer .like:hover {
@@ -93,4 +95,28 @@
 .film-poster-container .drawer .rate:hover {
   background: #f1c40f;
   color: #2c3e50;
+}
+
+.layout-dark .film-poster-container .drawer .ant-drawer-content {
+  background: #11181e;
+}
+
+.layout-dark .film-poster-container .drawer .like:hover {
+  background: rgba(231, 76, 60, 0.25);
+  color: #c0392b;
+}
+
+.layout-dark .film-poster-container .drawer .watchlist:hover {
+  background: rgba(224, 86, 253, 0.25);
+  color: #be2edd;
+}
+
+.layout-dark .film-poster-container .drawer .addlist:hover {
+  background: rgba(72, 52, 212, 0.25);
+  color: #a1a2a8;
+}
+
+.layout-dark .film-poster-container .drawer .rate:hover {
+  background: rgba(253, 204, 13, 0.5);
+  color: #dedede;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Grid, Avatar, Input } from 'antd'
-import { Link, useHistory, withRouter } from 'react-router-dom'
+import { useHistory, withRouter } from 'react-router-dom'
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth'

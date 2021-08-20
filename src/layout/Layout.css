@@ -51,7 +51,7 @@ body {
 
 .content-side {
   position: fixed;
-  top: 70%;
+  top: 60%;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -75,7 +75,7 @@ body {
 
 .content-side .ant-back-top {
   right: unset;
-  bottom: 100px;
+  bottom: 50px;
 }
 
 .footer {
@@ -84,6 +84,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.layout-dark .footer {
+  background-color: #11181e;
+  color: #fff;
 }
 
 .layout-light .content-side .ant-btn {
@@ -97,11 +102,65 @@ body {
 }
 
 .layout-dark .content-side .ant-btn {
-  background: #1f1f1f;
+  background: #11181e;
   color: #fff;
 }
 
 .layout-dark .content-side .ant-btn:hover {
-  background: #2f2f2f;
+  background: #22282e;
   color: #fff;
 }
+
+.layout-dark .ant-typography,
+.layout-dark .ant-breadcrumb-link,
+.layout-dark .ant-select-arrow,
+.layout-dark .ant-input-number-handler-wrap .anticon {  
+  color: #fff;
+}
+
+.layout-dark .ant-btn-text {  
+  color: #fff;  
+}
+
+.layout-dark .ant-breadcrumb a,
+.layout-dark .ant-breadcrumb-separator{  
+  color: rgba(255, 255, 255, 0.45);  
+}
+
+.layout-light div.container {
+  background: #fff;
+  padding: 16px 24px;
+  border-radius: 2px;  
+}
+
+.layout-dark div.container {
+  background: #11181e;
+  padding: 16px 24px;
+  border-radius: 2px;  
+}
+
+.layout-dark .ant-card {
+  background: #11181e;
+}
+
+.layout-dark .ant-input,
+.layout-dark .ant-input-group-addon .ant-btn,
+.layout-dark .ant-input-number,
+.layout-dark .ant-input-number-handler-wrap,
+.layout-dark .ant-pagination-item,
+.layout-dark .ant-pagination-item-link {
+  background-color: #11181e;
+  color: #fff;
+}
+
+.layout-dark .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary),
+.layout-dark .ant-pagination-item a,
+.layout-dark .ant-pagination-item-link {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.layout-dark .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background: #11181e;
+  color: #fff;
+}
+

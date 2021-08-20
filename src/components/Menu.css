@@ -27,6 +27,11 @@
   width: 100%;
 }
 
+.layout-dark .menu-xl,
+.layout-dark .menu-lg {
+  background: #11181e;
+}
+
 .menu-xl {
   padding-left: 10%;
   padding-right: 10%;
@@ -55,11 +60,23 @@
   background: #d5d5d5;
 }
 
+.layout-dark .menu-xl .menu-left .menu-item:hover,
+.layout-dark .menu-lg .menu-left .menu-item:hover {
+  background: #22282e;
+}
+
 .menu-xl .menu-left .selected-menu-item,
 .menu-lg .menu-left .selected-menu-item {
   margin-right: 8px;
   transition: 0.3s ease-in-out;
   border: 1px solid #000;
+}
+
+.layout-dark .menu-xl .menu-left .selected-menu-item,
+.layout-dark .menu-lg .menu-left .selected-menu-item {
+  margin-right: 8px;
+  transition: 0.3s ease-in-out;
+  border: 1px solid #fff;
 }
 
 .menu-xl .menu-right .profile-icon,

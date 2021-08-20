@@ -1,14 +1,10 @@
 import React from 'react';
-import { Grid } from 'antd';
 import './Home.css';
 // import axios from 'axios';  
 // import api from '../api';
 // import { Link } from 'react-router-dom';
 
-const { useBreakpoint } = Grid;
-
-function Home (props) {    
-    const screens = useBreakpoint();    
+function Home (props) {        
 
     return (
         <div className="home">
