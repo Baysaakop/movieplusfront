@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Progress, Row, Space, Spin, Tag, Tooltip, Typography } from "antd"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
 import { AppstoreAddOutlined, EyeOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import Avatar from "antd/lib/avatar/avatar"
+import FilmReview from "./FilmReview"
+import ArtistPopover from "../Artist/ArtistPopover"
 
 const data = [
     {
@@ -162,7 +164,7 @@ function FilmDetail (props) {
                                         strokeColor="#f39c12"
                                         trailColor="#3c3c3c"                                 
                                         strokeWidth={6}      
-                                        percent={film.score}
+                                        percent={63}
                                         format={percent => `${percent}`}
                                     />         
                                     <div style={{ marginLeft: '12px' }}>
@@ -172,7 +174,15 @@ function FilmDetail (props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={12} lg={6}>
                                     <Typography.Title level={5}>Продюсер</Typography.Title>
-                                    <a href="/">Kevin Feige</a>                                   
+                                    <Popover
+                                        title={false}
+                                        placement="rightTop"
+                                        content={
+                                            <ArtistPopover artist={data[0]} />
+                                        }
+                                    >
+                                        <a href="/">Kevin Feige</a>                                   
+                                    </Popover>
                                 </Col>
                                 <Col xs={24} sm={24} md={12} lg={6}>
                                     <Typography.Title level={5}>Найруулагч</Typography.Title>
@@ -235,9 +245,9 @@ function FilmDetail (props) {
                             Sed vel dignissim quam. Integer facilisis lobortis odio, in varius leo. Sed lobortis non odio eu mattis. In ut tempor turpis, in dapibus sem. Aliquam aliquet eros sed varius placerat. Proin sollicitudin luctus magna ac vulputate. Phasellus bibendum tortor nec est tincidunt, quis euismod orci pulvinar.
                             </Typography.Paragraph>
                         </div>
-                        <div className="container film-crew">
+                        {/* <div className="container film-crew">
                             <Typography.Title level={5}>Уран бүтээлчид</Typography.Title>                            
-                        </div>
+                        </div> */}
                         <div className="container film-cast">
                             <Typography.Title level={5}>Жүжигчид</Typography.Title>
                             <List
@@ -262,8 +272,11 @@ function FilmDetail (props) {
                         </div>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={8}> 
-                        <div className="container film-reviews">
-                            <Typography.Title level={5}>Шүүмж</Typography.Title>
+                        <div className="container film-reviews">                        
+                            <Typography.Title level={5}>Шүүмж (3)</Typography.Title>
+                            <FilmReview score={70} name="Chandler Bing" date="2020 оны 7 сарын 13" img="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" text="This film is awesome on every level. It captivated me from start to finish with its humour, engaging story and incredible special effects. Idris holds the show together like the pro he is and all of the characters shine as individuals." />
+                            <FilmReview score={50} name="John Doe" date="2020 оны 1 сарын 25" img="https://www.w3schools.com/howto/img_avatar.png" text="No one is safe, and decency is thrown out the window. Not since Deadpool has a movie ever been so f****d up. Though Deadpool wandered more into the sexual and scatological terrain, The Suicide Squad, instead, blurs the line between cartoon violence and gory realism." />
+                            <FilmReview score={90} name="Jane Jones" date="2019 оны 10 сарын 25" img="https://www.w3schools.com/bootstrap4/img_avatar4.png" text="At times, The Suicide Squad feels less like a movie than a mission statement from a director. Behold, look what I can do with a budget and all the comic book characters I can play with. But, the unexpected heart at the center of the film, a sneaky anti-imperialist bent, and Gunn’s wild visual leaps make The Suicide Squad a bloody, gory delight." />
                         </div>
                     </Col>
                 </Row>

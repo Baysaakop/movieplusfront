@@ -1,29 +1,30 @@
-import { Breadcrumb, Col, InputNumber, List, message, Pagination, Row, Select, Spin, Typography } from "antd"
-import { useEffect, useState } from "react"
+import { Breadcrumb, Row, Col, Select, Typography, InputNumber, message, Spin, List, Pagination } from "antd"
 import axios from "axios"
+import { useEffect, useState } from "react"
 import api from "../../api"
-import './FilmList.css'
-import FilmCard from "./FilmCard"
+import ArtistCard from "./ArtistCard"
+import './ArtistList.css'
 
-function FilmList (props) {    
+function ArtistList (props) {
+
     const [loading, setLoading] = useState(false)
-    const [films, setFilms] = useState()
+    const [artists, setArtists] = useState()
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState()
 
     useEffect(() => {        
-        getFilms()        
+        getArtists()        
     }, [page]) // eslint-disable-line react-hooks/exhaustive-deps        
 
-    function getFilms() {        
+    function getArtists() {        
         setLoading(true)
-        let url = `${api.films}?page=${page}`
+        let url = `${api.artists}?page=${page}`
         axios({
             method: 'GET',
             url: url,
         }).then(res => {
             console.log(res.data.results)
-            setFilms(res.data.results)
+            setArtists(res.data.results)
             setTotal(res.data.count)
             setLoading(false)
         }).catch(err => {
@@ -43,25 +44,24 @@ function FilmList (props) {
 
     return (
         <div>
-            <Breadcrumb>
+             <Breadcrumb>
                 <Breadcrumb.Item>
                     <a href="/">Нүүр</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    Кино
+                    Хүмүүс
                 </Breadcrumb.Item>
             </Breadcrumb>
-            <div className="container film-filter">
+            <div className="container artist-filter" style={{ marginTop: '24px' }}>
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={12} lg={6}>
-                        <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>
-                        <Select defaultValue="0" size="large" style={{ width: '100%'}}>
-                            <Select.Option value="0">Бүгд</Select.Option>
-                            <Select.Option value="1">Action</Select.Option>
-                            <Select.Option value="2">Adventure</Select.Option>
-                            <Select.Option value="3">Comedy</Select.Option>
-                            <Select.Option value="4">Crime</Select.Option>
-                            <Select.Option value="5">Drama</Select.Option>
+                        <Typography.Title level={5} style={{ marginBottom: '8px' }}>Мэргэжил:</Typography.Title>
+                        <Select defaultValue="1" size="large" style={{ width: '100%'}}>
+                            <Select.Option value="1">Бүгд</Select.Option>
+                            <Select.Option value="2">Продюсер</Select.Option>
+                            <Select.Option value="3">Найруулагч</Select.Option>
+                            <Select.Option value="4">Кино зохиолч</Select.Option>
+                            <Select.Option value="5">Жүжигчин</Select.Option>
                         </Select>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
@@ -90,21 +90,21 @@ function FilmList (props) {
                     <Spin tip="Ачааллаж байна..." />
                 </div>
             ) : (
-                <div className="filmlist">
+                <div className="artistlist">
                     <List
                         grid={{
                             gutter: [24, 8],
-                            xs: 2,
-                            sm: 3,
-                            md: 4,
-                            lg: 6,
-                            xl: 6,
+                            xs: 3,
+                            sm: 4,
+                            md: 6,
+                            lg: 8,
+                            xl: 8,
                             xxl: 8,
                         }}
-                        dataSource={films}
-                        renderItem={film => (
+                        dataSource={artists}
+                        renderItem={artist => (
                             <List.Item>
-                            <FilmCard film={film} />
+                                <ArtistCard artist={artist} />
                             </List.Item>
                         )}
                     />
@@ -122,4 +122,4 @@ function FilmList (props) {
     )
 }
 
-export default FilmList
+export default ArtistList

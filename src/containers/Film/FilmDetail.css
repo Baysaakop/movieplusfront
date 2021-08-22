@@ -19,7 +19,7 @@
 }
 
 .film-detail .play-trailer {
-  background: #f0f2f5;
+  background: #e5e5e5;
   transition: 0.3s ease-in-out;
 }
 
@@ -45,12 +45,12 @@
 }
 
 .film-detail .actions .ant-btn {  
-  background: #f0f2f5;
+  background: rgba(0, 0, 0, 0);
   transition: 0.3s ease-in-out;
 }
 
 .layout-dark .film-detail .actions .ant-btn {  
-  background: #22282e;
+  background: rgba(0, 0, 0, 0);
   transition: 0.3s ease-in-out;
 }
 

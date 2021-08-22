@@ -1,0 +1,28 @@
+.artist-card .ant-card-body {
+    padding: 8px;
+    height: 80px;
+}
+
+.artist-card .ant-typography {
+    margin-bottom: 0%;
+}
+
+.artist-card .artist-title {
+    font-weight: bold;
+}
+
+.artist-card .artist-occupation {
+    display: block;
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.artist-card .artist-avatar-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.artist-card .artist-avatar {
+    width: 100%;
+    height: auto;
+}

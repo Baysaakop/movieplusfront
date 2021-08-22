@@ -7,18 +7,17 @@ import Profile from './account/Profile';
 import Logout from './account/Logout';
 import PasswordReset from './account/PasswordReset';
 import PasswordResetConfirm from './account/PasswordResetConfirm';
-import PostCreate from './posts/PostCreate';
 import FilmList from './containers/Film/FilmList';
 import FilmDetail from './containers/Film/FilmDetail';
+import ArtistList from './containers/Artist/ArtistList';
 
 function BaseRouter () {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/films" component={FilmList} />
-            <Route exact path="/films/:id" component={FilmDetail} />
-            {/* Posts urls */}
-            <Route exact path="/newpost" component={PostCreate} />
+            <Route exact path="/films/:id" component={FilmDetail} />            
+            <Route exact path="/people" component={ArtistList} />
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />

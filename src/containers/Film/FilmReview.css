@@ -1,0 +1,10 @@
+.film-review .ant-progress-circle .ant-progress-inner {
+    background-color: #000;
+    border: 3px solid #000;
+}
+
+.film-review .ant-progress-circle .ant-progress-text {
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Rubik', sans-serif;
+}

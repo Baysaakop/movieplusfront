@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Grid, Avatar, Input } from 'antd'
-import { useHistory, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth'
@@ -11,8 +11,7 @@ import './Menu.css'
 const { useBreakpoint } = Grid;
 
 function CustomMenu (props) {    
-    const screens = useBreakpoint()
-    const history = useHistory()
+    const screens = useBreakpoint()    
     const [current, setCurrent] = useState('home')
     const [collapsed, setCollapsed] = useState(false)          
 
@@ -22,8 +21,7 @@ function CustomMenu (props) {
 
     const handleMenuClick = (page) => {                      
         setCurrent(page)
-        setCollapsed(false)        
-        history.push(`/${page}`)
+        setCollapsed(false)                
     }
 
     const handleMenuCollapsed = () => {
@@ -35,42 +33,47 @@ function CustomMenu (props) {
             <div className="menu-xl">       
                 <div className="menu-left">
                     <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
-                    <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('films')}>Кино</Button>
-                    <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('series')}>Цуврал</Button>
-                    <Button className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
-                    <Button className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
-                    <Button className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
+                    <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
+                    <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
+                    <Button className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/people" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
+                    <Button className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/news" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
+                    <Button className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/reviews" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
                 </div>
                 <div className="menu-right">                
                     <Input.Search placeholder="Search..." size="large" style={{ width: '300px', marginRight: '16px' }} />            
                     {/* <Button size="large" type="text">Нэвтрэх</Button> */}                
-                    <Avatar 
-                        className="profile-icon"
-                        size="large" 
-                        src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
-                        onClick={() => handleMenuClick('profile')}
-                    />
+                    <a href="/profile">
+                        <Avatar 
+                            className="profile-icon"
+                            size="large"                                                 
+                            src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
+                            onClick={() => handleMenuClick('profile')}
+                        />
+                    </a>
                 </div>   
             </div>    
         ) : screens.lg ? (            
             <div className="menu-lg">       
                 <div className="menu-left">
                     <Button className="logo" size="large" type="text" onClick={() => handleMenuClick('home')}>FILM+</Button>                    
-                    <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('films')}>Кино</Button>
-                    <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('series')}>Цуврал</Button>
-                    <Button className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
-                    <Button className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
-                    <Button className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
+                    <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
+                    <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
+                    <Button className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/people" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
+                    <Button className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/news" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
+                    <Button className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/reviews" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
                 </div>
                 <div className="menu-right">                
                     <Input.Search placeholder="Search..." size="large" style={{ width: '300px', marginRight: '16px' }} />            
                     {/* <Button className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" onClick={() => handleMenuClick('signin')} type="dashed">Нэвтрэх</Button>                 */}
-                    <Avatar 
-                        className="profile-icon"
-                        size="large" 
-                        src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
-                        onClick={() => handleMenuClick('profile')}
-                    />
+                    <a href="/profile">
+                        <Avatar 
+                            className="profile-icon"
+                            size="large" 
+                            href="/profile"
+                            src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
+                            onClick={() => handleMenuClick('profile')}
+                        />
+                    </a>
                 </div>   
             </div>    
         ) : (            
@@ -85,13 +88,13 @@ function CustomMenu (props) {
                 </div>
                 { collapsed ? (
                     <div className="menu-items">
-                        <Button block className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('films')}>Кино</Button>
-                        <Button block className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('series')}>Цуврал</Button>
-                        <Button block className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
-                        <Button block className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
-                        <Button block className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
+                        <Button block className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
+                        <Button block className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
+                        <Button block className={ current === 'people' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/people" onClick={() => handleMenuClick('people')}>Хүмүүс</Button>
+                        <Button block className={ current === 'news' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/news" onClick={() => handleMenuClick('news')}>Мэдээ</Button>
+                        <Button block className={ current === 'reviews' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/reviews" onClick={() => handleMenuClick('reviews')}>Шүүмж</Button>
                         {/* <Button block className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('signin')}>Нэвтрэх | Бүртгүүлэх</Button> */}
-                        <Button block className={ current === 'profile' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('profile')}>
+                        <Button block className={ current === 'profile' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/profile" onClick={() => handleMenuClick('profile')}>
                             <Avatar size="large" style={{ marginRight: '8px' }} src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" />
                             Профайл
                         </Button>                        

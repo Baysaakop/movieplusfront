@@ -1,4 +1,4 @@
-import { AppstoreAddOutlined, EllipsisOutlined, EyeOutlined, HeartOutlined, StarOutlined } from "@ant-design/icons";
+import { AppstoreAddOutlined, EyeOutlined, HeartOutlined, MoreOutlined, StarOutlined } from "@ant-design/icons";
 import { Card, Typography, Progress, Button, Drawer } from "antd";
 import { useState } from "react";
 import './FilmCard.css'
@@ -29,7 +29,7 @@ function FilmCard (props) {
                             />                    
                         </div>
                         <div className="film-actions">
-                            <Button size="small" className="button-more" shape="circle" type="text" icon={<EllipsisOutlined />} onClick={() => setDrawerOpen(true)} />
+                            <Button size="small" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />
                         </div>
                         <Drawer        
                             className="drawer"                    
