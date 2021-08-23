@@ -37,6 +37,10 @@ body {
   padding: 0%;
 }
 
+.content-item-xxl {
+  padding: 24px 15%;
+}
+
 .content-item-xl {
   padding: 24px 10%;
 }
@@ -114,29 +118,30 @@ body {
 .layout-dark .ant-typography,
 .layout-dark .ant-breadcrumb-link,
 .layout-dark .ant-select-arrow,
-.layout-dark .ant-input-number-handler-wrap .anticon {  
+.layout-dark .ant-input-number-handler-wrap .anticon,
+.layout-dark .ant-timeline {
   color: #fff;
 }
 
-.layout-dark .ant-btn-text {  
-  color: #fff;  
+.layout-dark .ant-btn-text {
+  color: #fff;
 }
 
 .layout-dark .ant-breadcrumb a,
-.layout-dark .ant-breadcrumb-separator{  
-  color: rgba(255, 255, 255, 0.45);  
+.layout-dark .ant-breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .layout-light div.container {
   background: #fff;
   padding: 16px 24px;
-  border-radius: 2px;  
+  border-radius: 2px;
 }
 
 .layout-dark div.container {
   background: #11181e;
   padding: 16px 24px;
-  border-radius: 2px;  
+  border-radius: 2px;
 }
 
 .layout-dark .ant-card {
@@ -153,7 +158,11 @@ body {
   color: #fff;
 }
 
-.layout-dark .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary),
+.layout-dark
+  .ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button:not(.ant-btn-primary),
 .layout-dark .ant-pagination-item a,
 .layout-dark .ant-pagination-item-link {
   color: rgba(255, 255, 255, 0.75);
@@ -170,4 +179,27 @@ body {
 
 .layout-dark .ant-divider {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ant-timeline-item-head {
+  background: rgba(0, 0, 0, 0);
+}
+
+.ant-timeline-item-head-blue {
+  color: #000;
+  border-color: #000;
+}
+
+/* .ant-timeline-item-content {
+  font-style: italic;
+} */
+
+.layout-dark .ant-timeline-item-head-blue {
+  color: #fff;
+  border-color: #fff;
+}
+
+.ant-rate-star-first,
+.ant-rate-star-second {
+  color: #c5c5c5;
 }

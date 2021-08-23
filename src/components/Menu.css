@@ -9,6 +9,11 @@
   cursor: pointer;
 }
 
+/* .layout-dark .logo {
+  background: #fff;
+  color: #000;
+} */
+
 .logo:hover {
   background: #2c2c2c;
   color: #fff;
@@ -16,8 +21,7 @@
 
 /* LG, XL, XXL */
 
-.menu-xl,
-.menu-lg {
+.menu-large {
   background: #fff;
   height: 80px;
   display: flex;
@@ -28,10 +32,14 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
-.layout-dark .menu-xl,
-.layout-dark .menu-lg {
+.layout-dark .menu-large {
   background: #11181e;
   border-bottom: 1px solid #22282e;
+}
+
+.menu-xxl {
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 .menu-xl {
@@ -44,51 +52,43 @@
   padding-right: 16px;
 }
 
-.menu-xl .menu-left,
-.menu-lg .menu-left {
+.menu-large .menu-left {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.menu-xl .menu-left .menu-item,
-.menu-lg .menu-left .menu-item {
+.menu-large .menu-left .menu-item {
   margin-right: 8px;
   transition: 0.3s ease-in-out;
 }
 
-.menu-xl .menu-left .menu-item:hover,
-.menu-lg .menu-left .menu-item:hover {
+.menu-large .menu-left .menu-item:hover {
   background: #d5d5d5;
 }
 
-.layout-dark .menu-xl .menu-left .menu-item:hover,
-.layout-dark .menu-lg .menu-left .menu-item:hover {
+.layout-dark .menu-large .menu-left .menu-item:hover {
   background: #22282e;
 }
 
-.menu-xl .menu-left .selected-menu-item,
-.menu-lg .menu-left .selected-menu-item {
+.menu-large .menu-left .selected-menu-item {
   margin-right: 8px;
   transition: 0.3s ease-in-out;
   border: 1px solid #000;
 }
 
-.layout-dark .menu-xl .menu-left .selected-menu-item,
-.layout-dark .menu-lg .menu-left .selected-menu-item {
+.layout-dark .menu-large .menu-left .selected-menu-item {
   margin-right: 8px;
   transition: 0.3s ease-in-out;
   border: 1px solid #fff;
 }
 
-.menu-xl .menu-right .profile-icon,
-.menu-lg .menu-right .profile-icon {
+.menu-large .profile-icon {
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
-.menu-xl .menu-right .profile-icon:hover,
-.menu-lg .menu-right .profile-icon:hover {
+.menu-large .profile-icon:hover {
   opacity: 0.7;
 }
 
@@ -129,7 +129,7 @@
   background-color: #f0f2f5;
   border-bottom: 2px solid #000;
   text-align: left;
-  padding-left: 32px;  
+  padding-left: 32px;
   margin: auto;
 }
 

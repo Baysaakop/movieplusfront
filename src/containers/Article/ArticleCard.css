@@ -1,0 +1,59 @@
+.article-card .ant-card-body {
+  padding: 16px 16px 4px 16px;
+}
+
+.article-image-container {
+  position: relative;
+  overflow: hidden;
+  max-height: 240px;
+}
+
+.article-image-container .article-card-title {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  padding: 8px 12px;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+}
+
+.article-image-container .article-card-category {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.article-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: 0.4s ease-in-out;
+}
+
+.article-card:hover .article-image-container img {
+  transform: scale(1.2);
+}
+
+.article-card .ant-card-meta-detail > div:not(:last-child) {
+  margin-bottom: 0%;
+}
+
+.article-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-card-footer .ant-btn-text {
+  background: rgba(0, 0, 0, 0);
+  transition: 0.3s ease-in-out;
+}
+
+.article-card-footer .ant-btn-text:hover {
+  background: #e5e5e5;
+}
+
+.layout-dark .article-card-footer .ant-btn-text:hover {
+  background: #22282e;
+}

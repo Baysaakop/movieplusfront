@@ -42,7 +42,7 @@ function CustomLayout (props) {
                 <CustomMenu {...props} darkMode={darkMode} />                
             </Header>
             <Content className="content">                                     
-                <div className={ screens.xl ? 'content-item-xl' : screens.lg ? 'content-item-lg' : 'content-item-xs' }>                    
+                <div className={ screens.xxl ? 'content-item-xxl' : screens.xl ? 'content-item-xl' : screens.lg ? 'content-item-lg' : 'content-item-xs' }>                    
                     {props.children} 
                 </div>                
                 <div className={ screens.xl ? 'content-side content-side-xl' : screens.lg ? 'content-side content-side-lg' : 'content-side content-side-xs' }>

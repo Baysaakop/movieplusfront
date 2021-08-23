@@ -10,6 +10,10 @@ import PasswordResetConfirm from './account/PasswordResetConfirm';
 import FilmList from './containers/Film/FilmList';
 import FilmDetail from './containers/Film/FilmDetail';
 import ArtistList from './containers/Artist/ArtistList';
+import ArtistDetail from './containers/Artist/ArtistDetail';
+import ArticleList from './containers/Article/ArticleList';
+import ArticleDetail from './containers/Article/ArticleDetail';
+import PageNotFound from './components/PageNotFound';
 
 function BaseRouter () {
     return (
@@ -17,14 +21,18 @@ function BaseRouter () {
             <Route exact path="/" component={Home} />
             <Route exact path="/films" component={FilmList} />
             <Route exact path="/films/:id" component={FilmDetail} />            
-            <Route exact path="/people" component={ArtistList} />
+            <Route exact path="/artists" component={ArtistList} />
+            <Route exact path="/artists/:id" component={ArtistDetail} />
+            <Route exact path="/articles" component={ArticleList} />
+            <Route exact path="/articles/:id" component={ArticleDetail} />
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/password/reset" component={PasswordReset} />         
             <Route exact path="/rest-auth/password/reset/confirm/:uid/:token" component={PasswordResetConfirm} />            
-            <Route exact path="/profile" component={Profile} />                        
+            <Route exact path="/profile" component={Profile} />                
+            <Route exact path='*' component={PageNotFound} />        
         </Switch>
     )    
 }

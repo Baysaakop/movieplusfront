@@ -15,7 +15,7 @@
 .film-detail .ant-progress-circle .ant-progress-text {
   color: #fff;
   font-size: 24px;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 .film-detail .play-trailer {
@@ -25,7 +25,7 @@
 
 .film-detail .play-trailer:hover,
 .layout-dark .film-detail .play-trailer:hover {
-  background: rgba(0, 148, 50, 0.25);  
+  background: rgba(0, 148, 50, 0.25);
 }
 
 .layout-dark .film-detail .play-trailer {
@@ -44,12 +44,12 @@
   margin-right: 24px;
 }
 
-.film-detail .actions .ant-btn {  
+.film-detail .actions .ant-btn {
   background: rgba(0, 0, 0, 0);
   transition: 0.3s ease-in-out;
 }
 
-.layout-dark .film-detail .actions .ant-btn {  
+.layout-dark .film-detail .actions .ant-btn {
   background: rgba(0, 0, 0, 0);
   transition: 0.3s ease-in-out;
 }
@@ -62,6 +62,8 @@
 .film-detail .actions .watchlist:hover {
   background: rgba(224, 86, 253, 0.25);
   color: #be2edd;
+  /* background: rgba(241, 196, 15, 0.5);
+  color: #d35400; */
 }
 
 .film-detail .actions .addlist:hover {

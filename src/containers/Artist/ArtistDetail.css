@@ -1,0 +1,71 @@
+.artist-social {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  padding: 16px;
+}
+
+.layout-dark .artist-social {
+  background: #11181e;
+}
+
+.artist-social .artist-social-icon {
+  margin-right: 8px;
+  background: rgba(0, 0, 0, 0);
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.layout-dark .artist-social .artist-social-icon {
+  color: #fff;
+}
+
+.artist-social .artist-social-icon .anticon {
+  font-size: 22px;
+}
+
+.artist-social .artist-social-icon.fb:hover {
+  background: #e5e5e5;
+  color: rgba(59, 89, 152, 1);
+}
+
+.artist-social .artist-social-icon.instagram:hover {
+  background: #e5e5e5;
+  color: rgba(18, 86, 136, 1);
+}
+
+.artist-social .artist-social-icon.twitter:hover {
+  background: #e5e5e5;
+  color: rgba(85, 172, 238, 1);
+}
+
+.artist-social .artist-social-icon.youtube:hover {
+  background: #e5e5e5;
+  color: rgba(187, 0, 0, 1);
+}
+
+.layout-dark .artist-social .artist-social-icon.fb:hover {
+  background: #22282e;
+  color: rgba(59, 89, 152, 1);
+}
+
+.layout-dark .artist-social .artist-social-icon.instagram:hover {
+  background: #22282e;
+  color: rgba(18, 86, 136, 1);
+}
+
+.layout-dark .artist-social .artist-social-icon.twitter:hover {
+  background: #22282e;
+  color: rgba(85, 172, 238, 1);
+}
+
+.layout-dark .artist-social .artist-social-icon.youtube:hover {
+  background: #22282e;
+  color: rgba(187, 0, 0, 1);
+}
+
+.artist-info {
+  margin-top: 24px;
+}

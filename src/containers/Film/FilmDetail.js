@@ -4,10 +4,11 @@ import api from "../../api"
 import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
-import { AppstoreAddOutlined, EyeOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
+import { AppstoreAddOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import Avatar from "antd/lib/avatar/avatar"
 import FilmReview from "./FilmReview"
 import ArtistPopover from "../Artist/ArtistPopover"
+import SaveIcon from "../../components/SaveIcon"
 
 const data = [
     {
@@ -114,10 +115,10 @@ function FilmDetail (props) {
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
-                    <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
+                    <Col xs={24} sm={24} md={12} lg={8} xl={6}>
                         <img alt={film.name} src={film.poster} style={{ width: '100%', height: 'auto', borderRadius: '2px' }} />
                     </Col>
-                    <Col xs={24} sm={24} md={12} lg={16} xl={18} xxl={20}>                        
+                    <Col xs={24} sm={24} md={12} lg={16} xl={18}>                        
                         <div className="container film-detail">
                             <Typography.Title level={2} style={{ marginBottom: 0 }}>{film.name} ({moment(film.releasedate).year()})</Typography.Title>
                             <Divider style={{ margin: '8px 0 16px 0' }} />
@@ -211,7 +212,7 @@ function FilmDetail (props) {
                                         </div>
                                         <div className="action">
                                             <Tooltip title="Дараа үзэх">
-                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<EyeOutlined />} />
+                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} />
                                             </Tooltip>
                                             <Typography.Title level={5}>{formatCount(238)}</Typography.Title>
                                         </div>

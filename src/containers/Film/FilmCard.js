@@ -1,11 +1,17 @@
-import { AppstoreAddOutlined, EyeOutlined, HeartOutlined, MoreOutlined, StarOutlined } from "@ant-design/icons";
-import { Card, Typography, Progress, Button, Drawer } from "antd";
+import { AppstoreAddOutlined, HeartOutlined, MoreOutlined, StarOutlined } from "@ant-design/icons";
+import SaveIcon from '../../components/SaveIcon'
+import { Card, Typography, Progress, Button, Drawer, Tooltip, Popover, Rate } from "antd";
 import { useState } from "react";
 import './FilmCard.css'
 
 function FilmCard (props) {
 
     const [drawerOpen, setDrawerOpen] = useState(false)
+    const [score, setScore] = useState()
+
+    function onRate (val) {        
+        setScore(val)
+    }
 
     return (
         <div className="film-card">
@@ -40,10 +46,29 @@ function FilmCard (props) {
                             getContainer={false}                            
                             width={60}                            
                         >
-                            <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />
-                            <Button className="watchlist" size="large" shape="circle" type="text" icon={<EyeOutlined />} />
-                            <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
-                            <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} />
+                            <Tooltip title="Таалагдсан">
+                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />
+                            </Tooltip>
+                            <Tooltip title="Дараа үзэх">
+                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} />
+                            </Tooltip>
+                            <Tooltip title="Жагсаалтад нэмэх">
+                                <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
+                            </Tooltip>                            
+                            <Tooltip title="Үнэлгээ өгөх">
+                                <Popover                                    
+                                    placement="right"
+                                    title={score ? `Таны үнэлгээ: ${score * 2}` : "Үнэлгээ өгөх"}
+                                    trigger="click"
+                                    content={
+                                        <div>
+                                            <Rate allowHalf onChange={onRate} />
+                                        </div>
+                                    }
+                                >
+                                    <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} /> 
+                                </Popover>                        
+                            </Tooltip>                                    
                         </Drawer>
                     </div>
                 }                       

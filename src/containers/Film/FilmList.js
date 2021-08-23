@@ -99,7 +99,7 @@ function FilmList (props) {
                             md: 4,
                             lg: 6,
                             xl: 6,
-                            xxl: 8,
+                            xxl: 6,
                         }}
                         dataSource={films}
                         renderItem={film => (
