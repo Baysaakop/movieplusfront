@@ -5,7 +5,6 @@ import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth'
 import './Menu.css'
-
 // import axios from 'axios';
 // import api from '../api';
 const { useBreakpoint } = Grid;

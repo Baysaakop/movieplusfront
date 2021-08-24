@@ -1,0 +1,90 @@
+.article-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: scale-down;
+  margin-bottom: 24px;
+}
+
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-footer .ant-btn-text:hover {
+  background: #e5e5e5;
+}
+
+.article-author-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-author-stats {
+  margin-top: 16px;
+}
+
+.article-author-social {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px;
+}
+
+.article-author-social .article-author-social-icon {
+  background: rgba(0, 0, 0, 0);
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.layout-dark .article-author-social .article-author-social-icon {
+  color: #fff;
+}
+
+.article-author-social .article-author-social-icon .anticon {
+  font-size: 20px;
+}
+
+.article-author-social .article-author-social-icon.fb:hover {
+  background: #d5d5d5;
+  color: rgba(59, 89, 152, 1);
+}
+
+.article-author-social .article-author-social-icon.instagram:hover {
+  background: #d5d5d5;
+  color: rgba(18, 86, 136, 1);
+}
+
+.article-author-social .article-author-social-icon.twitter:hover {
+  background: #d5d5d5;
+  color: rgba(85, 172, 238, 1);
+}
+
+.article-author-social .article-author-social-icon.youtube:hover {
+  background: #d5d5d5;
+  color: rgba(187, 0, 0, 1);
+}
+
+.layout-dark .article-author-social .article-author-social-icon.fb:hover {
+  background: #22282e;
+  color: rgba(59, 89, 152, 1);
+}
+
+.layout-dark
+  .article-author-social
+  .article-author-social-icon.instagram:hover {
+  background: #22282e;
+  color: rgba(18, 86, 136, 1);
+}
+
+.layout-dark .article-author-social .article-author-social-icon.twitter:hover {
+  background: #22282e;
+  color: rgba(85, 172, 238, 1);
+}
+
+.layout-dark .article-author-social .article-author-social-icon.youtube:hover {
+  background: #22282e;
+  color: rgba(187, 0, 0, 1);
+}

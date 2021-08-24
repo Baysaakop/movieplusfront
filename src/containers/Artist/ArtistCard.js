@@ -9,7 +9,7 @@ function ArtistCard (props) {
                 hoverable                                
                 cover={
                     <div className="artist-avatar-container">
-                        <a href={`/people/${props.artist.id}`}>
+                        <a href={`/artists/${props.artist.id}`}>
                             <img className="artist-avatar" alt={props.artist.name} src={props.artist.avatar} />
                         </a>                        
                     </div>

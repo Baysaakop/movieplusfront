@@ -13,7 +13,7 @@ function NewsCard (props) {
                 className="article-card"
                 cover={
                     <div className="article-image-container">
-                        <a href={`/news/${props.article.id}`}>
+                        <a href={`/articles/1`}>
                             <img alt={props.article.title} src={props.article.urlToImage} />
                         </a>
                         <div className="article-card-title">
@@ -31,20 +31,18 @@ function NewsCard (props) {
                     title={<Typography.Title level={5} style={{ margin: 0 }}>{props.article.author}</Typography.Title>}
                     description={<Typography.Text type="secondary">{moment(props.article.publishedAt).format("YYYY-MM-DD HH:MM")}</Typography.Text>}
                 />
-                <a href={props.article.url}>
+                <a href={`/articles/1`}>
                     <Typography.Paragraph ellipsis={{ rows: 3 }} style={{ marginTop: '8px' }}>
                         {props.article.content}
                     </Typography.Paragraph>                    
                 </a>
                 <div className="article-card-footer">
-                    <Space size={[8, 8]} wrap>
-                        <div>
-                            <Button shape="circle" size="large" type="text" icon={<LikeOutlined />} />
-                            <Typography.Text>524</Typography.Text>
+                    <Space size={[16, 16]} wrap>
+                        <div>                            
+                            <Typography.Text style={{ fontSize: '14px' }}><LikeOutlined style={{ fontSize: '16px' }} /> 524</Typography.Text>
                         </div>
-                        <div>
-                            <Button shape="circle" size="large" type="text" icon={<CommentOutlined />} />
-                            <Typography.Text>14</Typography.Text>
+                        <div>                            
+                            <Typography.Text style={{ fontSize: '14px' }}><CommentOutlined style={{ fontSize: '16px' }} /> 17</Typography.Text>
                         </div>
                     </Space>
                     <Tooltip title="Хадгалах">
