@@ -55,7 +55,7 @@ function FilmList (props) {
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>
-                        <Select defaultValue="0" size="large" style={{ width: '100%'}}>
+                        <Select defaultValue="0" style={{ width: '100%'}}>
                             <Select.Option value="0">Бүгд</Select.Option>
                             <Select.Option value="1">Action</Select.Option>
                             <Select.Option value="2">Adventure</Select.Option>
@@ -66,15 +66,15 @@ function FilmList (props) {
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Он (-оос):</Typography.Title>
-                        <InputNumber defaultValue={1900} size="large" style={{ width: '100%' }} />
+                        <InputNumber defaultValue={1900} style={{ width: '100%' }} />
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Он (-хүртэл):</Typography.Title>
-                        <InputNumber defaultValue={2021} size="large" style={{ width: '100%' }} />
+                        <InputNumber defaultValue={2021} style={{ width: '100%' }} />
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Эрэмбэлэх:</Typography.Title>
-                        <Select defaultValue="1" size="large" style={{ width: '100%'}}>
+                        <Select defaultValue="1" style={{ width: '100%'}}>
                             <Select.Option value="1">Шинээр нэмэгдсэн</Select.Option>                            
                             <Select.Option value="2">Нээлтийн огноо</Select.Option>
                             <Select.Option value="3">Үнэлгээ</Select.Option>   

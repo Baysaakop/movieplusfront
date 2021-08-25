@@ -200,7 +200,7 @@ function FilmDetail (props) {
                                     <a href="/"> Benedict Cumberbatch</a>  
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={8} xl={6}>
-                                    <Button block className="play-trailer" shape="round" size="large" type="text" icon={<PlayCircleOutlined />}>Трейлер үзэх</Button>
+                                    <Button block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер үзэх</Button>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={16} xl={18}>
                                     <div className="actions">

@@ -48,22 +48,8 @@ function ArtistDetail (props) {
                 </Breadcrumb>
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={12} lg={8} xl={6}>
-                        <img alt={artist.name} src={artist.avatar} style={{ width: '100%', height: 'auto', borderRadius: '2px' }} />
-                        <div className="artist-social">     
-                            <Tooltip title="Facebook" placement="bottom">
-                                <Button className="artist-social-icon fb" size="large" shape="circle" type="text" icon={<FacebookFilled />} />
-                            </Tooltip>    
-                            <Tooltip title="Instagram" placement="bottom">
-                                <Button className="artist-social-icon instagram" size="large" shape="circle" type="text" icon={<InstagramOutlined />} />
-                            </Tooltip>                   
-                            <Tooltip title="Twitter" placement="bottom">
-                                <Button className="artist-social-icon twitter" size="large" shape="circle" type="text" icon={<TwitterOutlined />} />
-                            </Tooltip>
-                            <Tooltip title="YouTube" placement="bottom">
-                                <Button className="artist-social-icon youtube" size="large" shape="circle" type="text" icon={<YoutubeFilled />} />                            
-                            </Tooltip>
-                        </div>                  
-                        <div className="container artist-info">
+                        <img alt={artist.name} src={artist.avatar} style={{ width: '100%', height: 'auto', borderRadius: '2px' }} />                                                         
+                        <div className="container artist-info">                            
                             <Typography.Title level={5}>Мэргэжил</Typography.Title>
                             <Typography.Text>
                                 {artist.occupation.map(occupation => (
@@ -74,6 +60,21 @@ function ArtistDetail (props) {
                             <Typography.Text>
                                 {artist.birthday ? artist.birthday : '- Мэдээлэл байхгүй'}
                             </Typography.Text>
+                            <Typography.Title level={5} style={{ marginBottom: '4px' }}>Сошиал сувгууд</Typography.Title>
+                            <div className="artist-social">     
+                                <Tooltip title="Facebook" placement="bottom">
+                                    <Button className="artist-social-icon fb" size="large" shape="circle" type="text" icon={<FacebookFilled />} />
+                                </Tooltip>    
+                                <Tooltip title="Instagram" placement="bottom">
+                                    <Button className="artist-social-icon instagram" size="large" shape="circle" type="text" icon={<InstagramOutlined />} />
+                                </Tooltip>                   
+                                <Tooltip title="Twitter" placement="bottom">
+                                    <Button className="artist-social-icon twitter" size="large" shape="circle" type="text" icon={<TwitterOutlined />} />
+                                </Tooltip>
+                                <Tooltip title="YouTube" placement="bottom">
+                                    <Button className="artist-social-icon youtube" size="large" shape="circle" type="text" icon={<YoutubeFilled />} />                            
+                                </Tooltip>
+                            </div>     
                         </div>      
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={16} xl={18}>                        

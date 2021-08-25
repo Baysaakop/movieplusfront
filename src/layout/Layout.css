@@ -203,3 +203,26 @@ body {
 .ant-rate-star-second {
   color: #c5c5c5;
 }
+
+.ant-btn-ghost {
+  border-color: #22282e;
+}
+
+.layout-dark .ant-btn-ghost {
+  color: #fff;
+  border-color: #d5d5d5;
+}
+
+.layout-dark .ant-btn-ghost:hover {
+  color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-tooltip-inner {
+  background: #11181e;
+}
+
+.layout-dark .ant-tooltip-inner {
+  background: #e5e5e5;
+  color: #000;
+}

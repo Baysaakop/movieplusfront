@@ -11,7 +11,7 @@ function FilmReview (props) {
                     <Avatar size="large" src={props.img} />
                     <div style={{ marginLeft: '12px' }}>
                         <Typography.Title level={5} style={{ margin: 0 }}>{props.name}</Typography.Title>
-                        <Typography.Text type="secondary" style={{ fontSize: '12px', margin: 0 }}>{props.date}</Typography.Text>
+                        <Typography.Text style={{ fontSize: '12px', margin: 0 }}>{props.date}</Typography.Text>
                     </div>
                 </div>    
                 <div>

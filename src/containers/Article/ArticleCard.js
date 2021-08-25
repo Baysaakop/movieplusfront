@@ -45,7 +45,7 @@ function NewsCard (props) {
                             <Typography.Text style={{ fontSize: '14px' }}><CommentOutlined style={{ fontSize: '16px' }} /> 17</Typography.Text>
                         </div>
                     </Space>
-                    <Tooltip title="Хадгалах">
+                    <Tooltip title="Хадгалах" placement="top">
                         <Button shape="circle" size="large" type="text" icon={<SaveIcon />} />
                     </Tooltip>
                 </div>

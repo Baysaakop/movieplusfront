@@ -46,19 +46,19 @@ function FilmCard (props) {
                             getContainer={false}                            
                             width={60}                            
                         >
-                            <Tooltip title="Таалагдсан">
+                            <Tooltip title="Таалагдсан" placement="right">
                                 <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />
                             </Tooltip>
-                            <Tooltip title="Дараа үзэх">
+                            <Tooltip title="Дараа үзэх" placement="right">
                                 <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} />
                             </Tooltip>
-                            <Tooltip title="Жагсаалтад нэмэх">
+                            <Tooltip title="Жагсаалтад нэмэх" placement="right">
                                 <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
                             </Tooltip>                            
-                            <Tooltip title="Үнэлгээ өгөх">
+                            <Tooltip title="Үнэлгээ өгөх" placement="right">
                                 <Popover                                    
                                     placement="right"
-                                    title={score ? `Таны үнэлгээ: ${score * 2}` : "Үнэлгээ өгөх"}
+                                    title={<strong>{score ? `Таны үнэлгээ: ${score * 2}` : "Үнэлгээ өгөх"}</strong>}
                                     trigger="click"
                                     content={
                                         <div>
