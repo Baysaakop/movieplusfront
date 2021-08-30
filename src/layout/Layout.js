@@ -45,8 +45,7 @@ function CustomLayout (props) {
                 <div className={ screens.xxl ? 'content-item-xxl' : screens.xl ? 'content-item-xl' : screens.lg ? 'content-item-lg' : 'content-item-xs' }>                    
                     {props.children} 
                 </div>                
-                <div className={ screens.xl ? 'content-side content-side-xl' : screens.lg ? 'content-side content-side-lg' : 'content-side content-side-xs' }>
-                    {/* <Tooltip title={darkMode ? "Light Mode" : "Dark Mode"}> */}
+                <div className={ screens.xl ? 'content-side content-side-xl' : screens.lg ? 'content-side content-side-lg' : 'content-side content-side-xs' }>                    
                     <Button 
                         className="theme-switch"
                         type="text"         
@@ -56,9 +55,7 @@ function CustomLayout (props) {
                         onClick={() => 
                             setDarkMode(prevMode => !prevMode)                                
                         }
-                    />
-                    {/* </Tooltip> */}
-                    {/* <Tooltip title="Change Language"> */}
+                    />                    
                     <Button 
                         className="language-switch"
                         type="text"         

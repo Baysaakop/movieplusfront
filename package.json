@@ -6,9 +6,6 @@
 		"npm": "6.x",
 		"node": "12.x"
 	},
-	"tags": [
-		"swiper"
-	],
 	"dependencies": {
 		"@ant-design/icons": "^4.3.0",
 		"@testing-library/jest-dom": "^5.11.4",

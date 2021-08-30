@@ -125,6 +125,11 @@ body {
   color: #fff;
 }
 
+.ant-carousel .slick-dots li button {
+  height: 8px;
+  border-radius: 8px;
+}
+
 /* Button */
 
 .ant-btn-primary {
