@@ -75,8 +75,7 @@ function FilmDetail (props) {
                 'Content-Type': 'application/json'                
             }
         })
-        .then(res => {            
-            console.log(res.data)
+        .then(res => {                        
             setFilm(res.data.movie)                  
         })
         .catch(err => {

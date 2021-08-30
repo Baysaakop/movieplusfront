@@ -17,8 +17,7 @@ function NewsList (props) {
         axios({
             method: 'GET',
             url: 'https://newsapi.org/v2/everything?q=apple&from=2021-08-22&to=2021-08-22&sortBy=popularity&apiKey=a52be9a836324a96ba0dcf324b916b7f',                         
-        }).then(res => {
-            console.log(res.data)
+        }).then(res => {            
             setArticles(res.data.articles)
             setLoading(false)
         }).catch(err => {
@@ -51,7 +50,7 @@ function NewsList (props) {
                             md: 2,
                             lg: 3,
                             xl: 3,
-                            xxl: 4,
+                            xxl: 3,
                         }}
                         dataSource={articles ? articles : undefined}
                         renderItem={article => (

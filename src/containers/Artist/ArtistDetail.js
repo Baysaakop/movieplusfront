@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, message, Row, Spin, Timeline, Tooltip, Typography } from "antd"
+import { Breadcrumb, Button, Col, Divider, message, Popover, Row, Spin, Timeline, Tooltip, Typography } from "antd"
 import { FacebookFilled, InstagramOutlined, TwitterOutlined, YoutubeFilled } from "@ant-design/icons"
 import './ArtistDetail.css'
+import FilmPopover from "../Film/FilmPopover"
+import moment from "moment"
 
 function ArtistDetail (props) {
 
     const [artist, setArtist] = useState()
+    const [films, setFilms] = useState()
 
     useEffect(() => {
         getArtist()
+        getFilms()
     }, []) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getArtist() {
@@ -26,6 +30,24 @@ function ArtistDetail (props) {
         .then(res => {            
             console.log(res.data)
             setArtist(res.data)                  
+        })
+        .catch(err => {
+            message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+        })
+    }    
+
+    function getFilms() {
+        const url = api.films + "/"
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'                
+            }
+        })
+        .then(res => {            
+            console.log(res.data.results)
+            setFilms(res.data.results)                  
         })
         .catch(err => {
             message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
@@ -89,13 +111,19 @@ function ArtistDetail (props) {
                                 <div className="container">
                                     <Typography.Title level={5}>Кино</Typography.Title>            
                                     <Timeline style={{ marginTop: '16px' }}>
-                                        <Timeline.Item>2001 - Зүрхэнд шивнэсэн үг</Timeline.Item>
-                                        <Timeline.Item>2002 - Ноён солиот</Timeline.Item>
-                                        <Timeline.Item>2004 - Уулын төмөр</Timeline.Item>
-                                        <Timeline.Item>2007 - Хайрыг хайрла</Timeline.Item>
-                                        <Timeline.Item>2012 - Нар сарны зааг</Timeline.Item>
-                                        <Timeline.Item>2015 - Маш нууц</Timeline.Item>
-                                        <Timeline.Item>2018 - Маш нууц 2: Байтаг богд</Timeline.Item>
+                                        {films ? films.map(film => (
+                                             <Timeline.Item>
+                                                <Popover
+                                                    title={false}
+                                                    placement="rightTop"
+                                                    content={
+                                                        <FilmPopover film={film.movie} />
+                                                    }
+                                                >
+                                                    <a href={`/films/${film.id}`}>{moment(film.movie.releasedate).year()} - {film.movie.name}</a>                                   
+                                                </Popover>                                            
+                                            </Timeline.Item>             
+                                        )) : []}                                                                
                                     </Timeline>    
                                 </div>
                             </Col> 

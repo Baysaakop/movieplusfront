@@ -21,8 +21,7 @@ function FilmList (props) {
         axios({
             method: 'GET',
             url: url,
-        }).then(res => {
-            console.log(res.data.results)
+        }).then(res => {            
             setFilms(res.data.results)
             setTotal(res.data.count)
             setLoading(false)

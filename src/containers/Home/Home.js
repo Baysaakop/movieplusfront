@@ -1,4 +1,5 @@
 import React from 'react';
+import FilmSwiper from '../Film/FilmSwiper';
 import './Home.css';
 // import axios from 'axios';  
 // import api from '../api';
@@ -8,8 +9,9 @@ function Home (props) {
 
     return (
         <div className="home">
-            <div style={{ height: '200vh' }}>
-                aa
+            <div>
+                <FilmSwiper title="Шинээр нээлтээ хийсэн" />
+                <FilmSwiper title="Өндөр үнэлгээтэй" />
             </div>
         </div>
     )

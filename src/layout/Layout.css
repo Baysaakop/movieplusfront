@@ -35,6 +35,7 @@ body {
 .content {
   min-height: 80vh;
   padding: 0%;
+  width: 100%;
 }
 
 .content-item-xxl {
@@ -51,6 +52,7 @@ body {
 
 .content-item-xs {
   padding: 24px 16px;
+  width: 100%;
 }
 
 .content-side {
@@ -123,8 +125,36 @@ body {
   color: #fff;
 }
 
+/* Button */
+
+.ant-btn-primary {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.ant-btn-primary:hover {
+  background: #22282e;
+  color: #fff;
+  border: 1px solid #22282e;
+}
+
 .layout-dark .ant-btn-text {
   color: #fff;
+}
+
+.ant-btn-ghost {
+  border-color: #22282e;
+}
+
+.layout-dark .ant-btn-ghost {
+  color: #fff;
+  border-color: #d5d5d5;
+}
+
+.layout-dark .ant-btn-ghost:hover {
+  color: #1890ff;
+  border-color: #1890ff;
 }
 
 .layout-dark .ant-breadcrumb a,
@@ -202,20 +232,6 @@ body {
 .ant-rate-star-first,
 .ant-rate-star-second {
   color: #c5c5c5;
-}
-
-.ant-btn-ghost {
-  border-color: #22282e;
-}
-
-.layout-dark .ant-btn-ghost {
-  color: #fff;
-  border-color: #d5d5d5;
-}
-
-.layout-dark .ant-btn-ghost:hover {
-  color: #1890ff;
-  border-color: #1890ff;
 }
 
 .ant-tooltip-inner {

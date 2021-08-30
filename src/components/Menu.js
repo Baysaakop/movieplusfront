@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, Avatar, Input } from 'antd'
+import { Button, Grid, Input } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
@@ -34,22 +34,22 @@ function CustomMenu (props) {
                     <a href="/">
                         <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
                     </a>
+                    <Input.Search placeholder="Search..." size="large" style={{ width: '400px' }} />                                
+                </div>
+                <div className="menu-right">                                    
                     <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
                     <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                     <Button className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
                     <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                    
-                </div>
-                <div className="menu-right">                
-                    <Input.Search placeholder="Search..." size="large" style={{ width: '300px', marginRight: '16px' }} />            
-                    {/* <Button size="large" type="text">Нэвтрэх</Button> */}                
-                    <a href="/profile">
+                    <Button className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/signin" onClick={() => handleMenuClick('signin')}>Нэвтрэх</Button>                
+                    {/* <a href="/profile">
                         <Avatar 
                             className="profile-icon"
                             size="large"                                                 
                             src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
                             onClick={() => handleMenuClick('profile')}
                         />
-                    </a>
+                    </a> */}
                 </div>   
             </div>    
         ) : screens.xl ? (            
@@ -57,23 +57,23 @@ function CustomMenu (props) {
                 <div className="menu-left">
                     <a href="/">
                         <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
-                    </a>
+                    </a>                    
+                    <Input.Search placeholder="Search..." size="large" style={{ width: '350px' }} />            
+                </div>
+                <div className="menu-right">                
                     <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
                     <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                     <Button className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
-                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                    
-                </div>
-                <div className="menu-right">                
-                    <Input.Search placeholder="Search..." size="large" style={{ width: '300px', marginRight: '16px' }} />            
-                    {/* <Button size="large" type="text">Нэвтрэх</Button> */}                
-                    <a href="/profile">
+                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                        
+                    <Button className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/signin" onClick={() => handleMenuClick('signin')}>Нэвтрэх</Button>                    
+                    {/* <a href="/profile">
                         <Avatar 
                             className="profile-icon"
                             size="large"                                                 
                             src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
                             onClick={() => handleMenuClick('profile')}
                         />
-                    </a>
+                    </a> */}
                 </div>   
             </div>    
         ) : screens.lg ? (            
@@ -82,15 +82,15 @@ function CustomMenu (props) {
                     <a href="/">
                         <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
                     </a>                
+                    <Input.Search placeholder="Search..." size="large" style={{ width: '350px' }} />                                
+                </div>
+                <div className="menu-right">                       
                     <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
                     <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                     <Button className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
-                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                    
-                </div>
-                <div className="menu-right">                
-                    <Input.Search placeholder="Search..." size="large" style={{ width: '300px', marginRight: '16px' }} />            
-                    {/* <Button className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" onClick={() => handleMenuClick('signin')} type="dashed">Нэвтрэх</Button>                 */}
-                    <a href="/profile">
+                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                 
+                    <Button className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/signin" onClick={() => handleMenuClick('signin')}>Нэвтрэх</Button>                
+                    {/* <a href="/profile">
                         <Avatar 
                             className="profile-icon"
                             size="large" 
@@ -98,7 +98,7 @@ function CustomMenu (props) {
                             src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
                             onClick={() => handleMenuClick('profile')}
                         />
-                    </a>
+                    </a> */}
                 </div>   
             </div>    
         ) : (            
@@ -119,11 +119,11 @@ function CustomMenu (props) {
                         <Button block className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                         <Button block className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
                         <Button block className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Мэдээ</Button>                        
-                        {/* <Button block className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" onClick={() => handleMenuClick('signin')}>Нэвтрэх | Бүртгүүлэх</Button> */}
-                        <Button block className={ current === 'profile' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/profile" onClick={() => handleMenuClick('profile')}>
+                        <Button block className={ current === 'signin' ? 'selected-menu-item' : 'menu-item' } size="large" type="text"  href="/signin" onClick={() => handleMenuClick('signin')}>Нэвтрэх | Бүртгүүлэх</Button>
+                        {/* <Button block className={ current === 'profile' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/profile" onClick={() => handleMenuClick('profile')}>
                             <Avatar size="large" style={{ marginRight: '8px' }} src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" />
                             Профайл
-                        </Button>                        
+                        </Button>                         */}
                     </div>
                 ) : []}                                            
             </div>                           
