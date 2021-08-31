@@ -8,3 +8,9 @@
     font-size: 14px;
     font-family: 'Rubik', sans-serif;
 }
+
+.film-review .film-review-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

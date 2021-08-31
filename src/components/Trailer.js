@@ -16,10 +16,8 @@ function Trailer (props) {
     }
 
     function getHeight() {
-        if (window.screen.availWidth >= 1600) {
+        if (window.screen.availWidth >= 1200) {
             return window.screen.availWidth * 0.35
-        } else if (window.screen.availWidth >= 1200) {
-            return window.screen.availWidth * 0.4
         } else if (window.screen.availWidth >= 992) {
             return (window.screen.availWidth - 32) * 0.5
         } else {
