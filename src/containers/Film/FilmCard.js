@@ -21,7 +21,7 @@ function FilmCard (props) {
                 cover={
                     <div className="film-poster-container">
                         <a href={`/films/${props.film.id}`}>
-                            <img className="film-poster" alt={props.film.movie.name} src={props.film.movie.poster} />
+                            <img className="film-poster" alt={props.film.title} src={props.film.poster} />
                         </a>
                         <div className="film-score">
                             <Progress                                
@@ -30,7 +30,7 @@ function FilmCard (props) {
                                 strokeColor="#f39c12"
                                 trailColor="#3c3c3c"                                 
                                 strokeWidth={6}      
-                                percent={props.film.movie.score}
+                                percent={props.film.score}
                                 format={percent => `${percent}`}
                             />                    
                         </div>
@@ -47,7 +47,7 @@ function FilmCard (props) {
                             width={60}                            
                         >
                             <Tooltip title="Таалагдсан" placement="right">
-                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />
+                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />                                
                             </Tooltip>
                             <Tooltip title="Дараа үзэх" placement="right">
                                 <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} />
@@ -73,8 +73,8 @@ function FilmCard (props) {
                     </div>
                 }                       
             >
-                <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{props.film.movie.name}</Typography.Paragraph>
-                <Typography.Text className="film-releasedate">{props.film.movie.releasedate}</Typography.Text>
+                <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{props.film.title}</Typography.Paragraph>
+                <Typography.Text className="film-releasedate">{props.film.releasedate}</Typography.Text>
             </Card>
         </div>
     )

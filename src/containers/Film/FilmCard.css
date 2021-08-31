@@ -83,18 +83,18 @@
 }
 
 .film-poster-container .drawer .watchlist:hover {
-  background: rgba(224, 86, 253, 0.25);
-  color: #be2edd;
-}
-
-.film-poster-container .drawer .addlist:hover {
   background: rgba(72, 52, 212, 0.25);
   color: #130f40;
 }
 
+.film-poster-container .drawer .addlist:hover {
+  background: rgba(11, 232, 129, 0.25);
+  color: #009432;
+}
+
 .film-poster-container .drawer .rate:hover {
-  background: #f1c40f;
-  color: #2c3e50;
+  background: rgba(253, 204, 13, 0.5);
+  color: #2f3542;
 }
 
 .layout-dark .film-poster-container .drawer .ant-drawer-content {
@@ -102,21 +102,21 @@
 }
 
 .layout-dark .film-poster-container .drawer .like:hover {
-  background: rgba(231, 76, 60, 0.25);
-  color: #c0392b;
+  background: rgba(231, 76, 60, 0.5);
+  color: #f0695b;
 }
 
 .layout-dark .film-poster-container .drawer .watchlist:hover {
-  background: rgba(224, 86, 253, 0.25);
-  color: #be2edd;
+  background: rgba(72, 52, 212, 0.5);
+  color: #636fa0;
 }
 
 .layout-dark .film-poster-container .drawer .addlist:hover {
-  background: rgba(72, 52, 212, 0.25);
-  color: #a1a2a8;
+  background: rgba(11, 232, 129, 0.5);
+  color: #44d472;
 }
 
 .layout-dark .film-poster-container .drawer .rate:hover {
   background: rgba(253, 204, 13, 0.5);
-  color: #dedede;
+  color: #afb5c2;
 }

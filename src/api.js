@@ -1,10 +1,13 @@
-// const baseUrl = "http://localhost:8000/"
+const baseUrl = "http://localhost:8000/"
 // const baseUrl = "http://192.168.0.113:8000/"
-const baseUrl = "https://movieplusback.herokuapp.com/"
+// const baseUrl = "https://movieplusback.herokuapp.com/"
 
 const api = {
-    movies: baseUrl + 'api/movies/movies',
+    // movies: baseUrl + 'api/movies/movies',
     films: baseUrl + 'api/movies/films',
+    crew: baseUrl + 'api/movies/crewmembers',
+    cast: baseUrl + 'api/movies/castmembers',
+    //
     tempfilms: baseUrl + 'api/movies/tempfilms',
     series: baseUrl + 'api/movies/series',
     ratings: baseUrl + 'api/movies/ratings',

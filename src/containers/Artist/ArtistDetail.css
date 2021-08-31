@@ -58,3 +58,11 @@
   background: #22282e;
   color: rgba(187, 0, 0, 1);
 }
+
+a.film-timeline {
+  color: #000;
+}
+
+a.film-timeline:hover {
+  color: #1890ff;
+}

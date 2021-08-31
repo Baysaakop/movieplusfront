@@ -183,6 +183,7 @@ body {
   background: #11181e;
 }
 
+.layout-dark .ant-tabs,
 .layout-dark .ant-input,
 .layout-dark .ant-input-group-addon .ant-btn,
 .layout-dark .ant-input-number,

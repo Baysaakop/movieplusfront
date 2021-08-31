@@ -54,56 +54,55 @@
   transition: 0.3s ease-in-out;
 }
 
+.film-detail .actions .view:hover {
+  background: rgba(15, 188, 249, 0.25);
+  color: #3c40c6;
+}
+
 .film-detail .actions .like:hover {
   background: rgba(231, 76, 60, 0.25);
   color: #c0392b;
 }
 
 .film-detail .actions .watchlist:hover {
-  background: rgba(224, 86, 253, 0.25);
-  color: #be2edd;
-  /* background: rgba(241, 196, 15, 0.5);
-  color: #d35400; */
-}
-
-.film-detail .actions .addlist:hover {
   background: rgba(72, 52, 212, 0.25);
   color: #130f40;
 }
 
+.film-detail .actions .addlist:hover {
+  background: rgba(11, 232, 129, 0.25);
+  color: #009432;
+}
+
 .film-detail .actions .rate:hover {
-  background: rgba(253, 204, 13, 0.75);
-  color: #2c3e50;
+  background: rgba(253, 204, 13, 0.5);
+  color: #2f3542;
 }
 
 .layout-dark .film-detail .actions .like:hover {
-  background: rgba(231, 76, 60, 0.25);
-  color: #c0392b;
+  background: rgba(231, 76, 60, 0.5);
+  color: #f0695b;
 }
 
 .layout-dark .film-detail .actions .watchlist:hover {
-  background: rgba(224, 86, 253, 0.25);
-  color: #be2edd;
+  background: rgba(72, 52, 212, 0.5);
+  color: #636fa0;
 }
 
 .layout-dark .film-detail .actions .addlist:hover {
-  background: rgba(72, 52, 212, 0.25);
-  color: #a1a2a8;
+  background: rgba(11, 232, 129, 0.5);
+  color: #44d472;
 }
 
 .layout-dark .film-detail .actions .rate:hover {
   background: rgba(253, 204, 13, 0.5);
-  color: #dedede;
+  color: #afb5c2;
+}
+
+.film-detail-tabs {
+  padding: 8px 24px;
 }
 
 .film-plot {
-  margin-top: 24px;
-}
-
-.film-crew {
-  margin-top: 24px;
-}
-
-.film-cast {
   margin-top: 24px;
 }

@@ -22,6 +22,7 @@ function FilmList (props) {
             method: 'GET',
             url: url,
         }).then(res => {            
+            console.log(res.data)
             setFilms(res.data.results)
             setTotal(res.data.count)
             setLoading(false)
@@ -102,8 +103,8 @@ function FilmList (props) {
                         }}
                         dataSource={films}
                         renderItem={film => (
-                            <List.Item>
-                            <FilmCard film={film} />
+                            <List.Item key={film.id}>
+                                <FilmCard film={film} />
                             </List.Item>
                         )}
                     />

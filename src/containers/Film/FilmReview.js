@@ -5,7 +5,7 @@ import './FilmReview.css'
 function FilmReview (props) {
     return (
         <div className="film-review">
-            <Divider />
+            <Divider style={{ margin: '14px 0' }} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Avatar size="large" src={props.img} />

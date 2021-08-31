@@ -1,4 +1,4 @@
-import { CommentOutlined, LikeOutlined } from "@ant-design/icons";
+import { CommentOutlined, EyeOutlined, LikeOutlined } from "@ant-design/icons";
 import SaveIcon from '../../components/SaveIcon'
 import { Card, Avatar, Typography, Button, Space, Tooltip, Tag } from "antd";
 import moment from "moment";
@@ -37,12 +37,15 @@ function NewsCard (props) {
                     </Typography.Paragraph>                    
                 </a>
                 <div className="article-card-footer">
-                    <Space size={[16, 16]} wrap>
+                    <Space size={[16, 16]} wrap>                       
                         <div>                            
                             <Typography.Text style={{ fontSize: '14px' }}><LikeOutlined style={{ fontSize: '16px' }} /> 524</Typography.Text>
-                        </div>
+                        </div>                        
                         <div>                            
                             <Typography.Text style={{ fontSize: '14px' }}><CommentOutlined style={{ fontSize: '16px' }} /> 17</Typography.Text>
+                        </div>
+                        <div>                            
+                            <Typography.Text style={{ fontSize: '14px' }}><EyeOutlined style={{ fontSize: '16px' }} /> 2138</Typography.Text>
                         </div>
                     </Space>
                     <Tooltip title="Хадгалах" placement="top">

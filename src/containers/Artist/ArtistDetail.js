@@ -10,11 +10,13 @@ import moment from "moment"
 function ArtistDetail (props) {
 
     const [artist, setArtist] = useState()
-    const [films, setFilms] = useState()
+    const [crew, setCrew] = useState()
+    const [cast, setCast] = useState()
 
     useEffect(() => {
         getArtist()
-        getFilms()
+        getCrew()
+        getCast()
     }, []) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getArtist() {
@@ -36,8 +38,9 @@ function ArtistDetail (props) {
         })
     }    
 
-    function getFilms() {
-        const url = api.films + "/"
+    function getCrew() {
+        const id = props.match.params.id
+        const url = api.crew + "?artist=" + id
         axios({
             method: 'GET',
             url: url,
@@ -45,13 +48,56 @@ function ArtistDetail (props) {
                 'Content-Type': 'application/json'                
             }
         })
-        .then(res => {            
-            console.log(res.data.results)
-            setFilms(res.data.results)                  
+        .then(res => {                        
+            console.log(res.data)
+            setCrew(res.data.results)                  
         })
         .catch(err => {
             message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
         })
+    }
+
+    function getCast() {
+        const id = props.match.params.id
+        const url = api.cast + "?artist=" + id
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'                
+            }
+        })
+        .then(res => {                        
+            console.log(res.data)
+            setCast(res.data.results)                  
+        })
+        .catch(err => {
+            message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+        })
+    }
+
+    function getProducer (members) {
+        let results = []
+        members.forEach(member => {
+            member.role.forEach(r => {
+                if (r.id === 3) {
+                    results.push(member)
+                }
+            })
+        })
+        return results
+    }
+
+    function getDirector (members) {
+        let results = []
+        members.forEach(member => {
+            member.role.forEach(r => {
+                if (r.id === 2) {
+                    results.push(member)
+                }
+            })
+        })
+        return results
     }
 
     return (
@@ -62,7 +108,7 @@ function ArtistDetail (props) {
                         <a href="/">Нүүр</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
-                        <a href="/people">Хүмүүс</a>
+                        <a href="/artists">Хүмүүс</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         {artist.name}
@@ -107,38 +153,74 @@ function ArtistDetail (props) {
                             <Typography.Text>{artist.biography ? artist.biography : 'In metus urna, hendrerit vitae mi dapibus, volutpat dignissim justo. Duis sodales vitae leo at ultricies. Maecenas in eros ante. Nunc accumsan turpis vel finibus viverra. In vestibulum dolor et augue laoreet porta. Praesent sit amet ipsum porta, sollicitudin nunc non, venenatis felis. Suspendisse vulputate nisl fringilla, interdum velit non, varius sem.'}</Typography.Text>                                                                                      
                         </div>
                         <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
-                            <Col xs={24} sm={24} md={24} lg={12}>
-                                <div className="container">
-                                    <Typography.Title level={5}>Кино</Typography.Title>            
-                                    <Timeline style={{ marginTop: '16px' }}>
-                                        {films ? films.map(film => (
-                                             <Timeline.Item>
-                                                <Popover
-                                                    title={false}
-                                                    placement="rightTop"
-                                                    content={
-                                                        <FilmPopover film={film.movie} />
-                                                    }
-                                                >
-                                                    <a href={`/films/${film.id}`}>{moment(film.movie.releasedate).year()} - {film.movie.name}</a>                                   
-                                                </Popover>                                            
-                                            </Timeline.Item>             
-                                        )) : []}                                                                
-                                    </Timeline>    
-                                </div>
-                            </Col> 
-                            <Col xs={24} sm={24} md={24} lg={12}>
-                                <div className="container">
-                                    <Typography.Title level={5}>Цуврал</Typography.Title>            
-                                    <Timeline style={{ marginTop: '16px' }}>
-                                        <Timeline.Item>2001 - Зүрхэнд шивнэсэн үг</Timeline.Item>
-                                        <Timeline.Item>2004 - Уулын төмөр</Timeline.Item>
-                                        <Timeline.Item>2007 - Хайрыг хайрла</Timeline.Item>
-                                        <Timeline.Item>2015 - Маш нууц</Timeline.Item>
-                                        <Timeline.Item>2018 - Маш нууц 2: Байтаг богд</Timeline.Item>
-                                    </Timeline>    
-                                </div>
-                            </Col> 
+                            { cast && cast.length > 0 ? (
+                                <Col xs={24} sm={24} md={24} lg={12}>
+                                    <div className="container">
+                                        <Typography.Title level={5}>Бүтээлүүд (Жүжигчин)</Typography.Title>            
+                                        <Timeline style={{ marginTop: '16px' }}>
+                                            {cast ? cast.map(member => (
+                                                <Timeline.Item>
+                                                    <Popover
+                                                        title={false}
+                                                        placement="rightTop"
+                                                        content={
+                                                            <FilmPopover film={member.film} />
+                                                        }
+                                                    >
+                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>
+                                                            {moment(member.film.releasedate).year()} - {member.film.title} {member.role_name ? ` | Дүр: ${member.role_name}` : ''}
+                                                        </a>                                   
+                                                    </Popover>                                            
+                                                </Timeline.Item>             
+                                            )) : []}                                                                
+                                        </Timeline>    
+                                    </div>
+                                </Col> 
+                            ) : []}   
+                            { crew && getProducer(crew).length > 0 ? (
+                                <Col xs={24} sm={24} md={24} lg={12}>
+                                    <div className="container">
+                                        <Typography.Title level={5}>Бүтээлүүд (Продюсер)</Typography.Title>            
+                                        <Timeline style={{ marginTop: '16px' }}>
+                                            {crew ? getProducer(crew).map(member => (
+                                                <Timeline.Item>
+                                                    <Popover
+                                                        title={false}
+                                                        placement="rightTop"
+                                                        content={
+                                                            <FilmPopover film={member.film} />
+                                                        }
+                                                    >
+                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
+                                                    </Popover>                                            
+                                                </Timeline.Item>             
+                                            )) : []}                                                                
+                                        </Timeline>    
+                                    </div>
+                                </Col> 
+                            ) : []}           
+                            { crew && getDirector(crew).length > 0 ? (
+                                <Col xs={24} sm={24} md={24} lg={12}>
+                                    <div className="container">
+                                        <Typography.Title level={5}>Бүтээлүүд (Найруулагч)</Typography.Title>            
+                                        <Timeline style={{ marginTop: '16px' }}>
+                                            {crew ? getDirector(crew).map(member => (
+                                                <Timeline.Item>
+                                                    <Popover
+                                                        title={false}
+                                                        placement="rightTop"
+                                                        content={
+                                                            <FilmPopover film={member.film} />
+                                                        }
+                                                    >
+                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
+                                                    </Popover>                                            
+                                                </Timeline.Item>             
+                                            )) : []}                                                                
+                                        </Timeline>    
+                                    </div>
+                                </Col> 
+                            ) : []}                                                                  
                         </Row>
                     </Col>                                        
                 </Row>

@@ -1,4 +1,4 @@
-import { BellOutlined, CommentOutlined, FacebookFilled, FileTextOutlined, InstagramOutlined, LikeOutlined, ShareAltOutlined, TwitterOutlined, YoutubeFilled } from "@ant-design/icons"
+import { BellOutlined, CommentOutlined, EyeOutlined, FacebookFilled, FileTextOutlined, InstagramOutlined, LikeOutlined, TwitterOutlined, YoutubeFilled } from "@ant-design/icons"
 import { Grid, Breadcrumb, Button, Col, Row, Space, Tooltip, Typography, Avatar, List } from "antd"
 import './ArticleDetail.css'
 import ArticleComment from "./ArticleComment"
@@ -58,10 +58,11 @@ function ArticleDetail (props) {
                             </Typography.Paragraph>
                             <div style={{ textAlign: 'right' }}>- 2021 оны 5 сарын 17</div>
                             <div className="article-footer">
-                                <Space size={[8, 8]} wrap>
-                                    <Button shape="round" size="large" type="ghost" icon={<LikeOutlined />}>235</Button>
-                                    <Button shape="round" size="large" type="ghost" icon={<CommentOutlined />}>14</Button>
-                                    <Button shape="round" size="large" type="ghost" icon={<ShareAltOutlined />}>25</Button>
+                                <Space size={[8, 8]} wrap>                                    
+                                    <Button shape="round" size="default" type="ghost" icon={<LikeOutlined />}>235</Button>
+                                    <Button shape="round" size="default" type="ghost" icon={<CommentOutlined />}>14</Button>
+                                    <Button shape="round" size="default" type="ghost" icon={<EyeOutlined />}>3129</Button>
+                                    {/* <Button shape="round" size="large" type="ghost" icon={<ShareAltOutlined />}>25</Button> */}
                                 </Space>                                
                             </div>
                         </div>
@@ -213,10 +214,10 @@ function ArticleDetail (props) {
                             </Typography.Paragraph>
                             <div style={{ textAlign: 'right' }}>- 2021 оны 5 сарын 17</div>
                             <div className="article-footer">
-                                <Space size={[8, 8]} wrap>
-                                    <Button shape="round" size="large" type="ghost" icon={<LikeOutlined />}>235</Button>
-                                    <Button shape="round" size="large" type="ghost" icon={<CommentOutlined />}>14</Button>
-                                    <Button shape="round" size="large" type="ghost" icon={<ShareAltOutlined />}>25</Button>
+                                <Space size={[8, 8]} wrap>                                    
+                                    <Button shape="round" size="default" type="ghost" icon={<LikeOutlined />}>235</Button>
+                                    <Button shape="round" size="default" type="ghost" icon={<CommentOutlined />}>14</Button>
+                                    <Button shape="round" size="default" type="ghost" icon={<EyeOutlined />}>3129</Button>
                                 </Space>                                
                             </div>                            
                         </div>
