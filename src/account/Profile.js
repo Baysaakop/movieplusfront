@@ -1,17 +1,23 @@
-import { Grid, Breadcrumb, Button, Result, Tabs } from 'antd';
+import { Button, Result, Row, Col, Avatar, Typography, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import api from '../api';
-import AccountDetail from './AccountDetail';
+import './Profile.css'
+import { ToolOutlined, UserOutlined } from '@ant-design/icons';
 
-const { useBreakpoint } = Grid;
-
-function Profile (props) {
-    const screens = useBreakpoint();
+function Profile (props) {    
+    const [loading, setLoading] = useState(false)
     const [user, setUser] = useState();
 
     useEffect(() => {        
+        if (props.token && props.token !== null && !user) {
+            getUser()
+        }
+    }, [props.token]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    function getUser () {
+        setLoading(true)
         axios({
             method: 'GET',
             url: api.profile,
@@ -19,48 +25,70 @@ function Profile (props) {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${props.token}`
             }
-        }).then(res => {            
+        }).then(res => {                    
+            console.log(res.data)
             setUser(res.data)
+            setLoading(false)
         }).catch(err => {
-            console.log(err)
+            console.log(err.message)
+            setLoading(false)
         })
-    }, [props.token])
+    }    
 
     return (
-        <div>
-            <Breadcrumb>
-                <Breadcrumb.Item>
-                    <a href="/">Home</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    Profile
-                </Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="container" style={{ margin: '16px 0' }}>
-            {user ? (
-                <Tabs tabPosition={screens.xs ? "top" : "left"} style={{ minHeight: '80vh', padding: '8px' }}>
-                    <Tabs.TabPane tab="Account details" key="1">
-                        <div style={{ padding: '8px' }}>
-                            <AccountDetail user={user ? user : undefined} token={props.token} />
-                        </div>
-                    </Tabs.TabPane>
-                    <Tabs.TabPane tab="User activity" key="2">
-                        <div style={{ padding: '8px' }}>User activity</div>                        
-                    </Tabs.TabPane>
-                    <Tabs.TabPane tab="Data" key="3">
-                        <div style={{ padding: '8px' }}>Data</div>        
-                    </Tabs.TabPane>
-                </Tabs>                
-            ) : (
+        loading ? (
+            <div className="loading">
+                <Spin tip="Ачааллаж байна..." />
+            </div>
+        ) : user ? (
+            <div>
+                <div className="container profile-top">
+                    <Row gutter={[16, 16]}>
+                        <Col span={8}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: '24px' }}>
+                                <div>
+                                    {user.profile.avatar ? (
+                                        <Avatar 
+                                            className="profile-icon"
+                                            size={128}                      
+                                            src={user.profile.avatar}                                                          
+                                        />
+                                    ) : (
+                                        <Avatar 
+                                            className="profile-icon"
+                                            size={160}                   
+                                            icon={<UserOutlined />}                             
+                                            style={{ background: '#2c3e50' }}                              
+                                        />
+                                    )}              
+                                </div>
+                                <div style={{ marginLeft: '12px' }}>
+                                    <Typography.Title level={1} style={{ margin: 0 }}>{user.username}</Typography.Title>
+                                    <Button icon={<ToolOutlined />} type="ghost">Мэдээлэл засах</Button>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col span={8}>
+                            
+                        </Col>
+                        <Col span={8}>
+                            
+                        </Col>
+                    </Row>
+                </div>
+                <div className="container" style={{ marginTop: '24px' }}>                                    
+                </div>
+            </div>
+        ) : (
+            <div style={{ width: '100%', height: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Result
                     status="403"
                     title="403"
-                    subTitle="Sorry, you are not authenticated. Please log in first."
-                    extra={<Button type="primary" href="/login">Go to login page</Button>}
+                    subTitle="Уучлаарай, та нэвтэрсэн байх шаардлагатай."
+                    extra={<Button type="primary" href="/login">Нэвтрэх</Button>}
                 />
-            )}
             </div>
-        </div>
+        )      
     )
 }
 

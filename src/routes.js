@@ -14,6 +14,7 @@ import ArtistDetail from './containers/Artist/ArtistDetail';
 import ArticleList from './containers/Article/ArticleList';
 import ArticleDetail from './containers/Article/ArticleDetail';
 import PageNotFound from './components/PageNotFound';
+import Moderator from './containers/Moderator/Moderator';
 
 function BaseRouter () {
     return (
@@ -32,6 +33,7 @@ function BaseRouter () {
             <Route exact path="/password/reset" component={PasswordReset} />         
             <Route exact path="/rest-auth/password/reset/confirm/:uid/:token" component={PasswordResetConfirm} />            
             <Route exact path="/profile" component={Profile} />                
+            <Route exact path="/moderator" component={Moderator} />                
             <Route exact path='*' component={PageNotFound} />        
         </Switch>
     )    

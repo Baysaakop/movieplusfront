@@ -11,6 +11,9 @@ import SaveIcon from "../../components/SaveIcon"
 import Trailer from "../../components/Trailer"
 
 const data = [
+    'PRIME CINEPLEX',
+    'URGOO',
+    'TENGIS',
     'LOOKTV',
     'SKYGO',
     'VOO',    

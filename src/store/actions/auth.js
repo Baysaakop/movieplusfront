@@ -152,16 +152,52 @@ export const authPasswordResetConfirm = (uid, token, new_password1, new_password
 
 export const authFacebook = (access_token) => {
     return dispatch => {
-        console.log(access_token)
-        // dispatch(authStart());
-        axios.post(api.authFacebook, {
-            access_token: access_token,            
-        })
-        .then(res => {            
-            console.log(res)                
+        dispatch(authStart());
+        axios({
+            method: 'POST',
+            url: api.authFacebook,
+            data: {
+                access_token: access_token
+            }
+        })     
+        .then(res => {                        
+            const token = res.data.key;            
+            localStorage.setItem('token', token);            
+            dispatch(authSuccess(token));       
         })
         .catch(err => {
-            console.log(err)                    
+            console.log(err.response)                      
+            if (err.response.data.non_field_errors[0] === "User is already registered with this e-mail address.") {
+                message.error("Өөр сошиал платформ ашиглан бүртгүүлсэн байна. Та хуудсаа refresh хийж өөрийн бүртгэлтэй платформыг сонгон нэвтэрнэ үү.")                                   
+            } else {
+                message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+            }      
+        })                  
+    }
+}
+
+export const authGoogle = (access_token) => {
+    return dispatch => {
+        dispatch(authStart());
+        axios({
+            method: 'POST',
+            url: api.authGoogle,
+            data: {
+                access_token: access_token
+            }
+        })               
+        .then(res => {                        
+            const token = res.data.key;            
+            localStorage.setItem('token', token);            
+            dispatch(authSuccess(token));       
+        })
+        .catch(err => {            
+            console.log(err.response)     
+            if (err.response.data.non_field_errors[0] === "User is already registered with this e-mail address.") {
+                message.error("Өөр сошиал платформ ашиглан бүртгүүлсэн байна. Та хуудсаа refresh хийж өөрийн бүртгэлтэй платформыг сонгон нэвтэрнэ үү.")                                   
+            } else {
+                message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+            }            
         })
     }
 }
