@@ -1,10 +1,15 @@
-import { Button, Result, Row, Col, Spin, Menu, Typography } from 'antd';
+import { Button, Result, Row, Col, Spin, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import api from '../../api';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import FilmCreate from './Film/FilmCreate';
+import FilmUpdate from './Film/FilmUpdate';
+import ArtistCreate from './Artist/ArtistCreate';
+import ArtistUpdate from './Artist/ArtistUpdate';
+import ArtistFilmCrew from './Artist/ArtistFilmCrew';
+import ArtistFilmCast from './Artist/ArtistFilmCast';
 
 function Moderator (props) {
     const [loading, setLoading] = useState(false)
@@ -58,43 +63,38 @@ function Moderator (props) {
                             <SubMenu key="film" title="Кино">
                                 <Menu.ItemGroup key="film1" title="Ерөнхий мэдээлэл">
                                     <Menu.Item key="1">Нэмэх</Menu.Item>
-                                    <Menu.Item key="2">Засах</Menu.Item>
-                                    <Menu.Item key="3">Устгах</Menu.Item>
+                                    <Menu.Item key="2">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="film2" title="Бүрэлдэхүүн">
-                                    <Menu.Item key="4">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="5">Гол дүр</Menu.Item>
-                                    <Menu.Item key="6">Туслах дүр</Menu.Item>
+                                    <Menu.Item key="3">Баг бүрэлдэхүүн</Menu.Item>
+                                    <Menu.Item key="4">Гол дүр</Menu.Item>
+                                    <Menu.Item key="5">Туслах дүр</Menu.Item>
                                 </Menu.ItemGroup>
                             </SubMenu>
                             <SubMenu key="series" title="Цуврал">
                                 <Menu.ItemGroup key="series1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="7">Нэмэх</Menu.Item>
-                                    <Menu.Item key="8">Засах</Menu.Item>
-                                    <Menu.Item key="9">Устгах</Menu.Item>
+                                    <Menu.Item key="6">Нэмэх</Menu.Item>
+                                    <Menu.Item key="7">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="series2" title="Бүрэлдэхүүн">
-                                    <Menu.Item key="10">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="11">Гол дүр</Menu.Item>
-                                    <Menu.Item key="12">Туслах дүр</Menu.Item>
+                                    <Menu.Item key="8">Баг бүрэлдэхүүн</Menu.Item>
+                                    <Menu.Item key="9">Гол дүр</Menu.Item>
+                                    <Menu.Item key="10">Туслах дүр</Menu.Item>
                                 </Menu.ItemGroup>
                             </SubMenu>
                             <SubMenu key="artists" title="Хүмүүс">
                                 <Menu.ItemGroup key="artists1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="13">Нэмэх</Menu.Item>
-                                    <Menu.Item key="14">Засах</Menu.Item>
-                                    <Menu.Item key="15">Устгах</Menu.Item>
+                                    <Menu.Item key="11">Нэмэх</Menu.Item>
+                                    <Menu.Item key="12">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="artists2" title="Уран бүтээл">
                                     <SubMenu key="artists-film" title="Кино">
-                                        <Menu.Item key="16">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="17">Гол дүр</Menu.Item>
-                                        <Menu.Item key="18">Туслах дүр</Menu.Item>
+                                        <Menu.Item key="13">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="14">Дүр</Menu.Item>                                        
                                     </SubMenu>
                                     <SubMenu key="artists-series" title="Цуврал">
-                                        <Menu.Item key="19">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="20">Гол дүр</Menu.Item>
-                                        <Menu.Item key="21">Туслах дүр</Menu.Item>
+                                        <Menu.Item key="15">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="16">Дүр</Menu.Item>                                        
                                     </SubMenu>                           
                                 </Menu.ItemGroup>
                             </SubMenu>
@@ -103,7 +103,17 @@ function Moderator (props) {
                     <Col xs={24} sm={24} md={24} lg={18}>
                         <div className="container">                            
                             { key === "1" ? (
-                                <FilmCreate />
+                                <FilmCreate token={props.token} />
+                            ) : key === "2" ? (
+                                <FilmUpdate token={props.token} />
+                            ) : key === "11" ? (
+                                <ArtistCreate token={props.token} />
+                            ) : key === "12" ? (
+                                <ArtistUpdate token={props.token} />
+                            ) : key === "13" ? (
+                                <ArtistFilmCrew token={props.token} />
+                            ) : key === "14" ? (
+                                <ArtistFilmCast token={props.token} />
                             ) : (
                                 <></>
                             )}

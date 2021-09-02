@@ -24,7 +24,9 @@
 
 .film-card .film-poster {
   width: 100%;
-  height: auto;
+  height: 100%;
+  position: absolute;
+  border-radius: 2px;
 }
 
 .film-card .film-score {
@@ -65,7 +67,7 @@
 }
 
 .film-poster-container .drawer .ant-drawer-body {
-  padding: 16px 8px 8px 8px;
+  padding: 8px 4px 4px 4px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -73,13 +75,18 @@
 }
 
 .film-poster-container .drawer .ant-btn {
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   transition: 0.3s ease-in-out;
 }
 
 .film-poster-container .drawer .like:hover {
   background: rgba(231, 76, 60, 0.25);
   color: #c0392b;
+}
+
+.film-poster-container .drawer .watched:hover {
+  background: rgba(76, 209, 55, 0.25);
+  color: #44bd32;
 }
 
 .film-poster-container .drawer .watchlist:hover {

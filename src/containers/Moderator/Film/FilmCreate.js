@@ -1,4 +1,4 @@
-import { Form, Row, Col, Input, InputNumber, Radio, Select, Typography, DatePicker, Popconfirm, message, Button } from "antd"
+import { Form, Row, Col, Input, InputNumber, Radio, Select, Typography, DatePicker, Popconfirm, message, Button, Spin } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import api from "../../../api"
@@ -44,9 +44,9 @@ function FilmCreate (props) {
     function onFinish (values) {      
         setLoading(true)       
         var formData = new FormData();
-        formData.append('name', values.name)
-        if (values.description) {
-            formData.append('description', values.description)
+        formData.append('title', values.title)
+        if (description) {
+            formData.append('description', description)
         }
         if (values.plot) {
             formData.append('plot', values.plot)
@@ -81,7 +81,7 @@ function FilmCreate (props) {
         formData.append('token', props.token)         
         axios({
             method: 'POST',
-            url: `${api.tempfilms}/`,
+            url: `${api.films}/`,
             data: formData,
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -89,8 +89,9 @@ function FilmCreate (props) {
             }
         }).then(res => {                        
             if (res.status === 201) {                      
-                message.info("Хүсэлтийг хүлээж авлаа.")
+                message.success(`${values.title} кино нэмэгдлээ.`)
                 form.resetFields()
+                setDescription(undefined)
                 setPoster(undefined)
                 setLandscape(undefined)
                 setLoading(false)                                               
@@ -153,132 +154,138 @@ function FilmCreate (props) {
     }
 
     return (
-        <div>
-            <Typography.Title level={3}>Кино нэмэх</Typography.Title>
-            <Form layout="vertical" form={form} onFinish={onFinish}>               
-                <Row gutter={[16, 0]}>
-                    <Col span={24}>
-                        <Form.Item name="landscape" label="Өргөн зураг:">
-                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>           
-                                <div>
-                                    <ImageUpload onImageSelected={onLandscapeSelected} width={getWidth()} height={getHeight()} />                        
-                                </div>                 
-                            </div>                               
-                        </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={8} md={8} lg={8} xl={6}>
-                        <Form.Item name="poster" label="Постер:">                               
-                            <ImageUpload onImageSelected={onPosterSelected} width={getPosterWidth()} height={getPosterHeight()} />                        
-                        </Form.Item>                   
-                        <Form.Item name="is_released" label="Нээлтээ хийсэн:">                               
-                            <Radio.Group defaultValue={true}>
-                                <Radio value={true}>Тийм</Radio>
-                                <Radio value={false}>Үгүй</Radio>
-                            </Radio.Group> 
-                        </Form.Item>     
-                        <Form.Item name="is_playing" label="Одоо гарч буй:">                               
-                            <Radio.Group defaultValue={false}>
-                                <Radio value={true}>Тийм</Radio>
-                                <Radio value={false}>Үгүй</Radio>
-                            </Radio.Group>          
-                        </Form.Item>                       
-                    </Col>
-                    <Col xs={24} sm={16} md={16} lg={16} xl={18}>
-                        <Form.Item name="name" label="Нэр:" rules={[{ required: true, message: 'Та киноны нэрийг оруулна уу!' }]}>
-                            <Input />
-                        </Form.Item>                        
-                        <Row gutter={[16, 0]}>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={8}>
-                                <Form.Item name="genre" label="Төрөл жанр:">                        
-                                    <Select
-                                        showSearch
-                                        mode="multiple"
-                                        placeholder="Төрөл сонгоно уу"                                                
-                                        optionFilterProp="children"                                
-                                    >
-                                        { genres ? (
-                                            <>
-                                                {genres.map(item => {
-                                                    return (
-                                                        <Option key={item.id}>{item.name}</Option>
-                                                    )
-                                                })}
-                                            </>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </Select>                        
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={24} md={9} lg={9} xl={6}>
-                                <Form.Item name="rating" label="Насны ангилал:">                        
-                                    <Select
-                                        showSearch                                
-                                        placeholder="Ангилал сонгоно уу"                                                
-                                        optionFilterProp="children"                                
-                                    >
-                                        { ratings ? (
-                                            <>
-                                                {ratings.map(item => {
-                                                    return (
-                                                        <Option key={item.id}>{item.name}</Option>
-                                                    )
-                                                })}
-                                            </>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </Select>                        
-                                </Form.Item>                                                
-                            </Col>
-                            <Col xs={24} sm={24} md={9} lg={9} xl={6}>
-                                <Form.Item name="releasedate" label="Нээлт:">
-                                    <DatePicker style={{ width: '100%' }} />
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={24} md={6} lg={6} xl={4}>
-                                <Form.Item name="duration" label="Хугацаа:">
-                                    <InputNumber defaultValue={90} min={0} style={{ width: '100%' }} />
-                                </Form.Item>
-                            </Col>                                                            
-                        </Row>
-                        <Form.Item name="trailer" label="Трейлер:">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="description" label="Дэлгэрэнгүй:">                            
-                            <Editor                                
-                                apiKey='wpwv44irouwa2fnzez4rgccg20gz5bri6qmwlt4wbeuha01r'
-                                initialValue=""
-                                init={{
-                                    height: 300,
-                                    menubar: ['file', 'insert'],                                    
-                                    plugins: [
-                                        'advlist autolink lists link image imagetools charmap print preview anchor',
-                                        'searchreplace visualblocks code fullscreen',
-                                        'insertdatetime media table paste code help wordcount'
-                                    ],                                        
-                                    toolbar:
-                                        'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | image'
-                                }}                                    
-                                onEditorChange={handleEditorChange}
-                            />
-                        </Form.Item> 
-                        <Form.Item name="plot" label="Агуулга:">
-                            <TextArea rows={10} />
-                        </Form.Item>  
-                    </Col>
-                </Row>                                                                                                                                                 
-                <Form.Item>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <Popconfirm title="Нэмэх үү？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
-                            <Button type="primary">
-                                Нэмэх
-                            </Button>
-                        </Popconfirm>
-                    </div>                                        
-                </Form.Item>                                       
-            </Form>
-        </div>
+        loading ? (
+            <div className="loading">
+                <Spin tip="Ачааллаж байна..." />
+            </div>
+        ) : (
+            <div>
+                <Typography.Title level={3}>Кино нэмэх</Typography.Title>
+                <Form layout="vertical" form={form} onFinish={onFinish}>               
+                    <Row gutter={[16, 0]}>
+                        <Col span={24}>
+                            <Form.Item name="landscape" label="Өргөн зураг:">
+                                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>           
+                                    <div>
+                                        <ImageUpload onImageSelected={onLandscapeSelected} width={getWidth()} height={getHeight()} />                        
+                                    </div>                 
+                                </div>                               
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={8} md={8} lg={8} xl={6}>
+                            <Form.Item name="poster" label="Постер:">                               
+                                <ImageUpload onImageSelected={onPosterSelected} width={getPosterWidth()} height={getPosterHeight()} />                        
+                            </Form.Item>                   
+                            <Form.Item name="is_released" label="Нээлтээ хийсэн:">                               
+                                <Radio.Group defaultValue={true}>
+                                    <Radio value={true}>Тийм</Radio>
+                                    <Radio value={false}>Үгүй</Radio>
+                                </Radio.Group> 
+                            </Form.Item>     
+                            <Form.Item name="is_playing" label="Одоо гарч буй:">                               
+                                <Radio.Group defaultValue={false}>
+                                    <Radio value={true}>Тийм</Radio>
+                                    <Radio value={false}>Үгүй</Radio>
+                                </Radio.Group>          
+                            </Form.Item>                       
+                        </Col>
+                        <Col xs={24} sm={16} md={16} lg={16} xl={18}>
+                            <Form.Item name="title" label="Нэр:" rules={[{ required: true, message: 'Та киноны нэрийг оруулна уу!' }]}>
+                                <Input />
+                            </Form.Item>                        
+                            <Row gutter={[16, 0]}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={8}>
+                                    <Form.Item name="genre" label="Төрөл жанр:">                        
+                                        <Select
+                                            showSearch
+                                            mode="multiple"
+                                            placeholder="Төрөл сонгоно уу"                                                
+                                            optionFilterProp="children"                                
+                                        >
+                                            { genres ? (
+                                                <>
+                                                    {genres.map(item => {
+                                                        return (
+                                                            <Option key={item.id}>{item.name}</Option>
+                                                        )
+                                                    })}
+                                                </>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </Select>                        
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} sm={24} md={9} lg={9} xl={6}>
+                                    <Form.Item name="rating" label="Насны ангилал:">                        
+                                        <Select
+                                            showSearch                                
+                                            placeholder="Ангилал сонгоно уу"                                                
+                                            optionFilterProp="children"                                
+                                        >
+                                            { ratings ? (
+                                                <>
+                                                    {ratings.map(item => {
+                                                        return (
+                                                            <Option key={item.id}>{item.name}</Option>
+                                                        )
+                                                    })}
+                                                </>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </Select>                        
+                                    </Form.Item>                                                
+                                </Col>
+                                <Col xs={24} sm={24} md={9} lg={9} xl={6}>
+                                    <Form.Item name="releasedate" label="Нээлт:">
+                                        <DatePicker style={{ width: '100%' }} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} sm={24} md={6} lg={6} xl={4}>
+                                    <Form.Item name="duration" label="Хугацаа:">
+                                        <InputNumber defaultValue={90} min={0} style={{ width: '100%' }} />
+                                    </Form.Item>
+                                </Col>                                                            
+                            </Row>
+                            <Form.Item name="trailer" label="Трейлер:">
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="description" label="Дэлгэрэнгүй:">                            
+                                <Editor                                
+                                    apiKey='wpwv44irouwa2fnzez4rgccg20gz5bri6qmwlt4wbeuha01r'
+                                    initialValue=""
+                                    init={{
+                                        height: 300,
+                                        menubar: ['file', 'insert'],                                    
+                                        plugins: [
+                                            'advlist autolink lists link image imagetools charmap print preview anchor',
+                                            'searchreplace visualblocks code fullscreen',
+                                            'insertdatetime media table paste code help wordcount'
+                                        ],                                        
+                                        toolbar:
+                                            'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | image'
+                                    }}                                    
+                                    onEditorChange={handleEditorChange}
+                                />
+                            </Form.Item> 
+                            <Form.Item name="plot" label="Агуулга:">
+                                <TextArea rows={10} />
+                            </Form.Item>  
+                        </Col>
+                    </Row>                                                                                                                                                 
+                    <Form.Item>
+                        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                            <Popconfirm title="Нэмэх үү？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
+                                <Button size="large" type="primary" style={{ background: '#27ae60', border: '1px solid #27ae60', width: '160px' }}>
+                                    Нэмэх
+                                </Button>
+                            </Popconfirm>
+                        </div>                                        
+                    </Form.Item>                                       
+                </Form>
+            </div>
+        )     
     )
 }
 

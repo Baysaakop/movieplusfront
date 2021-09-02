@@ -1,8 +1,9 @@
-import { AppstoreAddOutlined, HeartOutlined, MoreOutlined, StarOutlined } from "@ant-design/icons";
+import { AppstoreAddOutlined, HeartOutlined, MoreOutlined, StarOutlined, CheckOutlined } from "@ant-design/icons";
 import SaveIcon from '../../components/SaveIcon'
 import { Card, Typography, Progress, Button, Drawer, Tooltip, Popover, Rate } from "antd";
 import { useState } from "react";
 import './FilmCard.css'
+import blank from './blank.jpg'
 
 function FilmCard (props) {
 
@@ -18,10 +19,14 @@ function FilmCard (props) {
             <Card
                 bordered={false}
                 hoverable                                
-                cover={
+                cover={                   
                     <div className="film-poster-container">
                         <a href={`/films/${props.film.id}`}>
-                            <img className="film-poster" alt={props.film.title} src={props.film.poster} />
+                            <div style={{ width: '100%', height: '100%' }}>
+                                <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
+                                    <img className="film-poster" alt={props.film.title} src={props.film.poster ? props.film.poster : blank} />                                
+                                </div>
+                            </div>
                         </a>
                         <div className="film-score">
                             <Progress                                
@@ -49,6 +54,9 @@ function FilmCard (props) {
                             <Tooltip title="Таалагдсан" placement="right">
                                 <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />                                
                             </Tooltip>
+                            <Tooltip title="Үзсэн" placement="right">
+                                <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} />                                
+                            </Tooltip>
                             <Tooltip title="Дараа үзэх" placement="right">
                                 <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} />
                             </Tooltip>
@@ -70,7 +78,7 @@ function FilmCard (props) {
                                 </Popover>                        
                             </Tooltip>                                    
                         </Drawer>
-                    </div>
+                    </div>                        
                 }                       
             >
                 <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{props.film.title}</Typography.Paragraph>

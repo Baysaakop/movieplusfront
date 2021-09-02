@@ -111,7 +111,7 @@ function ArtistList (props) {
                     <Pagination 
                         current={page} 
                         total={total}
-                        pageSize={20}
+                        pageSize={24}
                         showSizeChanger={false}
                         showTotal={showTotal}
                         onChange={onPageChange}                 

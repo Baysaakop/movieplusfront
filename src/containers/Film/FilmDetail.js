@@ -4,16 +4,17 @@ import api from "../../api"
 import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography, Rate, Tabs, Avatar, Input } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
-import { AppstoreAddOutlined, DesktopOutlined, EyeOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
+import { AppstoreAddOutlined, CheckOutlined, DesktopOutlined, EyeOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import FilmComment from "./FilmComment"
 import ArtistPopover from "../Artist/ArtistPopover"
 import SaveIcon from "../../components/SaveIcon"
 import Trailer from "../../components/Trailer"
+import blank from './blank.jpg'
 
 const data = [
-    'PRIME CINEPLEX',
-    'URGOO',
-    'TENGIS',
+    // 'PRIME CINEPLEX',
+    // 'URGOO',
+    // 'TENGIS',
     'LOOKTV',
     'SKYGO',
     'VOO',    
@@ -171,16 +172,24 @@ function FilmDetail (props) {
                         {film.title}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                <div style={{ marginTop: '24px', position: 'relative' }}>
-                    <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
-                    <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title>
+                { film.landscape ? (
+                    <div style={{ marginTop: '24px', position: 'relative' }}>
+                        <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
+                        <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <></>
+                )}                
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={12} lg={8} xl={6}>
-                        <div>
-                            <img alt={film.title} src={film.poster} style={{ width: '100%', height: 'auto', borderRadius: '2px' }} />
+                        <div style={{ position: 'relative', overflow: 'hidden' }}>
+                            <div style={{ width: '100%', height: '100%' }}>
+                                <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
+                                    <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
+                                </div>
+                            </div>                            
                             <List
                                 className="container"
                                 style={{ marginTop: '24px', padding: 0 }}
@@ -315,6 +324,12 @@ function FilmDetail (props) {
                                                 <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} />
                                             </Tooltip>
                                             <Typography.Title level={5}>{formatCount(film.like_count)}</Typography.Title>
+                                        </div>
+                                        <div className="action">
+                                            <Tooltip title="Үзсэн">
+                                                <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} />
+                                            </Tooltip>
+                                            <Typography.Title level={5}>{formatCount(film.view_count)}</Typography.Title>
                                         </div>
                                         <div className="action">
                                             <Tooltip title="Дараа үзэх">

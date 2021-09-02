@@ -1,3 +1,10 @@
+.film-poster {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 2px;
+}
+
 .layout-dark .film-detail .ant-tag {
   background: #11181e;
   color: #fff;
@@ -37,7 +44,7 @@
 
 .film-detail .actions .action {
   text-align: center;
-  margin-right: 24px;
+  margin-right: 16px;
 }
 
 .film-detail .actions .ant-btn {
@@ -58,6 +65,11 @@
 .film-detail .actions .like:hover {
   background: rgba(231, 76, 60, 0.25);
   color: #c0392b;
+}
+
+.film-detail .actions .watched:hover {
+  background: rgba(76, 209, 55, 0.25);
+  color: #44bd32;
 }
 
 .film-detail .actions .watchlist:hover {
