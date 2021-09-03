@@ -108,7 +108,7 @@ function ArtistUpdate (props) {
                 }
             }).then(res => {                                
                 if (res.status === 204) {                      
-                    message.warning(`${selection.title} артист устгагдлаа.`)
+                    message.warning(`${selection.name} артист устгагдлаа.`)
                     form.resetFields()
                     setBiography(undefined)
                     setAvatar(undefined)                    

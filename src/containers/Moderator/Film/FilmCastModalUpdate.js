@@ -4,7 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import api from "../../../api"
 
-function ArtistFilmCastModalUpdate (props) {
+function FilmCastModalUpdate (props) {
     const [form] = Form.useForm()   
     const [checked, setChecked] = useState(false)
 
@@ -83,4 +83,4 @@ function ArtistFilmCastModalUpdate (props) {
     )
 }
 
-export default ArtistFilmCastModalUpdate
+export default FilmCastModalUpdate

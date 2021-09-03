@@ -10,6 +10,8 @@ import ArtistCreate from './Artist/ArtistCreate';
 import ArtistUpdate from './Artist/ArtistUpdate';
 import ArtistFilmCrew from './Artist/ArtistFilmCrew';
 import ArtistFilmCast from './Artist/ArtistFilmCast';
+import FilmCrew from './Film/FilmCrew';
+import FilmCast from './Film/FilmCast';
 
 function Moderator (props) {
     const [loading, setLoading] = useState(false)
@@ -67,34 +69,32 @@ function Moderator (props) {
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="film2" title="Бүрэлдэхүүн">
                                     <Menu.Item key="3">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="4">Гол дүр</Menu.Item>
-                                    <Menu.Item key="5">Туслах дүр</Menu.Item>
+                                    <Menu.Item key="4">Дүр</Menu.Item>
                                 </Menu.ItemGroup>
                             </SubMenu>
                             <SubMenu key="series" title="Цуврал">
                                 <Menu.ItemGroup key="series1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="6">Нэмэх</Menu.Item>
-                                    <Menu.Item key="7">Засах / Устгах</Menu.Item>                                    
+                                    <Menu.Item key="5">Нэмэх</Menu.Item>
+                                    <Menu.Item key="6">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="series2" title="Бүрэлдэхүүн">
-                                    <Menu.Item key="8">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="9">Гол дүр</Menu.Item>
-                                    <Menu.Item key="10">Туслах дүр</Menu.Item>
+                                    <Menu.Item key="7">Баг бүрэлдэхүүн</Menu.Item>
+                                    <Menu.Item key="8">Дүр</Menu.Item>                                    
                                 </Menu.ItemGroup>
                             </SubMenu>
                             <SubMenu key="artists" title="Хүмүүс">
                                 <Menu.ItemGroup key="artists1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="11">Нэмэх</Menu.Item>
-                                    <Menu.Item key="12">Засах / Устгах</Menu.Item>                                    
+                                    <Menu.Item key="9">Нэмэх</Menu.Item>
+                                    <Menu.Item key="10">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="artists2" title="Уран бүтээл">
                                     <SubMenu key="artists-film" title="Кино">
-                                        <Menu.Item key="13">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="14">Дүр</Menu.Item>                                        
+                                        <Menu.Item key="11">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="12">Дүр</Menu.Item>                                        
                                     </SubMenu>
                                     <SubMenu key="artists-series" title="Цуврал">
-                                        <Menu.Item key="15">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="16">Дүр</Menu.Item>                                        
+                                        <Menu.Item key="13">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="14">Дүр</Menu.Item>                                        
                                     </SubMenu>                           
                                 </Menu.ItemGroup>
                             </SubMenu>
@@ -106,13 +106,17 @@ function Moderator (props) {
                                 <FilmCreate token={props.token} />
                             ) : key === "2" ? (
                                 <FilmUpdate token={props.token} />
-                            ) : key === "11" ? (
+                            ) : key === "3" ? (
+                                <FilmCrew token={props.token} />
+                            ) : key === "4" ? (
+                                <FilmCast token={props.token} />
+                            ) : key === "9" ? (
                                 <ArtistCreate token={props.token} />
-                            ) : key === "12" ? (
+                            ) : key === "10" ? (
                                 <ArtistUpdate token={props.token} />
-                            ) : key === "13" ? (
+                            ) : key === "11" ? (
                                 <ArtistFilmCrew token={props.token} />
-                            ) : key === "14" ? (
+                            ) : key === "12" ? (
                                 <ArtistFilmCast token={props.token} />
                             ) : (
                                 <></>

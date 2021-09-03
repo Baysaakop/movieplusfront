@@ -1,31 +1,31 @@
-import { Col, Row, Typography, Input, Select, message, List, Space, Button, Pagination, Popconfirm } from "antd"
+import { PlusOutlined } from "@ant-design/icons"
+import { Typography, Row, Col, Input, Select, message, Button, List, Space, Popconfirm, Pagination } from "antd"
 import axios from "axios"
 import { useState } from "react"
 import api from "../../../api"
-import moment from "moment"
-import { PlusOutlined } from "@ant-design/icons"
-import ArtistFilmCrewModalCreate from "./ArtistFilmCrewModalCreate"
-import ArtistFilmCrewModalUpdate from "./ArtistFilmCrewModalUpdate"
+import FilmCastModalCreate from "./FilmCastModalCreate"
+import FilmCastModalUpdate from "./FilmCastModalUpdate"
 
 const { Search } = Input
 const { Option } = Select
 
-function ArtistFilmCrew (props) {        
-    const [artists, setArtists] = useState()
+function FilmCast (props) {
+
+    const [films, setFilms] = useState()
     const [selection, setSelection] = useState()
-    const [crew, setCrew] = useState()
+    const [cast, setCast] = useState()
     const [total, setTotal] = useState()
     const [page, setPage] = useState()
     const [modalCreate, setModalCreate] = useState(false)
     const [member, setMember] = useState(false)
 
     function onSearch(val) {                
-        let url = `${api.artists}?name=${val}`
+        let url = `${api.films}?title=${val}`
         axios({
             method: 'GET',
             url: url,
         }).then(res => {                        
-            setArtists(res.data.results)                                    
+            setFilms(res.data.results)                                    
         }).catch(err => {
             console.log(err.message)
             message.error("Алдаа гарлаа. Хуудсыг refresh хийнэ үү.")                        
@@ -33,13 +33,13 @@ function ArtistFilmCrew (props) {
     }
 
     function onSelect(e) {
-        let artist = artists.find(x => x.id === parseInt(e))
-        getCrew(artist.id, 1)     
-        setSelection(artist)        
+        let film = films.find(x => x.id === parseInt(e))        
+        getCast(film.id, 1)     
+        setSelection(film)        
     }
-    
-    function getCrew(id, page) {        
-        const url = `${api.crew}?artist=${id}&page=${page}`
+
+    function getCast(id, page) {        
+        const url = `${api.cast}?film=${id}&page=${page}`
         axios({
             method: 'GET',
             url: url,
@@ -49,7 +49,7 @@ function ArtistFilmCrew (props) {
         })
         .then(res => {                        
             console.log(res.data)
-            setCrew(res.data.results)                  
+            setCast(res.data.results)                  
             setTotal(res.data.count)
         })
         .catch(err => {
@@ -57,23 +57,17 @@ function ArtistFilmCrew (props) {
         })
     }
 
-    function orderByYear (crew) {
-        if (crew) {
-            return crew.sort((a, b) => moment(a.film.releasedate).year() - moment(b.film.releasedate).year())
-        } 
-        return undefined       
+    function onPageChange (pageNum, pageSize) {        
+        setPage(pageNum)
+        getCast(selection.id, pageNum)
     }
 
-    function getRoles (roles) {
-        let result = []
-        roles.forEach(role => {
-            result.push(role.name)
-        })
-        return result.toString()
-    }
+    function showTotal() {
+        return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total}:</Typography.Text>;
+    }  
 
     function onModalCreateHide () {
-        getCrew(selection.id, 1)
+        getCast(selection.id, 1)
         setModalCreate(false)
     }
 
@@ -83,20 +77,11 @@ function ArtistFilmCrew (props) {
 
     function onModalUpdateHide () {
         setMember(undefined)
-        getCrew(selection.id, 1)        
+        getCast(selection.id, 1)        
     }
-
-    function onPageChange (pageNum, pageSize) {        
-        setPage(pageNum)
-        getCrew(selection.id, pageNum)
-    }
-
-    function showTotal() {
-        return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total}:</Typography.Text>;
-    }  
 
     function onDelete (id) {
-        const url = `${api.crew}/${id}/`
+        const url = `${api.cast}/${id}/`
         axios({
             method: 'DELETE',
             url: url,            
@@ -108,7 +93,7 @@ function ArtistFilmCrew (props) {
         .then(res => {                        
             if (res.status === 204) {                      
                 message.info(`Амжилттай`)
-                getCrew(selection.id, 1)                                                                                                                                      
+                getCast(selection.id, 1)                                                                                                                                      
             }      
         })
         .catch(err => {
@@ -118,26 +103,24 @@ function ArtistFilmCrew (props) {
 
     return (
         <div>
-            <Typography.Title level={3}>Артист засах</Typography.Title>
+            <Typography.Title level={3}>Кино засах</Typography.Title>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={24} lg={12}>
-                    <Typography.Title level={5}>Артист хайх</Typography.Title>
-                    <Search placeholder="Артист хайх" onSearch={onSearch} enterButton />
+                    <Search placeholder="Кино хайх" onSearch={onSearch} enterButton />
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12}>
-                    <Typography.Title level={5}>Артист сонгох</Typography.Title>
                     <Select
                         showSearch                                
-                        placeholder="Артист сонгоно уу"                                                
+                        placeholder="Кино сонгоно уу"                                                
                         optionFilterProp="children"       
                         onSelect={onSelect} 
                         style={{ width: '100%' }}                        
                     >
-                        { artists ? (
+                        { films ? (
                             <>
-                                {artists.map(item => {
+                                {films.map(item => {
                                     return (
-                                        <Option key={item.id}>{item.name}</Option>
+                                        <Option key={item.id}>{item.title}</Option>
                                     )
                                 })}
                             </>
@@ -148,12 +131,12 @@ function ArtistFilmCrew (props) {
                 </Col>
             </Row>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography.Title level={5} style={{ margin: '16px 0' }}>Ажлууд</Typography.Title>
+                <Typography.Title level={5} style={{ margin: '16px 0' }}>Жүжигчид</Typography.Title>
                 <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>
                 { modalCreate && selection ? 
-                    <ArtistFilmCrewModalCreate 
-                        title="Кино нэмэх"
-                        artist={selection.id}
+                    <FilmCastModalCreate 
+                        title="Артист нэмэх"
+                        film={selection.id}
                         token={props.token} 
                         hide={onModalCreateHide} 
                     /> 
@@ -161,18 +144,19 @@ function ArtistFilmCrew (props) {
                     <></> 
                 }                
             </div>            
-            <Row gutter={[16, 16]}>                                                           
-                <Col xs={24} sm={24} md={24} lg={2}>Он</Col>
-                <Col xs={24} sm={24} md={24} lg={8}>Кино</Col>
-                <Col xs={24} sm={24} md={24} lg={8}>Роль</Col>
+            <Row gutter={[16, 16]}>                                                                           
+                <Col xs={24} sm={24} md={24} lg={6}>Артист</Col>
+                <Col xs={24} sm={24} md={24} lg={6}>Дүр</Col>
+                <Col xs={24} sm={24} md={24} lg={6}>Гол дүр</Col>
                 <Col xs={24} sm={24} md={24} lg={6}></Col>
                 { member ? 
-                    <ArtistFilmCrewModalUpdate
-                        title={`Роль засах - ${member.film.title}`}
+                    <FilmCastModalUpdate
+                        title={`Дүр засах - ${member.artist.name}`}
                         id={member.id}
                         artist={member.artist.id}
                         film={member.film.id}
-                        role={member.role}
+                        is_lead={member.is_lead === true}
+                        role_name={member.role_name}
                         token={props.token} 
                         hide={onModalUpdateHide} 
                     /> 
@@ -181,18 +165,18 @@ function ArtistFilmCrew (props) {
                 }             
                 <List 
                     itemLayout="horizontal"
-                    dataSource={orderByYear(crew)}
+                    dataSource={cast}
                     style={{ width: '100%' }}
                     renderItem={item => (
                         <List.Item key={item.id}>
-                            <Col xs={24} sm={24} md={24} lg={2}>
-                                {moment(item.film.releasedate).year()}
+                            <Col xs={24} sm={24} md={24} lg={6}>
+                                {item.artist.name}
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={8}>
-                                {item.film.title}
+                            <Col xs={24} sm={24} md={24} lg={6}>
+                                {item.role_name}
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={8}>
-                                {getRoles(item.role)}
+                            <Col xs={24} sm={24} md={24} lg={6}>
+                                {item.is_lead ? 'Гол' : 'Туслах'}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={6}>
                                 <Space size={[8, 8]} wrap>
@@ -219,4 +203,4 @@ function ArtistFilmCrew (props) {
     )
 }
 
-export default ArtistFilmCrew
+export default FilmCast

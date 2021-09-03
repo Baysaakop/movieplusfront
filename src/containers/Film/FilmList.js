@@ -4,16 +4,38 @@ import axios from "axios"
 import api from "../../api"
 import './FilmList.css'
 import FilmCard from "./FilmCard"
+import { connect } from "react-redux"
+import { useHistory } from "react-router-dom"
 
 function FilmList (props) {    
+    const history = useHistory()
+    const [user, setUser] = useState()
     const [loading, setLoading] = useState(false)
     const [films, setFilms] = useState()
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState()
+    const [genres, setGenres] = useState()
 
     useEffect(() => {        
+        if (props.token && !user) {
+            getUser()
+        }
         getFilms()        
+        getGenres()
     }, [page]) // eslint-disable-line react-hooks/exhaustive-deps        
+
+    function getGenres() {
+        axios({
+            method: 'GET',                        
+            url: api.genres
+        })
+        .then(res => {                        
+            setGenres(res.data.results);            
+        })        
+        .catch(err => {
+            console.log(err.message);
+        })        
+    }
 
     function getFilms() {        
         setLoading(true)
@@ -32,6 +54,21 @@ function FilmList (props) {
             setLoading(false)
         })        
     }
+
+    function getUser () {        
+        axios({
+            method: 'GET',
+            url: api.profile,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${props.token}`
+            }
+        }).then(res => {                    
+            setUser(res.data)            
+        }).catch(err => {
+            console.log(err.message)            
+        })
+    }    
 
     function onPageChange (pageNum, pageSize) {        
         setPage(pageNum)
@@ -54,14 +91,12 @@ function FilmList (props) {
             <div className="container film-filter">
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={12} lg={6}>
-                        <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>
+                        <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>                                                                        
                         <Select defaultValue="0" style={{ width: '100%'}}>
-                            <Select.Option value="0">Бүгд</Select.Option>
-                            <Select.Option value="1">Action</Select.Option>
-                            <Select.Option value="2">Adventure</Select.Option>
-                            <Select.Option value="3">Comedy</Select.Option>
-                            <Select.Option value="4">Crime</Select.Option>
-                            <Select.Option value="5">Drama</Select.Option>
+                            <Select.Option value="0">Бүгд</Select.Option>            
+                            { genres ? genres.map(genre => (
+                                <Select.Option value={genre.id}>{genre.name}</Select.Option>
+                            )) : []}                            
                         </Select>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
@@ -104,7 +139,7 @@ function FilmList (props) {
                         dataSource={films}
                         renderItem={film => (
                             <List.Item key={film.id}>
-                                <FilmCard film={film} />
+                                <FilmCard film={film} user={user} token={props.token} history={history} />
                             </List.Item>
                         )}
                     />
@@ -122,4 +157,10 @@ function FilmList (props) {
     )
 }
 
-export default FilmList
+const mapStateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(FilmList)

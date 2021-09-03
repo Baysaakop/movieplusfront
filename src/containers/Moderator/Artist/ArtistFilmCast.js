@@ -16,8 +16,8 @@ function ArtistFilmCast (props) {
     const [cast, setCast] = useState()
     const [total, setTotal] = useState()
     const [page, setPage] = useState()
-    const [modalCreate, setModalCreate] = useState(false)
-    const [modalUpdate, setModalUpdate] = useState(false)
+    const [modalCreate, setModalCreate] = useState(false)    
+    const [member, setMember] = useState()
 
     function onSearch(val) {                
         let url = `${api.artists}?name=${val}`
@@ -69,9 +69,14 @@ function ArtistFilmCast (props) {
         setModalCreate(false)
     }
 
+    function onModalUpdateShow (item) {
+        setMember(item)        
+    }
+
     function onModalUpdateHide () {
+        setMember(undefined)
         getCast(selection.id, 1)
-        setModalUpdate(false)
+        // setModalUpdate(false)
     }
 
     function onPageChange (pageNum, pageSize) {        
@@ -134,6 +139,20 @@ function ArtistFilmCast (props) {
                 <Col xs={24} sm={24} md={24} lg={4}>Дүр</Col>
                 <Col xs={24} sm={24} md={24} lg={4}>Гол дүр</Col>
                 <Col xs={24} sm={24} md={24} lg={6}></Col>
+                { member ? 
+                    <ArtistFilmCastModalUpdate
+                        title={`Дүр засах - ${member.film.title}`}
+                        id={member.id}
+                        artist={member.artist.id}
+                        film={member.film.id}
+                        is_lead={member.is_lead === true}
+                        role_name={member.role_name}
+                        token={props.token} 
+                        hide={onModalUpdateHide} 
+                    /> 
+                    : 
+                    <></> 
+                }             
                 <List 
                     itemLayout="horizontal"
                     dataSource={orderByYear(cast)}
@@ -154,21 +173,7 @@ function ArtistFilmCast (props) {
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={6}>
                                 <Space size={[8, 8]} wrap>
-                                    <Button size="small" type="text" onClick={() => setModalUpdate(true)}>Засах</Button>
-                                    { modalUpdate && selection ? 
-                                        <ArtistFilmCastModalUpdate
-                                            title={`Дүр засах - ${item.film.title}`}
-                                            id={item.id}
-                                            artist={selection.id}
-                                            film={item.film.id}
-                                            is_lead={item.is_lead === true}
-                                            role_name={item.role_name}
-                                            token={props.token} 
-                                            hide={onModalUpdateHide} 
-                                        /> 
-                                        : 
-                                        <></> 
-                                    }             
+                                    <Button size="small" type="text" onClick={() => onModalUpdateShow(item)}>Засах</Button>                                   
                                     <Button size="small" danger type="text">Устгах</Button>
                                 </Space>
                             </Col>

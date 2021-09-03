@@ -1,5 +1,6 @@
 import { Card, Typography } from "antd"
 import './ArtistCard.css'
+import blank from '../Film/blank.jpg'
 
 function ArtistCard (props) {    
     return (
@@ -10,7 +11,11 @@ function ArtistCard (props) {
                 cover={
                     <div className="artist-avatar-container">
                         <a href={`/artists/${props.artist.id}`}>
-                            <img className="artist-avatar" alt={props.artist.name} src={props.artist.avatar} />
+                            <div style={{ width: '100%', height: '100%' }}>
+                                <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                                                                                 
+                                    <img className="artist-avatar" alt={props.artist.name} src={props.artist.avatar ? props.artist.avatar : blank} />
+                                </div>
+                            </div>                            
                         </a>                        
                     </div>
                 }                       

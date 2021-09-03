@@ -70,3 +70,42 @@ a.film-timeline {
 a.film-timeline:hover {
   color: #1890ff;
 }
+
+.artist-detail .actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.artist-detail .actions .action {
+  text-align: center;
+  margin-right: 24px;
+}
+
+.artist-detail .actions .ant-btn {
+  background: rgba(0, 0, 0, 0);
+  transition: 0.3s ease-in-out;
+}
+
+.artist-detail .actions .like:hover,
+.artist-detail .actions .like-fill:hover {
+  background: rgba(15, 188, 249, 0.25);
+  color: #3c40c6;
+}
+
+.artist-detail .actions .followed:hover,
+.artist-detail .actions .followed-fill:hover {
+  background: rgba(255, 82, 82, 0.25);
+  color: #b33939;
+}
+
+.artist-detail .actions .like-fill {
+  background: rgba(15, 188, 249, 1);
+  color: #fff;
+}
+
+.artist-detail .actions .followed-fill {
+  background: rgba(255, 82, 82, 1);
+  color: #fff;
+}

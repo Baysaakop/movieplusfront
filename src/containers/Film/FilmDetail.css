@@ -22,13 +22,7 @@
 }
 
 .film-detail .play-trailer {
-  background: #e5e5e5;
-  transition: 0.3s ease-in-out;
-}
-
-.film-detail .play-trailer:hover,
-.layout-dark .film-detail .play-trailer:hover {
-  background: rgba(0, 148, 50, 0.25);
+  margin-top: 24px;
 }
 
 .layout-dark .film-detail .play-trailer {
@@ -40,6 +34,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 24px;
 }
 
 .film-detail .actions .action {
@@ -52,27 +47,25 @@
   transition: 0.3s ease-in-out;
 }
 
-.layout-dark .film-detail .actions .ant-btn {
-  background: rgba(0, 0, 0, 0);
-  transition: 0.3s ease-in-out;
-}
-
 .film-detail .actions .view:hover {
   background: rgba(15, 188, 249, 0.25);
   color: #3c40c6;
 }
 
-.film-detail .actions .like:hover {
+.film-detail .actions .like:hover,
+.film-detail .actions .like-fill:hover {
   background: rgba(231, 76, 60, 0.25);
   color: #c0392b;
 }
 
-.film-detail .actions .watched:hover {
+.film-detail .actions .watched:hover,
+.film-detail .actions .watched-fill:hover {
   background: rgba(76, 209, 55, 0.25);
   color: #44bd32;
 }
 
-.film-detail .actions .watchlist:hover {
+.film-detail .actions .watchlist:hover,
+.film-detail .actions .watchlist-fill:hover {
   background: rgba(72, 52, 212, 0.25);
   color: #130f40;
 }
@@ -82,29 +75,31 @@
   color: #009432;
 }
 
-.film-detail .actions .rate:hover {
+.film-detail .actions .rate:hover,
+.film-detail .actions .rate-fill:hover {
   background: rgba(253, 204, 13, 0.5);
   color: #2f3542;
 }
 
-.layout-dark .film-detail .actions .like:hover {
-  background: rgba(231, 76, 60, 0.5);
-  color: #f0695b;
+.film-detail .actions .like-fill {
+  background: rgba(231, 76, 60, 1);
+  color: #fff;
 }
 
-.layout-dark .film-detail .actions .watchlist:hover {
-  background: rgba(72, 52, 212, 0.5);
-  color: #636fa0;
+.film-detail .actions .watched-fill {
+  background: rgba(76, 209, 55, 1);
+  color: #fff;
 }
 
-.layout-dark .film-detail .actions .addlist:hover {
-  background: rgba(11, 232, 129, 0.5);
-  color: #44d472;
+.film-detail .actions .watchlist-fill {
+  background: rgba(72, 52, 212, 1);
+  color: #fff;
 }
 
-.layout-dark .film-detail .actions .rate:hover {
-  background: rgba(253, 204, 13, 0.5);
-  color: #afb5c2;
+.film-detail .actions .rate-fill {
+  background: rgba(253, 204, 13, 1);
+  color: #000;
+  font-weight: bold;
 }
 
 .film-plot {

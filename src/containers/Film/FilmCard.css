@@ -79,17 +79,24 @@
   transition: 0.3s ease-in-out;
 }
 
-.film-poster-container .drawer .like:hover {
+.layout-dark .film-poster-container .drawer .ant-drawer-content {
+  background: #11181e;
+}
+
+.film-poster-container .drawer .like:hover,
+.film-poster-container .drawer .like-fill:hover {
   background: rgba(231, 76, 60, 0.25);
   color: #c0392b;
 }
 
-.film-poster-container .drawer .watched:hover {
+.film-poster-container .drawer .watched:hover,
+.film-poster-container .drawer .watched-fill:hover {
   background: rgba(76, 209, 55, 0.25);
   color: #44bd32;
 }
 
-.film-poster-container .drawer .watchlist:hover {
+.film-poster-container .drawer .watchlist:hover,
+.film-poster-container .drawer .watchlist-fill:hover {
   background: rgba(72, 52, 212, 0.25);
   color: #130f40;
 }
@@ -99,31 +106,29 @@
   color: #009432;
 }
 
-.film-poster-container .drawer .rate:hover {
+.film-poster-container .drawer .rate:hover,
+.film-poster-container .drawer .rate-fill:hover {
   background: rgba(253, 204, 13, 0.5);
   color: #2f3542;
 }
 
-.layout-dark .film-poster-container .drawer .ant-drawer-content {
-  background: #11181e;
+.film-poster-container .drawer .like-fill {
+  background: rgba(231, 76, 60, 1);
+  color: #fff;
 }
 
-.layout-dark .film-poster-container .drawer .like:hover {
-  background: rgba(231, 76, 60, 0.5);
-  color: #f0695b;
+.film-poster-container .drawer .watched-fill {
+  background: rgba(76, 209, 55, 1);
+  color: #fff;
 }
 
-.layout-dark .film-poster-container .drawer .watchlist:hover {
-  background: rgba(72, 52, 212, 0.5);
-  color: #636fa0;
+.film-poster-container .drawer .watchlist-fill {
+  background: rgba(72, 52, 212, 1);
+  color: #fff;
 }
 
-.layout-dark .film-poster-container .drawer .addlist:hover {
-  background: rgba(11, 232, 129, 0.5);
-  color: #44d472;
-}
-
-.layout-dark .film-poster-container .drawer .rate:hover {
-  background: rgba(253, 204, 13, 0.5);
-  color: #afb5c2;
+.film-poster-container .drawer .rate-fill {
+  background: rgba(253, 204, 13, 1);
+  color: #000;
+  font-weight: bold;
 }
