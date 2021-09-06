@@ -162,7 +162,7 @@ function FilmCrew (props) {
                         id={member.id}
                         artist={member.artist.id}
                         film={member.film.id}
-                        role={member.role}
+                        roles={member.roles}
                         token={props.token} 
                         hide={onModalUpdateHide} 
                     /> 
@@ -179,7 +179,7 @@ function FilmCrew (props) {
                                 {item.artist.name}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={12}>
-                                {getRoles(item.role)}
+                                {getRoles(item.roles)}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={6}>
                                 <Space size={[8, 8]} wrap>

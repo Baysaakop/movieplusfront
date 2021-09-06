@@ -65,14 +65,14 @@ function FilmUpdate (props) {
             if (values.is_released && values.is_released !== selection.is_released) {
                 formData.append('is_released', values.is_released)
             }
-            if (values.is_playing && values.is_playing !== selection.is_playing) {
-                formData.append('is_playing', values.is_playing)
+            if (values.in_theater && values.in_theater !== selection.in_theater) {
+                formData.append('in_theater', values.in_theater)
             }  
             if (values.rating && selection.rating && values.rating !== selection.rating.id.toString()) {
                 formData.append('rating', values.rating)
             }  
-            if (values.genre && selection.genre && values.genre !== getGenreIDs(selection.genre)) {
-                formData.append('genre', values.genre)
+            if (values.genres && selection.genres && values.genres !== getGenreIDs(selection.genres)) {
+                formData.append('genres', values.genres)
             } 
             if (description && description !== selection.description) {
                 formData.append('description', description)
@@ -208,7 +208,7 @@ function FilmUpdate (props) {
         let film = films.find(x => x.id === parseInt(e))
         form.setFieldsValue({
             title: film.title,
-            genre: film.genre ? getGenreIDs(film.genre) : undefined,
+            genres: film.genres ? getGenreIDs(film.genres) : undefined,
             rating: film.rating ? film.rating.id.toString() : undefined,
             releasedate: film.releasedate ? moment(film.releasedate) : undefined,
             duration: film.duration ? film.duration : undefined,
@@ -299,7 +299,7 @@ function FilmUpdate (props) {
                                         <Radio value={false}>Үгүй</Radio>
                                     </Radio.Group> 
                                 </Form.Item>     
-                                <Form.Item name="is_playing" label="Одоо гарч буй:">                               
+                                <Form.Item name="in_theater" label="Театрт гарч буй:">                               
                                     <Radio.Group defaultValue={false}>
                                         <Radio value={true}>Тийм</Radio>
                                         <Radio value={false}>Үгүй</Radio>
@@ -312,7 +312,7 @@ function FilmUpdate (props) {
                                 </Form.Item>                        
                                 <Row gutter={[16, 0]}>
                                     <Col xs={24} sm={24} md={24} lg={24} xl={8}>
-                                        <Form.Item name="genre" label="Төрөл жанр:">                        
+                                        <Form.Item name="genres" label="Төрөл жанр:">                        
                                             <Select
                                                 showSearch
                                                 mode="multiple"

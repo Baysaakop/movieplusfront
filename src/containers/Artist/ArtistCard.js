@@ -19,12 +19,12 @@ function ArtistCard (props) {
                         </a>                        
                     </div>
                 }                       
-            >
-                <Typography.Paragraph className="artist-title" ellipsis={{ rows: 2 }}>{props.artist.name}</Typography.Paragraph>
-                <Typography.Text className="artist-occupation">
+            >                
+                {/* <Typography.Text className="artist-occupation">
                     {props.artist.occupation ? props.artist.occupation[0].name : ''}
-                </Typography.Text>
+                </Typography.Text> */}
             </Card>
+            <Typography.Paragraph className="artist-title" ellipsis={{ rows: 2 }}>{props.artist.name}</Typography.Paragraph>
         </div>
     )
 }

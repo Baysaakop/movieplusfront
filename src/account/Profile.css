@@ -1,4 +1,15 @@
 .profile-top {
   width: 100%;
-  height: 200px;
+  padding: 24px;
+}
+
+.profile-top .ant-progress-circle .ant-progress-inner {
+  background-color: #000;
+  border: 3px solid #000;
+}
+
+.profile-top .ant-progress-circle .ant-progress-text {
+  color: #fff;
+  font-size: 24px;
+  font-family: "Rubik", sans-serif;
 }

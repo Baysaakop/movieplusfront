@@ -44,8 +44,8 @@ function ArtistCreate (props) {
         if (values.birthdate) {
             formData.append('birthdate', moment(values.birthdate).format("YYYY-MM-DD"))
         }                 
-        if (values.occupation) {
-            formData.append('occupation', values.occupation)
+        if (values.occupations) {
+            formData.append('occupations', values.occupations)
         } 
         if (values.facebook_channel) {
             formData.append('facebook_channel', values.facebook_channel)
@@ -163,7 +163,7 @@ function ArtistCreate (props) {
                                     </Form.Item>       
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={16}>
-                                    <Form.Item name="occupation" label="Мэргэжил:">                        
+                                    <Form.Item name="occupations" label="Мэргэжил:">                        
                                         <Select
                                             showSearch
                                             mode="multiple"

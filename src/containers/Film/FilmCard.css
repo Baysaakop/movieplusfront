@@ -1,6 +1,6 @@
 .film-card .ant-card-body {
-  padding: 8px;
-  height: 80px;
+  padding: 0px;
+  background: rgba(0, 0, 0, 0);
 }
 
 .film-card .ant-typography {
@@ -8,7 +8,8 @@
 }
 
 .film-card .film-title {
-  font-weight: bold;
+  font-weight: 600;
+  margin-top: 4px;
 }
 
 .film-card .film-releasedate {

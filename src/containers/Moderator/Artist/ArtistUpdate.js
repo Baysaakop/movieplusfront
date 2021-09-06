@@ -51,8 +51,8 @@ function ArtistUpdate (props) {
             if (values.birthdate && moment(values.birthdate).format("YYYY-MM-DD") !== moment(selection.birthdate).format("YYYY-MM-DD")) {
                 formData.append('birthdate', moment(values.birthdate).format("YYYY-MM-DD"))
             }                  
-            if (values.occupation && selection.occupation && values.occupation !== getOccupationIDs(selection.occupation)) {
-                formData.append('occupation', values.occupation)
+            if (values.occupations && selection.occupations && values.occupations !== getOccupationIDs(selection.occupations)) {
+                formData.append('occupations', values.occupations)
             } 
             if (values.facebook_channel && values.facebook_channel !== selection.facebook_channel) {
                 formData.append('facebook_channel', values.facebook_channel)
@@ -176,7 +176,7 @@ function ArtistUpdate (props) {
         let artist = artists.find(x => x.id === parseInt(e))
         form.setFieldsValue({
             name: artist.name,
-            occupation: artist.occupation ? getOccupationIDs(artist.occupation) : undefined,            
+            occupations: artist.occupations ? getOccupationIDs(artist.occupations) : undefined,            
             birthdate: artist.birthdate ? moment(artist.birthdate) : undefined,
             lastname: artist.lastname ? artist.lastname : undefined,
             firstname: artist.firstname ? artist.firstname : undefined,
@@ -276,7 +276,7 @@ function ArtistUpdate (props) {
                                         </Form.Item>       
                                     </Col>
                                     <Col xs={24} sm={24} md={24} lg={16}>
-                                        <Form.Item name="occupation" label="Мэргэжил:">                        
+                                        <Form.Item name="occupations" label="Мэргэжил:">                        
                                             <Select
                                                 showSearch
                                                 mode="multiple"

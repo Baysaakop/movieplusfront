@@ -100,7 +100,7 @@ function ArtistDetail (props) {
     function getDirector (members) {
         let results = []
         members.forEach(member => {
-            member.role.forEach(r => {
+            member.roles.forEach(r => {
                 if (r.id === 2) {
                     results.push(member)
                 }
@@ -112,7 +112,7 @@ function ArtistDetail (props) {
     function getProducer (members) {
         let results = []
         members.forEach(member => {
-            member.role.forEach(r => {
+            member.roles.forEach(r => {
                 if (r.id === 3) {
                     results.push(member)
                 }
@@ -124,7 +124,7 @@ function ArtistDetail (props) {
     function getCinematographer(members) {
         let results = []
         members.forEach(member => {
-            member.role.forEach(r => {
+            member.roles.forEach(r => {
                 if (r.id === 4) {
                     results.push(member)
                 }
@@ -136,7 +136,7 @@ function ArtistDetail (props) {
     function getScreenWriter (members) {
         let results = []
         members.forEach(member => {
-            member.role.forEach(r => {
+            member.roles.forEach(r => {
                 if (r.id === 5) {
                     results.push(member)
                 }
@@ -233,7 +233,7 @@ function ArtistDetail (props) {
                         <div className="container artist-info">                            
                             <Typography.Title level={5}>Мэргэжил</Typography.Title>
                             <Typography.Text>
-                                {artist.occupation.map(occupation => (
+                                {artist.occupations.map(occupation => (
                                     <span>{occupation.name}, </span>
                                 ))}
                             </Typography.Text>
@@ -276,7 +276,7 @@ function ArtistDetail (props) {
                                     <Typography.Title level={5}>{formatCount(artist.like_count)}</Typography.Title>
                                 </div>
                                 <div className="action">                                            
-                                    <Tooltip title="Үзсэн">
+                                    <Tooltip title="Follow">
                                         { user && user.profile.artists_followed.filter(x => x === artist.id).length > 0 ? 
                                             <Button className="followed-fill" size="large" shape="circle" type="text" icon={<BellOutlined />} onClick={onWatched} />
                                         :

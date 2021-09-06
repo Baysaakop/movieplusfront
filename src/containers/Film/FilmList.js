@@ -6,23 +6,62 @@ import './FilmList.css'
 import FilmCard from "./FilmCard"
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
+import moment from 'moment'
 
 function FilmList (props) {    
     const history = useHistory()
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(false)
-    const [films, setFilms] = useState()
-    const [page, setPage] = useState(1)
-    const [total, setTotal] = useState()
+    const [films, setFilms] = useState()    
     const [genres, setGenres] = useState()
 
-    useEffect(() => {        
+    const [genre, setGenre] = useState("0")
+    const [yearFrom, setYearFrom] = useState(1900)
+    const [yearTo, setYearTo] = useState(moment().year())    
+    const [page, setPage] = useState(1)    
+    const [total, setTotal] = useState()
+    const [order, setOrder] = useState("-created_at")
+
+    useEffect(() => {                
         if (props.token && !user) {
             getUser()
         }
-        getFilms()        
-        getGenres()
-    }, [page]) // eslint-disable-line react-hooks/exhaustive-deps        
+        if (!genres) {
+            getGenres()
+        }        
+        let params = new URLSearchParams(props.location.search)
+        let param_genre = params.get('genre')
+        let param_yearfrom = params.get('yearfrom')
+        let param_yearto = params.get('yearto')
+        let param_page = params.get('page')
+        let param_order = params.get('order')
+        if (param_genre && param_genre !== null) {
+            setGenre(param_genre)
+        } else {
+            setGenre(undefined)
+        }
+        if (param_yearfrom && param_yearfrom !== null) {
+            setYearFrom(param_yearfrom)
+        } else {
+            setYearFrom(1900)
+        }
+        if (param_yearto && param_yearto !== null) {
+            setYearTo(param_yearto)
+        } else {
+            setYearTo(moment().year())
+        }
+        if (param_page && param_page !== null) {
+            setPage(param_page)
+        } else {
+            setPage(1)
+        }
+        if (param_order && param_order !== null) {
+            setOrder(param_order)
+        } else {
+            setOrder('-created_at')
+        }
+        getFilms(props.location.search)                
+    }, [props.token, props.location.search]) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getGenres() {
         axios({
@@ -37,14 +76,12 @@ function FilmList (props) {
         })        
     }
 
-    function getFilms() {        
-        setLoading(true)
-        let url = `${api.films}?page=${page}`
+    function getFilms(url) {        
+        setLoading(true)        
         axios({
             method: 'GET',
-            url: url,
-        }).then(res => {            
-            console.log(res.data)
+            url: api.films + url,
+        }).then(res => {                        
             setFilms(res.data.results)
             setTotal(res.data.count)
             setLoading(false)
@@ -70,8 +107,47 @@ function FilmList (props) {
         })
     }    
 
+    function onSelectGenre (id) {
+        const params = new URLSearchParams(props.location.search)        
+        params.delete("genre")
+        if (parseInt(id) > 0) {
+            params.append("genre", id)
+        }
+        history.push(`/films?${params.toString()}`)        
+    }
+
+    function onSelectYearFrom (year) {        
+        if (year && year !== null && year.toString().length === 4) {
+            const params = new URLSearchParams(props.location.search)        
+            params.delete("yearfrom")
+            params.append("yearfrom", year)
+            history.push(`/films?${params.toString()}`)  
+        }              
+    }
+
+    function onSelectYearTo (year) {
+        if (year && year !== null && year.toString().length === 4) {
+            const params = new URLSearchParams(props.location.search)        
+            params.delete("yearto")
+            params.append("yearto", year)
+            history.push(`/films?${params.toString()}`)        
+        }
+    }
+
     function onPageChange (pageNum, pageSize) {        
-        setPage(pageNum)
+        const params = new URLSearchParams(props.location.search)        
+        params.delete("page")        
+        if (pageNum > 1) {
+            params.append("page", pageNum)
+        }
+        history.push(`/films?${params.toString()}`)      
+    }
+
+    function onSelectOrder (value) {
+        const params = new URLSearchParams(props.location.search)        
+        params.delete("order")
+        params.append("order", value)
+        history.push(`/films?${params.toString()}`)        
     }
 
     function showTotal() {
@@ -92,30 +168,30 @@ function FilmList (props) {
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Төрөл:</Typography.Title>                                                                        
-                        <Select defaultValue="0" style={{ width: '100%'}}>
-                            <Select.Option value="0">Бүгд</Select.Option>            
-                            { genres ? genres.map(genre => (
-                                <Select.Option value={genre.id}>{genre.name}</Select.Option>
+                        <Select defaultValue={genre} onSelect={onSelectGenre} style={{ width: '100%'}}>
+                            <Select.Option key="0" value="0">Бүгд</Select.Option>            
+                            { genres ? genres.map(g => (
+                                <Select.Option key={g.id} value={g.id}>{g.name}</Select.Option>
                             )) : []}                            
                         </Select>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Он (-оос):</Typography.Title>
-                        <InputNumber defaultValue={1900} style={{ width: '100%' }} />
+                        <InputNumber defaultValue={yearFrom} style={{ width: '100%' }} onChange={onSelectYearFrom} />
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Он (-хүртэл):</Typography.Title>
-                        <InputNumber defaultValue={2021} style={{ width: '100%' }} />
+                        <InputNumber defaultValue={yearTo} style={{ width: '100%' }} onBlur={onSelectYearTo} />
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={6}>
                         <Typography.Title level={5} style={{ marginBottom: '8px' }}>Эрэмбэлэх:</Typography.Title>
-                        <Select defaultValue="1" style={{ width: '100%'}}>
-                            <Select.Option value="1">Шинээр нэмэгдсэн</Select.Option>                            
-                            <Select.Option value="2">Нээлтийн огноо</Select.Option>
-                            <Select.Option value="3">Үнэлгээ</Select.Option>   
-                            <Select.Option value="4">Хандалт</Select.Option>   
-                            <Select.Option value="5">Таалагдсан</Select.Option>               
-                            <Select.Option value="6">Хадгалсан</Select.Option>                            
+                        <Select defaultValue={order} onSelect={onSelectOrder} style={{ width: '100%'}}>
+                            <Select.Option value="-created_at">Шинээр нэмэгдсэн</Select.Option>                            
+                            <Select.Option value="-releasedate">Нээлтийн огноо</Select.Option>
+                            <Select.Option value="-avg_score">Үнэлгээ</Select.Option>   
+                            <Select.Option value="-view_count">Хандалт</Select.Option>   
+                            <Select.Option value="-like_count">Таалагдсан</Select.Option>               
+                            <Select.Option value="-watchlist_count">Хадгалсан</Select.Option>                            
                         </Select>
                     </Col>
                 </Row>

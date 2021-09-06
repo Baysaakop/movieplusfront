@@ -26,6 +26,7 @@ function BaseRouter () {
             <Route exact path="/artists/:id" component={ArtistDetail} />
             <Route exact path="/articles" component={ArticleList} />
             <Route exact path="/articles/:id" component={ArticleDetail} />
+            {/* <Route exact path="/writereview/" component={ArticleDetail} /> */}
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />

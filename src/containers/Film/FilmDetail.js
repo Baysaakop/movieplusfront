@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography, Rate, Tabs, Avatar, Input } from "antd"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography, Rate, Tabs } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
-import { AppstoreAddOutlined, CheckOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
-import FilmComment from "./FilmComment"
+import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, PlusOutlined, StarOutlined } from "@ant-design/icons"
 import ArtistPopover from "../Artist/ArtistPopover"
-import SaveIcon from "../../components/SaveIcon"
+// import SaveIcon from "../../components/SaveIcon"
 import Trailer from "../../components/Trailer"
 import blank from './blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
+import FilmReview from "./FilmReview"
+import ReviewModal from "../../components/ReviewModal"
+import FilmComments from "./FilmComments"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -22,8 +24,6 @@ const data = [
     'VOO',    
 ];
 
-const desc = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-
 function FilmDetail (props) {
     const history = useHistory()
     const [user, setUser] = useState()
@@ -31,6 +31,7 @@ function FilmDetail (props) {
     const [crew, setCrew] = useState()
     const [cast, setCast] = useState()
     const [trailer, setTrailer] = useState(false)    
+    const [review, setReview] = useState(false)
 
     useEffect(() => {
         if (props.token && !user) {
@@ -113,7 +114,7 @@ function FilmDetail (props) {
     function getWholeCrew (members) {
         let results = []
         members.forEach(member => {
-            member.role.forEach(r => {
+            member.roles.forEach(r => {
                 let item = {                    
                     artist: member.artist,
                     role: r.name
@@ -237,7 +238,7 @@ function FilmDetail (props) {
                     'Authorization': `Token ${props.token}`                  
                 },
                 data: {
-                    score: val,
+                    score: val * 2,
                     film: film.id
                 }
             })            
@@ -270,7 +271,7 @@ function FilmDetail (props) {
                         {film.title}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                { film.landscape ? (
+                {/* { film.landscape ? (
                     <div style={{ marginTop: '24px', position: 'relative' }}>
                         <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
                         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -279,7 +280,7 @@ function FilmDetail (props) {
                     </div>
                 ) : (
                     <></>
-                )}                
+                )}  */}
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={12} lg={8} xl={6}>
                         <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -310,7 +311,7 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={12} lg={6}>
                                     <Typography.Title level={5}>Төрөл жанр</Typography.Title>
                                     <Space size={[8, 8]} wrap>
-                                    {film.genre.map(genre => (
+                                    {film.genres.map(genre => (
                                        <Tag color="geekblue" style={{ margin: 0 }}>{genre.name}</Tag>                                                                                      
                                     ))}                       
                                     </Space>                                       
@@ -358,7 +359,7 @@ function FilmDetail (props) {
                                     </div>                                                                        
                                 </Col>                                
                                 <Col xs={24} sm={24} md={24} lg={8} xl={6}>
-                                    <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />} style={{ borderWidth: '2px' }} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                    <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
                                     {trailer ? <Trailer title={film.title} trailer={film.trailer} hide={() => setTrailer(false)} /> : <></>} 
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={16} xl={18}>
@@ -392,9 +393,9 @@ function FilmDetail (props) {
                                         <div className="action">
                                             <Tooltip title="Дараа үзэх">
                                                 { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                                    <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<SaveIcon />} onClick={onWatchlist} />
+                                                    <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
                                                 :
-                                                    <Button className="watchlist" size="large" shape="circle" type="text" icon={<SaveIcon />} onClick={onWatchlist} />
+                                                    <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
                                                 }                                                
                                             </Tooltip>
                                             <Typography.Title level={5}>{formatCount(film.watchlist_count)}</Typography.Title>
@@ -413,7 +414,7 @@ function FilmDetail (props) {
                                                     trigger="click"
                                                     content={
                                                         <div>
-                                                            <Rate count={10} tooltips={desc} onChange={onRate} />
+                                                            <Rate defaultValue={user.profile.scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
                                                         </div>
                                                     }
                                                 >
@@ -426,7 +427,7 @@ function FilmDetail (props) {
                                                     trigger="click"
                                                     content={
                                                         <div>
-                                                            <Rate count={10} tooltips={desc} onChange={onRate} />
+                                                            <Rate allowHalf count={5} onChange={onRate} />
                                                         </div>
                                                     }
                                                 >
@@ -515,39 +516,22 @@ function FilmDetail (props) {
                                 </Tabs.TabPane>
                             </Tabs>                                                                                                                                          
                         </div>
-                        <div className="container film-comments" style={{ marginTop: '24px' }}>
-                            <Typography.Title level={3}>Сэтгэгдэл (3)</Typography.Title>
-                            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                                <div>               
-                                    <Avatar size="large" src="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" />
-                                </div>
-                                <div style={{ marginLeft: '12px', width: '100%' }}>
-                                    <Input.TextArea rows={4} placeholder="Сэтгэгдэл бичих..." style={{ width: '100%', marginBottom: '8px' }} />                    
-                                    <Button size="small" type="primary">Submit</Button>                        
-                                </div>
-                            </div>   
-                            <FilmComment 
-                                score={70} 
-                                name="Chandler Bing" 
+                        <div className="container film-reviews" style={{ marginTop: '24px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography.Title level={3} style={{ margin: 0 }}>Reviews (1)</Typography.Title>
+                                <Button icon={<PlusOutlined />} type="primary" onClick={() => setReview(true)}>Review бичих</Button>
+                                {review ? <ReviewModal title={film.title} hide={() => setReview(false)} /> : <></>} 
+                            </div>
+                            <FilmReview 
+                                score={100} 
+                                title="Memories of Murder ★★★★★ – Хамгийн шилдгийн нэг"
+                                author="Mungun" 
                                 date="2020 оны 7 сарын 13" 
                                 img="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
-                                text="This film is awesome on every level. It captivated me from start to finish with its humour, engaging story and incredible special effects. Idris holds the show together like the pro he is and all of the characters shine as individuals." 
-                            />
-                            <FilmComment 
-                                score={50} 
-                                name="John Doe" 
-                                date="2020 оны 1 сарын 25" 
-                                img="https://www.w3schools.com/howto/img_avatar.png" 
-                                text="No one is safe, and decency is thrown out the window. Not since Deadpool has a movie ever been so f****d up. Though Deadpool wandered more into the sexual and scatological terrain, The Suicide Squad, instead, blurs the line between cartoon violence and gory realism." 
-                            />
-                            <FilmComment 
-                                score={90} 
-                                name="Jane Jones" 
-                                date="2019 оны 10 сарын 25" 
-                                img="https://www.w3schools.com/bootstrap4/img_avatar4.png" 
-                                text="At times, The Suicide Squad feels less like a movie than a mission statement from a director. Behold, look what I can do with a budget and all the comic book characters I can play with. But, the unexpected heart at the center of the film, a sneaky anti-imperialist bent, and Gunn’s wild visual leaps make The Suicide Squad a bloody, gory delight." 
+                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat lacus lorem, a vestibulum tortor tempor a. Nulla facilisi. Vestibulum risus tellus, tincidunt in ante vel, auctor malesuada leo. Ut congue enim at lacus mattis, eu feugiat ex tempus. Vivamus id euismod magna. In pharetra tristique metus, non laoreet neque venenatis sodales. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas accumsan cursus urna non lobortis. Nulla urna risus, finibus nec est nec, aliquet imperdiet mauris. Donec faucibus nibh quis placerat imperdiet. Nam tincidunt aliquet arcu at pharetra. Suspendisse non aliquam nisi. Sed vehicula, velit in interdum pellentesque, dui lacus molestie augue, et varius nunc nisi non lorem. Sed accumsan mattis urna, in viverra neque tincidunt scelerisque. Maecenas vitae sollicitudin orci." 
                             />
                         </div>
+                        <FilmComments film={film.id} user={user} token={props.token} />
                     </Col>
                 </Row>
             </div>

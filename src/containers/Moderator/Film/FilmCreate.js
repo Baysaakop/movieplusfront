@@ -63,14 +63,14 @@ function FilmCreate (props) {
         if (values.is_released) {
             formData.append('is_released', values.is_released)
         }
-        if (values.is_playing) {
-            formData.append('is_playing', values.is_playing)
+        if (values.in_theater) {
+            formData.append('in_theater', values.in_theater)
         }  
         if (values.rating) {
             formData.append('rating', values.rating)
         }  
-        if (values.genre) {
-            formData.append('genre', values.genre)
+        if (values.genres) {
+            formData.append('genres', values.genres)
         } 
         if (poster) {
             formData.append('poster', poster)
@@ -182,7 +182,7 @@ function FilmCreate (props) {
                                     <Radio value={false}>Үгүй</Radio>
                                 </Radio.Group> 
                             </Form.Item>     
-                            <Form.Item name="is_playing" label="Одоо гарч буй:">                               
+                            <Form.Item name="in_theater" label="Театрт гарч буй:">                               
                                 <Radio.Group defaultValue={false}>
                                     <Radio value={true}>Тийм</Radio>
                                     <Radio value={false}>Үгүй</Radio>
@@ -195,7 +195,7 @@ function FilmCreate (props) {
                             </Form.Item>                        
                             <Row gutter={[16, 0]}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={8}>
-                                    <Form.Item name="genre" label="Төрөл жанр:">                        
+                                    <Form.Item name="genres" label="Төрөл жанр:">                        
                                         <Select
                                             showSearch
                                             mode="multiple"

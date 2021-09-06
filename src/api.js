@@ -13,6 +13,7 @@ const api = {
     productions: baseUrl + 'api/movies/productions',
     occupations: baseUrl + 'api/movies/occupations',            
     artists: baseUrl + 'api/movies/artists',        
+    comments: baseUrl + 'api/movies/comments',
     users: baseUrl + 'api/users',
     authFacebook: baseUrl + 'rest-auth/facebook/',
     authGoogle: baseUrl + 'rest-auth/google/',

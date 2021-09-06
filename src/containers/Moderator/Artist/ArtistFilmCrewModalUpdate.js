@@ -24,12 +24,12 @@ function ArtistFilmCrewModalUpdate (props) {
     }, [props.film]) // eslint-disable-line react-hooks/exhaustive-deps    
 
     function onFinish (values) {                
-        if (values.role) {
+        if (values.roles) {
             const url = `${api.crew}/${props.id}/`
             var formData = new FormData();
             formData.append('artist', props.artist)
             formData.append('film', props.film)
-            formData.append('role', values.role)
+            formData.append('roles', values.roles)
             formData.append('token', props.token)
             axios({
                 method: 'PUT',
@@ -68,7 +68,7 @@ function ArtistFilmCrewModalUpdate (props) {
             >                                                   
                 <div>                    
                     <Form layout="vertical" form={form} onFinish={onFinish}>    
-                        <Form.Item name="role" label="Роль:">                        
+                        <Form.Item name="roles" label="Роль:">                        
                             <Select
                                 showSearch
                                 mode="multiple"

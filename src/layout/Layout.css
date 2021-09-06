@@ -132,7 +132,7 @@ body {
 
 /* Button */
 
-.ant-btn-primary {
+/* .ant-btn-primary {
   background: #000;
   color: #fff;
   border: 1px solid #000;
@@ -142,7 +142,7 @@ body {
   background: #22282e;
   color: #fff;
   border: 1px solid #22282e;
-}
+} */
 
 .layout-dark .ant-btn-text {
   color: #fff;
@@ -233,6 +233,10 @@ body {
 .layout-dark .ant-timeline-item-head-blue {
   color: #fff;
   border-color: #fff;
+}
+
+.ant-rate {
+  font-size: 24px;
 }
 
 .ant-rate-star-first,

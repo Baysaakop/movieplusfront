@@ -47,11 +47,11 @@ function ArtistFilmCrewModalCreate (props) {
     function onFinish (values) {
         if (selection) {
             const url = `${api.crew}/`
-            if (values.role) {
+            if (values.roles) {
                 var formData = new FormData();
                 formData.append('artist', props.artist)
                 formData.append('film', selection.id)
-                formData.append('role', values.role)
+                formData.append('roles', values.roles)
                 formData.append('token', props.token)
                 axios({
                     method: 'POST',
@@ -120,7 +120,7 @@ function ArtistFilmCrewModalCreate (props) {
                         </Col>
                     </Row>
                     <Form layout="vertical" form={form} onFinish={onFinish} style={{ marginTop: '24px' }}>    
-                        <Form.Item name="role" label="Роль:">                        
+                        <Form.Item name="roles" label="Роль:">                        
                             <Select
                                 showSearch
                                 mode="multiple"
