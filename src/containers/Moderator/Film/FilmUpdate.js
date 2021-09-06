@@ -5,6 +5,7 @@ import api from "../../../api"
 import ImageUpload from '../../../components/ImageUpload'
 import { Editor } from '@tinymce/tinymce-react';
 import moment from "moment"
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 
 const { Search, TextArea } = Input
 const { Option } = Select
@@ -44,6 +45,7 @@ function FilmUpdate (props) {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
     
     function onFinish (values) {              
+        console.log(values)
         if (selection) {
             setLoading(true)       
             var formData = new FormData();        
@@ -62,10 +64,10 @@ function FilmUpdate (props) {
             if (values.releasedate && moment(values.releasedate).format("YYYY-MM-DD") !== moment(selection.releasedate).format("YYYY-MM-DD")) {
                 formData.append('releasedate', moment(values.releasedate).format("YYYY-MM-DD"))
             }         
-            if (values.is_released && values.is_released !== selection.is_released) {
+            if (values.is_released !== undefined && values.is_released !== selection.is_released) {
                 formData.append('is_released', values.is_released)
             }
-            if (values.in_theater && values.in_theater !== selection.in_theater) {
+            if (values.in_theater !== undefined && values.in_theater !== selection.in_theater) {
                 formData.append('in_theater', values.in_theater)
             }  
             if (values.rating && selection.rating && values.rating !== selection.rating.id.toString()) {
@@ -394,12 +396,12 @@ function FilmUpdate (props) {
                         <Form.Item>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Popconfirm title="Засах уу？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
-                                    <Button size="large" type="primary" style={{ width: '160px' }}>
+                                    <Button icon={<CheckOutlined />} type="primary" style={{ width: '160px' }}>
                                         Засах
                                     </Button>
                                 </Popconfirm>
                                 <Popconfirm title="Устгахдаа итгэлтэй байна уу？" okText="Тийм" cancelText="Үгүй" onConfirm={onDelete}>
-                                    <Button danger size="large" type="primary"  style={{ width: '160px' }}>
+                                    <Button danger icon={<CloseOutlined />} type="primary"  style={{ width: '160px' }}>
                                         Устгах
                                     </Button>
                                 </Popconfirm>

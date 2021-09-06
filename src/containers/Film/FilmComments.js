@@ -62,7 +62,7 @@ function FilmComments (props) {
 
     return (
         <div className="container film-comments" style={{ marginTop: '24px' }}>
-            <Typography.Title level={3}>Сэтгэгдэл (3)</Typography.Title>
+            <Typography.Title level={3}>Сэтгэгдэл ({comments ? comments.length : 0})</Typography.Title>
             { props.user ? (
                 <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                     <div>               
@@ -95,8 +95,11 @@ function FilmComments (props) {
             )}            
             { comments ? order(comments).map(item => (
                 <FilmComment             
+                    key={item.id}
                     data={item}
-                    user={props.user}                    
+                    user={props.user}       
+                    token={props.token}             
+                    onDelete={() => getComments(props.film)}
                 />
             )) : 
                 <div className="loading">

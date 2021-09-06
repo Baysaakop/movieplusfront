@@ -5,6 +5,7 @@ import api from "../../../api"
 import ImageUpload from '../../../components/ImageUpload'
 import { Editor } from '@tinymce/tinymce-react';
 import moment from "moment"
+import { PlusOutlined } from "@ant-design/icons"
 
 const { TextArea } = Input
 const { Option } = Select
@@ -60,10 +61,10 @@ function FilmCreate (props) {
         if (values.releasedate) {
             formData.append('releasedate', moment(values.releasedate).format("YYYY-MM-DD"))
         }         
-        if (values.is_released) {
+        if (values.is_released !== undefined) {
             formData.append('is_released', values.is_released)
         }
-        if (values.in_theater) {
+        if (values.in_theater !== undefined) {
             formData.append('in_theater', values.in_theater)
         }  
         if (values.rating) {
@@ -277,7 +278,7 @@ function FilmCreate (props) {
                     <Form.Item>
                         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                             <Popconfirm title="Нэмэх үү？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
-                                <Button size="large" type="primary" style={{ background: '#27ae60', border: '1px solid #27ae60', width: '160px' }}>
+                                <Button icon={<PlusOutlined />} type="primary" style={{ width: '160px' }}>
                                     Нэмэх
                                 </Button>
                             </Popconfirm>

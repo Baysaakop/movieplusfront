@@ -6,7 +6,7 @@ function FilmReview (props) {
             <Divider />
             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                 <div>
-                    <Avatar size={64} src={props.img} />
+                    <Avatar size="large" src={props.img} />
                 </div>
                 <div style={{ marginLeft: '12px', width: '100%' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>          

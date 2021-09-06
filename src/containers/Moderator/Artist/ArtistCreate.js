@@ -5,6 +5,7 @@ import api from "../../../api"
 import ImageUpload from '../../../components/ImageUpload'
 import { Editor } from '@tinymce/tinymce-react';
 import moment from "moment"
+import { PlusOutlined } from "@ant-design/icons"
 
 const { Option } = Select
 
@@ -213,7 +214,7 @@ function ArtistCreate (props) {
                     <Form.Item>
                         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                             <Popconfirm title="Нэмэх үү？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
-                                <Button size="large" type="primary" style={{ background: '#27ae60', border: '1px solid #27ae60', width: '160px' }}>
+                                <Button icon={<PlusOutlined />} type="primary" style={{ width: '160px' }}>
                                     Нэмэх
                                 </Button>
                             </Popconfirm>

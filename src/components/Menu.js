@@ -101,7 +101,7 @@ function CustomMenu (props) {
                     <Button className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
                     <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                        
                     { user ? (
-                        <Tooltip title="Profile">
+                        <Tooltip title="Profile" placement="bottom">
                             <a href="/profile">
                                 {user.profile.avatar ? (
                                     <Avatar 

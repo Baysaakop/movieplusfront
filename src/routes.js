@@ -15,6 +15,7 @@ import ArticleList from './containers/Article/ArticleList';
 import ArticleDetail from './containers/Article/ArticleDetail';
 import PageNotFound from './components/PageNotFound';
 import Moderator from './containers/Moderator/Moderator';
+import ReviewWrite from './containers/Review/ReviewWrite';
 
 function BaseRouter () {
     return (
@@ -26,7 +27,7 @@ function BaseRouter () {
             <Route exact path="/artists/:id" component={ArtistDetail} />
             <Route exact path="/articles" component={ArticleList} />
             <Route exact path="/articles/:id" component={ArticleDetail} />
-            {/* <Route exact path="/writereview/" component={ArticleDetail} /> */}
+            <Route exact path="/writereview/:id" component={ReviewWrite} />
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />

@@ -5,6 +5,7 @@ import api from "../../../api"
 import ImageUpload from '../../../components/ImageUpload'
 import { Editor } from '@tinymce/tinymce-react';
 import moment from "moment"
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 
 const { Search } = Input
 const { Option } = Select
@@ -326,12 +327,12 @@ function ArtistUpdate (props) {
                         <Form.Item>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Popconfirm title="Засах уу？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>
-                                    <Button size="large" type="primary" style={{ width: '160px' }}>
+                                    <Button icon={<CheckOutlined />} type="primary" style={{ width: '160px' }}>
                                         Засах
                                     </Button>
                                 </Popconfirm>
                                 <Popconfirm title="Устгахдаа итгэлтэй байна уу？" okText="Тийм" cancelText="Үгүй" onConfirm={onDelete}>
-                                    <Button danger size="large" type="primary"  style={{ width: '160px' }}>
+                                    <Button danger icon={<CloseOutlined />} type="primary"  style={{ width: '160px' }}>
                                         Устгах
                                     </Button>
                                 </Popconfirm>
