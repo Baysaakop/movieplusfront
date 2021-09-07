@@ -1,0 +1,72 @@
+.film-listitem .ant-progress-circle .ant-progress-inner {
+  background-color: #000;
+  border: 3px solid #000;
+}
+
+.film-listitem .ant-progress-circle .ant-progress-text {
+  color: #fff;
+  font-size: 24px;
+  font-family: "Rubik", sans-serif;
+}
+
+.film-listitem .actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.film-listitem .actions .ant-btn {
+  margin: 0px;
+  transition: 0.3s ease-in-out;
+}
+
+.film-listitem .actions .like:hover,
+.film-listitem .actions .like-fill:hover {
+  background: rgba(231, 76, 60, 0.25);
+  color: #c0392b;
+}
+
+.film-listitem .actions .watched:hover,
+.film-listitem .actions .watched-fill:hover {
+  background: rgba(76, 209, 55, 0.25);
+  color: #44bd32;
+}
+
+.film-listitem .actions .watchlist:hover,
+.film-listitem .actions .watchlist-fill:hover {
+  background: rgba(72, 52, 212, 0.25);
+  color: #130f40;
+}
+
+.film-listitem .actions .addlist:hover {
+  background: rgba(11, 232, 129, 0.25);
+  color: #009432;
+}
+
+.film-listitem .actions .rate:hover,
+.film-listitem .actions .rate-fill:hover {
+  background: rgba(253, 204, 13, 0.5);
+  color: #2f3542;
+}
+
+.film-listitem .actions .like-fill {
+  background: rgba(231, 76, 60, 1);
+  color: #fff;
+}
+
+.film-listitem .actions .watched-fill {
+  background: rgba(76, 209, 55, 1);
+  color: #fff;
+}
+
+.film-listitem .actions .watchlist-fill {
+  background: rgba(72, 52, 212, 1);
+  color: #fff;
+}
+
+.film-listitem .actions .rate-fill {
+  background: rgba(253, 204, 13, 1);
+  color: #000;
+  font-weight: bold;
+}

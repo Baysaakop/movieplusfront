@@ -3,7 +3,6 @@
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  margin-right: 16px;
   padding: 8px 16px;
   border-radius: 2px;
   cursor: pointer;
@@ -58,28 +57,26 @@
   align-items: center;
 }
 
-.menu-large .menu-right .menu-item {
-  margin-right: 8px;
+.menu-large .menu-left .menu-item {
+  margin-left: 16px;
   transition: 0.3s ease-in-out;
 }
 
-.menu-large .menu-right .menu-item:hover {
+.menu-large .menu-left .menu-item:hover {
   background: #d5d5d5;
 }
 
-.layout-dark .menu-large .menu-right .menu-item:hover {
+.layout-dark .menu-large .menu-left .menu-item:hover {
   background: #22282e;
 }
 
-.menu-large .menu-right .selected-menu-item {
-  margin-right: 8px;
+.menu-large .menu-left .selected-menu-item {
+  margin-left: 16px;
   transition: 0.3s ease-in-out;
   border: 1px solid #000;
 }
 
-.layout-dark .menu-large .menu-right .selected-menu-item {
-  margin-right: 8px;
-  transition: 0.3s ease-in-out;
+.layout-dark .menu-large .menu-left .selected-menu-item {
   border: 1px solid #fff;
 }
 

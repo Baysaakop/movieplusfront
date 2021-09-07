@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tag, Tooltip, Typography, Rate, Tabs } from "antd"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tooltip, Typography, Rate, Tabs } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
 import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, PlusOutlined, StarOutlined } from "@ant-design/icons"
@@ -12,6 +12,7 @@ import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import FilmReview from "./FilmReview"
 import FilmComments from "./FilmComments"
+import GenreTag from "../../components/GenreTag"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -255,6 +256,14 @@ function FilmDetail (props) {
         }       
     }
 
+    function getPercent(percent) {
+        if (percent === 0 ) {
+            return '?'
+        } else {
+            return `${percent}`
+        }
+    }
+
     return (
         film ? (
             <div>            
@@ -310,7 +319,7 @@ function FilmDetail (props) {
                                     <Typography.Title level={5}>Төрөл жанр</Typography.Title>
                                     <Space size={[8, 8]} wrap>
                                     {film.genres.map(genre => (
-                                       <Tag key={genre.id} color="geekblue" style={{ margin: 0 }}>{genre.name}</Tag>                                                                                      
+                                       <GenreTag genre={genre.name} />                                                    
                                     ))}                       
                                     </Space>                                       
                                 </Col>
@@ -329,38 +338,51 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                                     <Progress                                                                   
                                         type="circle"
-                                        width={64}                                                 
-                                        strokeColor="#f39c12"
+                                        width={80}                                                 
+                                        strokeColor={
+                                            film.avg_score < 25 ? '#eb2f06' :
+                                            film.avg_score < 50 ? '#e67e22' :
+                                            film.avg_score < 75 ? '#fff200' :
+                                            '#4cd137'
+                                        }
+                                        // strokeColor={{
+                                        //     '0': '#7158e2',
+                                        //     '100%': '#4cd137',
+                                        // }}
                                         trailColor="#3c3c3c"                                 
                                         strokeWidth={6}      
                                         percent={film.avg_score}
-                                        format={percent => `${percent}`}
+                                        format={percent => getPercent(percent)}
                                     />         
                                     <div style={{ marginLeft: '12px' }}>
                                         <Typography.Title level={4} style={{ marginBottom: 0 }}>Үзэгчдийн үнэлгээ</Typography.Title>
-                                        <Typography.Text>/ Үнэлгээ өгсөн: {formatCount(film.score_count)} /</Typography.Text>
+                                        <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                     </div>                                                                        
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                                     <Progress                                                                   
                                         type="circle"
-                                        width={64}                                                 
-                                        strokeColor="#f39c12"
-                                        trailColor="#3c3c3c"                                 
+                                        width={80}                                                 
+                                        strokeColor="#e67e22"                                        
+                                        trailColor="#3c3c3c"                                                                                                              
                                         strokeWidth={6}      
-                                        percent={63}
+                                        percent={43}
                                         format={percent => `${percent}`}
                                     />         
                                     <div style={{ marginLeft: '12px' }}>
                                         <Typography.Title level={4} style={{ marginBottom: 0 }}>Шүүмжлэгчдийн үнэлгээ</Typography.Title>
-                                        <Typography.Text>/ Үнэлгээ өгсөн: {formatCount(26)} /</Typography.Text>
+                                        <Typography.Text>/ Санал: {formatCount(26)} /</Typography.Text>
                                     </div>                                                                        
                                 </Col>                                
-                                <Col xs={24} sm={24} md={24} lg={8} xl={6}>
-                                    <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={6}>
+                                    { film.trailer ? (
+                                        <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                    ) : (                                        
+                                        <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
+                                    )}                                    
                                     {trailer ? <Trailer title={film.title} trailer={film.trailer} hide={() => setTrailer(false)} /> : <></>} 
                                 </Col>
-                                <Col xs={24} sm={24} md={24} lg={16} xl={18}>
+                                <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={18}>
                                     { film.is_released ? (
                                         <div className="actions">
                                             <div className="action">

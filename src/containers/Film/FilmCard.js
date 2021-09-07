@@ -6,6 +6,7 @@ import './FilmCard.css'
 import blank from './blank.jpg'
 import axios from "axios";
 import api from "../../api";
+import moment from 'moment'
 
 function FilmCard (props) {
 
@@ -134,6 +135,14 @@ function FilmCard (props) {
         }       
     }
 
+    function getPercent(percent) {
+        if (percent === 0 ) {
+            return '?'
+        } else {
+            return `${percent}`
+        }
+    }
+
     return (
         <div className="film-card">
             { film ? (
@@ -154,11 +163,16 @@ function FilmCard (props) {
                                     <Progress                                
                                         type="circle"
                                         width={40}                                                 
-                                        strokeColor="#f39c12"
+                                        strokeColor={
+                                            film.avg_score < 25 ? '#eb2f06' :
+                                            film.avg_score < 50 ? '#e67e22' :
+                                            film.avg_score < 75 ? '#fff200' :
+                                            '#4cd137'
+                                        }
                                         trailColor="#3c3c3c"                                 
                                         strokeWidth={6}      
                                         percent={film.avg_score}
-                                        format={percent => `${percent}`}
+                                        format={percent => getPercent(percent)}
                                     />                    
                                 </div>
                                 <div className="film-actions">
@@ -232,7 +246,7 @@ function FilmCard (props) {
                     >                    
                         {/* <Typography.Text className="film-releasedate">{film.releasedate}</Typography.Text> */}
                     </Card>
-                    <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{film.title}</Typography.Paragraph>
+                    <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{film.title} ({moment(film.releasedate).year()})</Typography.Paragraph>
                 </>
             ) : (
                 <Spin />
