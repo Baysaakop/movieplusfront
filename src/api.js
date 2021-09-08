@@ -3,7 +3,7 @@ const baseUrl = "http://localhost:8000/"
 // const baseUrl = "https://movieplusback.herokuapp.com/"
 
 const api = {
-    // movies: baseUrl + 'api/movies/movies',
+    // movies
     films: baseUrl + 'api/movies/films',
     crew: baseUrl + 'api/movies/crewmembers',
     cast: baseUrl + 'api/movies/castmembers',    
@@ -14,6 +14,12 @@ const api = {
     occupations: baseUrl + 'api/movies/occupations',            
     artists: baseUrl + 'api/movies/artists',        
     comments: baseUrl + 'api/movies/comments',
+    // articles
+    categories: baseUrl + 'api/articles/categories',   
+    articleComments: baseUrl + 'api/articles/comments',
+    articles: baseUrl + 'api/articles/articles',   
+    reviews: baseUrl + 'api/articles/reviews',        
+    // users
     users: baseUrl + 'api/users',
     authFacebook: baseUrl + 'rest-auth/facebook/',
     authGoogle: baseUrl + 'rest-auth/google/',

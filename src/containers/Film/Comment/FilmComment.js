@@ -1,10 +1,10 @@
 import { CloseCircleOutlined, DislikeFilled, DislikeOutlined, EditOutlined, LikeFilled, LikeOutlined, MessageFilled, MessageOutlined, UserOutlined } from "@ant-design/icons"
-import { Avatar, Button, Divider, Input, Space, Typography, Form, message, Spin, Popconfirm, notification } from "antd"
+import { Avatar, Button, Divider, Input, Space, Typography, Form, message, Popconfirm, notification } from "antd"
 import { useEffect, useState } from "react"
 import './FilmComment.css'
 import moment from 'moment'
 import axios from "axios"
-import api from "../../api"
+import api from "../../../api"
 
 function FilmComment (props) {
     const [form] = Form.useForm()
@@ -203,7 +203,7 @@ function FilmComment (props) {
                     </div>
                 </div> 
             ) : (
-                <Spin />
+                <></>
             )}                                           
         </div>
     )

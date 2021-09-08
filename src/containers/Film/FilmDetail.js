@@ -4,15 +4,15 @@ import api from "../../api"
 import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tooltip, Typography, Rate, Tabs } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
-import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, PlusOutlined, StarOutlined } from "@ant-design/icons"
+import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import ArtistPopover from "../Artist/ArtistPopover"
 import Trailer from "../../components/Trailer"
 import blank from './blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
-import FilmReview from "./FilmReview"
-import FilmComments from "./FilmComments"
+import FilmComments from "./Comment/FilmComments"
 import GenreTag from "../../components/GenreTag"
+import FilmReviews from "./Review/FilmReviews"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -545,7 +545,7 @@ function FilmDetail (props) {
                                 </Tabs.TabPane>
                             </Tabs>                                                                                                                                          
                         </div>
-                        <div className="container film-reviews" style={{ marginTop: '24px' }}>
+                        {/* <div className="container film-reviews" style={{ marginTop: '24px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Typography.Title level={3} style={{ margin: 0 }}>Reviews (1)</Typography.Title>
                                 { film.is_released ? (
@@ -562,8 +562,13 @@ function FilmDetail (props) {
                                 img="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
                                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat lacus lorem, a vestibulum tortor tempor a. Nulla facilisi. Vestibulum risus tellus, tincidunt in ante vel, auctor malesuada leo. Ut congue enim at lacus mattis, eu feugiat ex tempus. Vivamus id euismod magna. In pharetra tristique metus, non laoreet neque venenatis sodales. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas accumsan cursus urna non lobortis. Nulla urna risus, finibus nec est nec, aliquet imperdiet mauris. Donec faucibus nibh quis placerat imperdiet. Nam tincidunt aliquet arcu at pharetra. Suspendisse non aliquam nisi. Sed vehicula, velit in interdum pellentesque, dui lacus molestie augue, et varius nunc nisi non lorem. Sed accumsan mattis urna, in viverra neque tincidunt scelerisque. Maecenas vitae sollicitudin orci." 
                             />
-                        </div>
-                        <FilmComments film={film.id} user={user} token={props.token} />
+                        </div> */}
+                        { film.is_released ? (
+                            <>
+                                <FilmReviews film={film.id} user={user} token={props.token} />
+                                <FilmComments film={film.id} user={user} token={props.token} />
+                            </>
+                        ) : ([])}
                     </Col>
                 </Row>
             </div>

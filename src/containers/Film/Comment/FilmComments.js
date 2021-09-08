@@ -2,7 +2,7 @@ import { UserOutlined } from "@ant-design/icons"
 import { Avatar, Button, Form, Input, message, Spin, Typography } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import api from "../../api"
+import api from "../../../api"
 import FilmComment from "./FilmComment"
 import moment from 'moment'
 
@@ -62,7 +62,7 @@ function FilmComments (props) {
 
     return (
         <div className="container film-comments" style={{ marginTop: '24px' }}>
-            <Typography.Title level={3}>Сэтгэгдэл ({comments ? comments.length : 0})</Typography.Title>
+            <Typography.Title level={4}>Сэтгэгдэл ({comments ? comments.length : 0})</Typography.Title>
             { props.user ? (
                 <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                     <div>               

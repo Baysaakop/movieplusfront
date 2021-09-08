@@ -162,6 +162,20 @@ body {
   border-color: #1890ff;
 }
 
+.ant-btn-dashed {
+  background: rgba(0, 0, 0, 0);
+}
+
+.layout-dark .ant-btn-dashed {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.layout-dark .ant-btn-dashed:hover {
+  background: rgba(0, 0, 0, 0);
+  color: #1890ff;
+  border-color: #1890ff;
+}
+
 .layout-dark .ant-breadcrumb a,
 .layout-dark .ant-breadcrumb-separator {
   color: rgba(255, 255, 255, 0.45);
