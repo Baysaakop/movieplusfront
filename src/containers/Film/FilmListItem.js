@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { AppstoreAddOutlined, HeartOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Row, Col, Typography, Space, Progress, Button, Tooltip, Popover, Rate, message, Spin } from "antd";
+import { Row, Col, Typography, Space, Button, Tooltip, Popover, Rate, message, Spin } from "antd";
 import { useEffect, useState } from "react";
 import './FilmCard.css'
 import blank from './blank.jpg'
@@ -8,6 +8,7 @@ import axios from "axios";
 import api from "../../api";
 import './FilmListItem.css'
 import GenreTag from '../../components/GenreTag';
+import FilmScore from './FilmScore';
 
 function FilmListItem (props) {
 
@@ -145,14 +146,6 @@ function FilmListItem (props) {
         }
     }
 
-    function getPercent(percent) {
-        if (percent === 0 ) {
-            return '?'
-        } else {
-            return `${percent}`
-        }
-    }
-
     return (
         <div className="film-listitem">
             { film ? (
@@ -181,35 +174,14 @@ function FilmListItem (props) {
                                 { film.duration ? <Typography.Text style={{ display: 'block', margin: '4px 0' }}>{getDuration(film.duration)}</Typography.Text> : <></> }  */}
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                <Progress                                                                   
-                                    type="circle"
-                                    width={64}                                                 
-                                    strokeColor={
-                                        film.avg_score < 25 ? '#eb2f06' :
-                                        film.avg_score < 50 ? '#e67e22' :
-                                        film.avg_score < 75 ? '#fff200' :
-                                        '#4cd137'
-                                    }
-                                    trailColor="#3c3c3c"                                 
-                                    strokeWidth={6}      
-                                    percent={film.avg_score}
-                                    format={percent => getPercent(percent)}
-                                />         
+                                <FilmScore type="mid" score={film.avg_score} />     
                                 <div style={{ marginLeft: '12px' }}>
                                     <Typography.Title level={5} style={{ marginBottom: 0 }}>Үзэгчдээс</Typography.Title>
                                     <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                 </div>                                                                        
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                <Progress                                                                   
-                                    type="circle"
-                                    width={64}                                                 
-                                    strokeColor="#e67e22"
-                                    trailColor="#3c3c3c"                                 
-                                    strokeWidth={6}      
-                                    percent={43}
-                                    format={percent => `${percent}`}
-                                />         
+                                <FilmScore type="mid" score={47} />     
                                 <div style={{ marginLeft: '12px' }}>
                                     <Typography.Title level={5} style={{ marginBottom: 0 }}>Шүүмжлэгчдээс</Typography.Title>
                                     <Typography.Text>/ Санал: {formatCount(26)} /</Typography.Text>

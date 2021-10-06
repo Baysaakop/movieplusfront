@@ -1,7 +1,8 @@
 import { CommentOutlined, EyeOutlined, LikeOutlined, UserOutlined } from "@ant-design/icons"
-import { Avatar, Button, Divider, Progress, Space, Typography } from "antd"
+import { Avatar, Button, Divider, Space, Typography } from "antd"
 import { useState, useEffect } from "react"
 import moment from 'moment'
+import FilmScore from "../FilmScore"
 
 function FilmReview (props) {
 
@@ -35,27 +36,16 @@ function FilmReview (props) {
                     <div style={{ marginLeft: '12px', width: '100%' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>          
                             <div>
-                                <Typography.Title level={5} style={{ margin: 0 }}>{review.title}</Typography.Title>
+                                <a href={`/reviews/${review.id}`}>
+                                    <Typography.Title level={5} style={{ margin: 0 }}>{review.title}</Typography.Title>
+                                </a>
                                 <Typography.Text style={{ fontSize: '12px', margin: 0 }}>
                                     <span>Нийтлэсэн: {review.author.username}</span>
-                                    <span> / {moment(review.created_at).fromNow()} /</span>
+                                    <span> / {moment(review.created_at).format("YYYY-MM-DD")} /</span>
                                 </Typography.Text>
                             </div>      
                             <div>
-                                <Progress                                                                   
-                                    type="circle"
-                                    width={40}                                                 
-                                    strokeColor={
-                                        review.score * 10 < 25 ? '#eb2f06' :
-                                        review.score * 10 < 50 ? '#e67e22' :
-                                        review.score * 10 < 75 ? '#fff200' :
-                                        '#4cd137'
-                                    }
-                                    trailColor="#3c3c3c"                                 
-                                    strokeWidth={6}      
-                                    percent={review.score * 10}
-                                    format={percent => `${percent / 10}`}
-                                /> 
+                                <FilmScore type="card" score={review.score * 10} />
                             </div>
                         </div>       
                         <div style={{ marginTop: '16px' }}>
@@ -65,8 +55,8 @@ function FilmReview (props) {
                             </Typography.Paragraph> 
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                                 <Space size={[16, 16]} wrap>
-                                    <Typography.Text><EyeOutlined /> {review.view_count}</Typography.Text>
-                                    <Typography.Text><LikeOutlined /> {review.like_count}</Typography.Text>
+                                    <Typography.Text><EyeOutlined /> {review.view_count} | </Typography.Text>
+                                    <Typography.Text><LikeOutlined /> {review.like_count} | </Typography.Text>
                                     <Typography.Text><CommentOutlined /> {review.comments.length}</Typography.Text>
                                 </Space>
                                 <Button href={`/reviews/${review.id}`} size="small" type="link">Дэлгэрэнгүй...</Button>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Popover, Progress, Row, Space, Spin, Tooltip, Typography, Rate, Tabs } from "antd"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
 import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom"
 import FilmComments from "./Comment/FilmComments"
 import GenreTag from "../../components/GenreTag"
 import FilmReviews from "./Review/FilmReviews"
+import FilmScore from "./FilmScore"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -256,14 +257,6 @@ function FilmDetail (props) {
         }       
     }
 
-    function getPercent(percent) {
-        if (percent === 0 ) {
-            return '?'
-        } else {
-            return `${percent}`
-        }
-    }
-
     return (
         film ? (
             <div>            
@@ -335,40 +328,15 @@ function FilmDetail (props) {
                                     <Typography.Title level={5}>Үргэлжлэх хугацаа</Typography.Title>
                                     <Typography.Text>{getDuration(film.duration)}</Typography.Text>                            
                                 </Col>
-                                <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                    <Progress                                                                   
-                                        type="circle"
-                                        width={80}                                                 
-                                        strokeColor={
-                                            film.avg_score < 25 ? '#eb2f06' :
-                                            film.avg_score < 50 ? '#e67e22' :
-                                            film.avg_score < 75 ? '#fff200' :
-                                            '#4cd137'
-                                        }
-                                        // strokeColor={{
-                                        //     '0': '#7158e2',
-                                        //     '100%': '#4cd137',
-                                        // }}
-                                        trailColor="#3c3c3c"                                 
-                                        strokeWidth={6}      
-                                        percent={film.avg_score}
-                                        format={percent => getPercent(percent)}
-                                    />         
+                                <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>                                    
+                                    <FilmScore type="detail" score={film.avg_score} />
                                     <div style={{ marginLeft: '12px' }}>
                                         <Typography.Title level={4} style={{ marginBottom: 0 }}>Үзэгчдийн үнэлгээ</Typography.Title>
                                         <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                     </div>                                                                        
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                    <Progress                                                                   
-                                        type="circle"
-                                        width={80}                                                 
-                                        strokeColor="#e67e22"                                        
-                                        trailColor="#3c3c3c"                                                                                                              
-                                        strokeWidth={6}      
-                                        percent={43}
-                                        format={percent => `${percent}`}
-                                    />         
+                                    <FilmScore type="detail" score={47} />
                                     <div style={{ marginLeft: '12px' }}>
                                         <Typography.Title level={4} style={{ marginBottom: 0 }}>Шүүмжлэгчдийн үнэлгээ</Typography.Title>
                                         <Typography.Text>/ Санал: {formatCount(26)} /</Typography.Text>
@@ -544,25 +512,7 @@ function FilmDetail (props) {
                                     </div>
                                 </Tabs.TabPane>
                             </Tabs>                                                                                                                                          
-                        </div>
-                        {/* <div className="container film-reviews" style={{ marginTop: '24px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography.Title level={3} style={{ margin: 0 }}>Reviews (1)</Typography.Title>
-                                { film.is_released ? (
-                                    <Button href={`/writereview/${film.id}/`} icon={<PlusOutlined />} type="primary">Review бичих</Button>                                
-                                ) : (
-                                    <></>
-                                )}                                
-                            </div>
-                            <FilmReview 
-                                score={100} 
-                                title="Memories of Murder ★★★★★ – Хамгийн шилдгийн нэг"
-                                author="Mungun" 
-                                date="2020 оны 7 сарын 13" 
-                                img="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" 
-                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat lacus lorem, a vestibulum tortor tempor a. Nulla facilisi. Vestibulum risus tellus, tincidunt in ante vel, auctor malesuada leo. Ut congue enim at lacus mattis, eu feugiat ex tempus. Vivamus id euismod magna. In pharetra tristique metus, non laoreet neque venenatis sodales. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas accumsan cursus urna non lobortis. Nulla urna risus, finibus nec est nec, aliquet imperdiet mauris. Donec faucibus nibh quis placerat imperdiet. Nam tincidunt aliquet arcu at pharetra. Suspendisse non aliquam nisi. Sed vehicula, velit in interdum pellentesque, dui lacus molestie augue, et varius nunc nisi non lorem. Sed accumsan mattis urna, in viverra neque tincidunt scelerisque. Maecenas vitae sollicitudin orci." 
-                            />
-                        </div> */}
+                        </div>                        
                         { film.is_released ? (
                             <>
                                 <FilmReviews film={film.id} user={user} token={props.token} />

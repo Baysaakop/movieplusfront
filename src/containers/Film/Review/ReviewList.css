@@ -1,0 +1,11 @@
+.reviews .ant-list-vertical .ant-list-item-meta-title {
+    margin: 0;
+}
+
+.reviews .ant-list-item-action > li {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.layout-dark .reviews .ant-list-item-action > li {
+    color: rgba(255, 255, 255, 0.75);
+}

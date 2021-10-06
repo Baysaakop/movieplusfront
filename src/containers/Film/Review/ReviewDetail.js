@@ -1,15 +1,19 @@
 import axios from "axios"
 import api from "../../../api"
 import { connect } from "react-redux"
-import { message, Row, Col, Spin, Typography, Space, Button, Avatar, Progress } from "antd"
+import { Grid, message, Row, Col, Spin, Typography, Space, Button, Avatar, Tooltip } from "antd"
 import { useEffect, useState } from "react"
 import moment from 'moment'
 import './ReviewDetail.css'
 import { CommentOutlined, EyeOutlined, FacebookFilled, InstagramOutlined, LikeOutlined, UserOutlined, YoutubeOutlined } from "@ant-design/icons"
 import blank from '../blank.jpg'
+import GenreTag from "../../../components/GenreTag"
+import FilmScore from "../FilmScore"
+
+const { useBreakpoint } = Grid
 
 function ReviewDetail (props) {
-    
+    const screens = useBreakpoint()
     const [user, setUser] = useState()
     const [review, setReview] = useState()
     const [film, setFilm] = useState()
@@ -80,7 +84,7 @@ function ReviewDetail (props) {
                 <Row gutter={[24, 24]}>
                     <Col xs={24} sm={24} md={24} lg={16}>
                         <img className="review-thumbnail" alt={review.title} src={review.thumbnail} />
-                        <div className="container review-detail" style={{ padding: '24px 80px' }}>          
+                        <div className="container review-detail" style={ screens.xs ? { padding: '16px' } : { padding: '24px 80px' }}>          
                             <Typography.Title level={2} style={{ marginBottom: '8px' }}>{review.title}</Typography.Title>       
                             <Typography.Paragraph style={{ fontSize: '16px', marginBottom: '8px' }}>
                                 <div style={{ width: '100%', overflow: 'hidden' }} dangerouslySetInnerHTML={{__html: review.content }} />                                               
@@ -130,9 +134,15 @@ function ReviewDetail (props) {
                                 </div>                                                                                          
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <Button type="text" size="large" style={{ background: '#3B5998', color: '#fff', marginBottom: '8px' }} icon={<FacebookFilled />} />
-                                <Button type="text" size="large" style={{ background: '#125688', color: '#fff', marginBottom: '8px' }} icon={<InstagramOutlined />} />
-                                <Button type="text" size="large" style={{ background: '#bb0000', color: '#fff' }} icon={<YoutubeOutlined />} />                                
+                                <Tooltip title="Facebook" placement="right">
+                                    <Button type="text" size="large" style={{ background: '#3B5998', color: '#fff', marginBottom: '8px' }} icon={<FacebookFilled />} />
+                                </Tooltip>
+                                <Tooltip title="Instagram" placement="right">
+                                    <Button type="text" size="large" style={{ background: '#125688', color: '#fff', marginBottom: '8px' }} icon={<InstagramOutlined />} />
+                                </Tooltip>
+                                <Tooltip title="YouTube" placement="right">
+                                    <Button type="text" size="large" style={{ background: '#bb0000', color: '#fff' }} icon={<YoutubeOutlined />} />                                
+                                </Tooltip>
                             </div>
                         </div>
                         <div className="container" style={{ marginTop: '24px' }}>  
@@ -140,40 +150,14 @@ function ReviewDetail (props) {
                                 <Col span={12}>
                                     <Typography.Title level={4} style={{ marginBottom: '16px' }}>Өгсөн оноо:</Typography.Title>
                                     <div style={{ textAlign: 'center' }}>
-                                        <Progress                                                                   
-                                            type="circle"
-                                            width={64}                                                 
-                                            strokeColor={
-                                                review.score * 10 < 25 ? '#eb2f06' :
-                                                review.score * 10 < 50 ? '#e67e22' :
-                                                review.score * 10 < 75 ? '#fff200' :
-                                                '#4cd137'
-                                            }
-                                            trailColor="#3c3c3c"                                 
-                                            strokeWidth={6}      
-                                            percent={review.score * 10}
-                                            format={percent => `${percent / 10}`}
-                                        />
+                                        <FilmScore type="mid" score={review.score * 10} />
                                     </div>
                                 </Col>
                                 <Col span={12}>
                                     <Typography.Title level={4} style={{ marginBottom: '16px' }}>Үнэлгээ:</Typography.Title>
                                     <div style={{ textAlign: 'center' }}>
                                         { film ? (
-                                            <Progress                                                                   
-                                                type="circle"
-                                                width={64}                                                 
-                                                strokeColor={
-                                                    film.avg_score < 25 ? '#eb2f06' :
-                                                    film.avg_score < 50 ? '#e67e22' :
-                                                    film.avg_score < 75 ? '#fff200' :
-                                                    '#4cd137'
-                                                }
-                                                trailColor="#3c3c3c"                                 
-                                                strokeWidth={6}      
-                                                percent={film.avg_score}
-                                                format={percent => `${percent / 10}`}
-                                            />
+                                            <FilmScore type="mid" score={film.avg_score} />
                                         ) : (
                                             <></>
                                         )}                                        
@@ -194,8 +178,17 @@ function ReviewDetail (props) {
                                         <a href={`/films/${film.id}/`}>
                                             <Typography.Title level={5}>{film.title} ({moment(film.releasedate).year()})</Typography.Title>
                                         </a>
-                                        <Typography.Text style={{ display: 'block' }}>Найруулагч: </Typography.Text>
-                                        <Typography.Text style={{ display: 'block' }}>Гол дүрд: </Typography.Text>                                        
+                                        { film.genres ?
+                                            <Space size={[8, 8]} wrap>
+                                            {film.genres.map(genre => (                                        
+                                                <GenreTag genre={genre.name} />                                                                       
+                                            ))}                       
+                                            </Space>          
+                                        :
+                                            <></>
+                                        }     
+                                        {/* <Typography.Text style={{ display: 'block', marginTop: '16px' }}>Найруулагч: </Typography.Text>
+                                        <Typography.Text style={{ display: 'block' }}>Гол дүрд: </Typography.Text>                                         */}
                                     </Col>
                                 </Row>
                             ) : <></>}

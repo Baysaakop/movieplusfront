@@ -121,7 +121,11 @@ body {
 .layout-dark .ant-breadcrumb-link,
 .layout-dark .ant-select-arrow,
 .layout-dark .ant-input-number-handler-wrap .anticon,
-.layout-dark .ant-timeline {
+.layout-dark .ant-timeline,
+.layout-dark .ant-descriptions-item-label,
+.layout-dark .ant-descriptions-item-content,
+.layout-dark .ant-btn-text,
+.layout-dark .ant-list-item-meta-title > a {
   color: #fff;
 }
 
@@ -131,22 +135,6 @@ body {
 }
 
 /* Button */
-
-/* .ant-btn-primary {
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-}
-
-.ant-btn-primary:hover {
-  background: #22282e;
-  color: #fff;
-  border: 1px solid #22282e;
-} */
-
-.layout-dark .ant-btn-text {
-  color: #fff;
-}
 
 .ant-btn-ghost {
   border-color: #22282e;
@@ -177,7 +165,8 @@ body {
 }
 
 .layout-dark .ant-breadcrumb a,
-.layout-dark .ant-breadcrumb-separator {
+.layout-dark .ant-breadcrumb-separator,
+.layout-dark .ant-list-item-meta-description {
   color: rgba(255, 255, 255, 0.45);
 }
 

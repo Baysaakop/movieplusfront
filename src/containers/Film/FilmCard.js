@@ -1,12 +1,13 @@
 import { AppstoreAddOutlined, HeartOutlined, MoreOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
 // import SaveIcon from '../../components/SaveIcon'
-import { Card, Typography, Progress, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
+import { Card, Typography, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
 import { useEffect, useState } from "react";
 import './FilmCard.css'
 import blank from './blank.jpg'
 import axios from "axios";
 import api from "../../api";
 import moment from 'moment'
+import FilmScore from "./FilmScore";
 
 function FilmCard (props) {
 
@@ -135,14 +136,6 @@ function FilmCard (props) {
         }       
     }
 
-    function getPercent(percent) {
-        if (percent === 0 ) {
-            return '?'
-        } else {
-            return `${percent}`
-        }
-    }
-
     return (
         <div className="film-card">
             { film ? (
@@ -160,20 +153,7 @@ function FilmCard (props) {
                                     </div>
                                 </a>
                                 <div className="film-score">
-                                    <Progress                                
-                                        type="circle"
-                                        width={40}                                                 
-                                        strokeColor={
-                                            film.avg_score < 25 ? '#eb2f06' :
-                                            film.avg_score < 50 ? '#e67e22' :
-                                            film.avg_score < 75 ? '#fff200' :
-                                            '#4cd137'
-                                        }
-                                        trailColor="#3c3c3c"                                 
-                                        strokeWidth={6}      
-                                        percent={film.avg_score}
-                                        format={percent => getPercent(percent)}
-                                    />                    
+                                    <FilmScore type="card" score={film.avg_score} />
                                 </div>
                                 <div className="film-actions">
                                     <Button size="small" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />

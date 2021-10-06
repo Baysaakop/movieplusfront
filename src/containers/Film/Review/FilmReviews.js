@@ -1,5 +1,5 @@
 import { FormOutlined } from "@ant-design/icons"
-import { Button, message, Spin, Typography } from "antd"
+import { Button, message, Typography } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import api from "../../../api"
@@ -22,7 +22,7 @@ function FilmReviews (props) {
                 'Content-Type': 'application/json'                
             }
         })
-        .then(res => {                            
+        .then(res => {                                   
             setReviews(res.data.results)                  
         })
         .catch(err => {
@@ -44,22 +44,27 @@ function FilmReviews (props) {
                     <></>
                 )}
             </div>
-            { reviews.slice(0, 3) ? order(reviews).map(item => (
-                <FilmReview             
-                    key={item.id}
-                    data={item}
-                    user={props.user}       
-                    token={props.token}             
-                    // onDelete={() => getReviews(props.film)}
-                />
-            )) : 
-                <div className="loading">
-                    <Spin />
+            { reviews && reviews.length > 0 ?  
+                <div>
+                    {
+                        order(reviews.slice(0, 3)).map(item => (
+                            <FilmReview             
+                                key={item.id}
+                                data={item}
+                                user={props.user}       
+                                token={props.token}             
+                                // onDelete={() => getReviews(props.film)}
+                            />
+                        ))
+                    }
+                    <div style={{ textAlign: 'end', marginTop: '8px' }}>
+                        <Button href={`/reviews?film=${props.film}`} type="primary">Бүгд...</Button>
+                    </div>
                 </div>
-            }                     
-            <div style={{ textAlign: 'end', marginTop: '8px' }}>
-                <Button type="primary">Бүгд...</Button>
-            </div>
+            : 
+                <div>                    
+                </div>
+            }                                
         </div>      
     )
 }
