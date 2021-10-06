@@ -9,6 +9,7 @@ import { CommentOutlined, EyeOutlined, FacebookFilled, InstagramOutlined, LikeOu
 import blank from '../blank.jpg'
 import GenreTag from "../../../components/GenreTag"
 import FilmScore from "../FilmScore"
+import ReviewComments from "./ReviewComments"
 
 const { useBreakpoint } = Grid
 
@@ -102,6 +103,7 @@ function ReviewDetail (props) {
                                 </Col>
                             </Row>
                         </div>
+                        <ReviewComments user={user} review={review.id} />
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={8}>
                         <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>

@@ -271,24 +271,30 @@ function FilmDetail (props) {
                         {film.title}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                {/* { film.landscape ? (
+                { film.landscape ? (
                     <div style={{ marginTop: '24px', position: 'relative' }}>
                         <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
                         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title>
+                            {/* <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title> */}
                         </div>
                     </div>
                 ) : (
                     <></>
-                )}  */}
+                )} 
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
-                    <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+                    <Col xs={24} sm={24} md={8} lg={8} xl={6}>
                         <div style={{ position: 'relative', overflow: 'hidden' }}>
-                            <div style={{ width: '100%', height: '100%' }}>
+                            <div style={{ width: '100%', height: '100%', marginBottom: '24px' }}>
                                 <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
                                     <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
                                 </div>
                             </div>                            
+                            { film.trailer ? (
+                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                            ) : (                                        
+                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
+                            )}                                    
+                            {trailer ? <Trailer title={film.title} trailer={film.trailer} hide={() => setTrailer(false)} /> : <></>} 
                             <List
                                 className="container"
                                 style={{ marginTop: '24px', padding: 0 }}
@@ -303,7 +309,7 @@ function FilmDetail (props) {
                             />
                         </div>                        
                     </Col>
-                    <Col xs={24} sm={24} md={12} lg={16} xl={18}>                        
+                    <Col xs={24} sm={24} md={16} lg={16} xl={18}>                        
                         <div className="container film-detail">
                             <Typography.Title level={2} style={{ marginBottom: 0 }}>{film.title} ({moment(film.releasedate).year()})</Typography.Title>
                             <Divider style={{ margin: '8px 0 16px 0' }} />
@@ -311,9 +317,9 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={12} lg={6}>
                                     <Typography.Title level={5}>Төрөл жанр</Typography.Title>
                                     <Space size={[8, 8]} wrap>
-                                    {film.genres.map(genre => (
-                                       <GenreTag genre={genre.name} />                                                    
-                                    ))}                       
+                                        {film.genres.map(genre => (
+                                        <GenreTag genre={genre.name} />                                                    
+                                        ))}                       
                                     </Space>                                       
                                 </Col>
                                 <Col xs={24} sm={24} md={12} lg={6}>
@@ -328,29 +334,14 @@ function FilmDetail (props) {
                                     <Typography.Title level={5}>Үргэлжлэх хугацаа</Typography.Title>
                                     <Typography.Text>{getDuration(film.duration)}</Typography.Text>                            
                                 </Col>
-                                <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>                                    
+                                <Col xs={24} sm={24} md={24} lg={8} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>                                    
                                     <FilmScore type="detail" score={film.avg_score} />
                                     <div style={{ marginLeft: '12px' }}>
-                                        <Typography.Title level={4} style={{ marginBottom: 0 }}>Үзэгчдийн үнэлгээ</Typography.Title>
+                                        <Typography.Title level={4} style={{ marginBottom: 0 }}>Үнэлгээ</Typography.Title>
                                         <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                     </div>                                                                        
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                    <FilmScore type="detail" score={47} />
-                                    <div style={{ marginLeft: '12px' }}>
-                                        <Typography.Title level={4} style={{ marginBottom: 0 }}>Шүүмжлэгчдийн үнэлгээ</Typography.Title>
-                                        <Typography.Text>/ Санал: {formatCount(26)} /</Typography.Text>
-                                    </div>                                                                        
-                                </Col>                                
-                                <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={6}>
-                                    { film.trailer ? (
-                                        <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
-                                    ) : (                                        
-                                        <Button className="play-trailer" block shape="round" size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
-                                    )}                                    
-                                    {trailer ? <Trailer title={film.title} trailer={film.trailer} hide={() => setTrailer(false)} /> : <></>} 
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={18}>
+                                </Col>                           
+                                <Col xs={24} sm={24} md={24} lg={16}>
                                     { film.is_released ? (
                                         <div className="actions">
                                             <div className="action">
@@ -440,7 +431,7 @@ function FilmDetail (props) {
                         <div className="container" style={{ marginTop: '24px' }}>       
                             <Tabs defaultActiveKey="1" className="film-detail-tabs">
                                 <Tabs.TabPane tab="Мэдээлэл" key="1">
-                                    <div className="film-description">
+                                    {/* <div className="film-description">
                                         <Typography.Title level={5}>Танилцуулга</Typography.Title>
                                         <Typography.Paragraph>
                                             { film.description !== "" ? (
@@ -449,7 +440,7 @@ function FilmDetail (props) {
                                                 'Sed vel dignissim quam. Integer facilisis lobortis odio, in varius leo. Sed lobortis non odio eu mattis. In ut tempor turpis, in dapibus sem. Aliquam aliquet eros sed varius placerat. Proin sollicitudin luctus magna ac vulputate. Phasellus bibendum tortor nec est tincidunt, quis euismod orci pulvinar.'
                                             )}                            
                                         </Typography.Paragraph>
-                                    </div>
+                                    </div> */}
                                     <div className="film-plot">
                                         <Typography.Title level={5}>Агуулга</Typography.Title>
                                         <Typography.Paragraph>

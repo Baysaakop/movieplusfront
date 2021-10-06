@@ -151,7 +151,7 @@ function FilmListItem (props) {
             { film ? (
                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                     <div className="container" style={{ width: '100%' }}>
-                        <Row gutter={[16, 16]}>
+                        <Row gutter={[24, 0]}>
                             <Col xs={12} sm={12} md={12} lg={3}>
                                 <a href={`/films/${film.id}/`}>
                                     <img alt={film.title} src={film.poster ? film.poster : blank} style={{ height: '168px', width: 'auto', objectFit: 'scale-down' }} />

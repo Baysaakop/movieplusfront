@@ -204,17 +204,16 @@ function FilmList (props) {
             <div className="container film-filter">
                 <Form form={form} layout="vertical">
                     <Row gutter={[16, 0]}>
-                        <Col span={24}>                                                                                                         
+                        <Col xs={24} sm={24} md={12}>                                                                                                         
                             <Form.Item name="search" label={<Typography.Title level={5} style={{ margin: 0 }}>Кино хайх</Typography.Title>}>
-                                <Input.Search                           
-                                    size="large"                   
+                                <Input.Search                                            
                                     placeholder="Кино хайх..."                                     
                                     onSearch={onSearch} 
                                     enterButton                                    
                                 />   
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={12} lg={6}>
+                        <Col xs={24} sm={24} md={12}>
                             <Form.Item name="genre" label={<Typography.Title level={5} style={{ margin: 0 }}>Төрөл</Typography.Title>}>
                                 <Select defaultValue={0} onSelect={onSelectGenre} style={{ width: '100%'}}>
                                     <Select.Option key={0} value={0}>Бүгд</Select.Option>            
@@ -224,12 +223,23 @@ function FilmList (props) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={12} lg={6}>
+                        <Col xs={24} sm={24} md={4}>
+                            <Typography.Title level={5} style={{ marginBottom: '8px' }}>Харагдац:</Typography.Title>
+                            <Space size={[8, 8]}>
+                                <Tooltip title="Grid View">
+                                    <Button size="large" type={ isList === false ? "ghost" : "text" } icon={<TableOutlined />} onClick={onSelectGrid} />
+                                </Tooltip>
+                                <Tooltip title="List View">
+                                    <Button size="large" type={ isList === true ? "ghost" : "text" } icon={<BarsOutlined />} onClick={onSelectList} />
+                                </Tooltip>
+                            </Space>
+                        </Col>
+                        <Col xs={24} sm={24} md={4}>
                             <Form.Item name="yearfrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (min)</Typography.Title>}>
                                 <InputNumber defaultValue={1900} style={{ width: '100%' }} onChange={onSelectYearFrom} />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={12} lg={6}>
+                        <Col xs={24} sm={24} md={4}>
                             <Form.Item name="yearto" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (max)</Typography.Title>}>
                                 <InputNumber defaultValue={moment().year()} style={{ width: '100%' }} onChange={onSelectYearTo} />
                             </Form.Item>
@@ -244,7 +254,7 @@ function FilmList (props) {
                                 <InputNumber defaultValue={100} min={10} max={100} style={{ width: '100%' }} onChange={onSelectScoreTo} />
                             </Form.Item>
                         </Col> */}
-                        <Col xs={24} sm={24} md={12} lg={6}>
+                        <Col xs={24} sm={24} md={12}>
                             <Form.Item name="order" label={<Typography.Title level={5} style={{ margin: 0 }}>Эрэмбэлэх</Typography.Title>}>
                                 <Select defaultValue="-created_at" onSelect={onSelectOrder} style={{ width: '100%'}}>
                                     <Select.Option value="-created_at">Шинээр нэмэгдсэн</Select.Option>                            
@@ -255,18 +265,7 @@ function FilmList (props) {
                                     <Select.Option value="-watchlist_count">Хадгалсан</Select.Option>                            
                                 </Select>
                             </Form.Item>
-                        </Col>                        
-                        <Col xs={24} sm={24} md={12} lg={6}>
-                            <Typography.Title level={5} style={{ marginBottom: '8px' }}>Харагдац:</Typography.Title>
-                            <Space size={[8, 8]}>
-                                <Tooltip title="Grid View">
-                                    <Button size="large" type={ isList === false ? "ghost" : "text" } icon={<TableOutlined />} onClick={onSelectGrid} />
-                                </Tooltip>
-                                <Tooltip title="List View">
-                                    <Button size="large" type={ isList === true ? "ghost" : "text" } icon={<BarsOutlined />} onClick={onSelectList} />
-                                </Tooltip>
-                            </Space>
-                        </Col>
+                        </Col>                                                
                     </Row>
                 </Form>
             </div>
@@ -289,7 +288,7 @@ function FilmList (props) {
                     ) : (                            
                         <List
                             grid={{
-                                gutter: [24, 8],
+                                gutter: [24, 0],
                                 xs: 2,
                                 sm: 3,
                                 md: 4,

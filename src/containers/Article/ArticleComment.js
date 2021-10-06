@@ -1,5 +1,5 @@
 import { DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined, MessageFilled, MessageOutlined } from "@ant-design/icons"
-import { Avatar, Button, Divider, Input, Progress, Space, Typography } from "antd"
+import { Avatar, Button, Divider, Input, Space, Typography } from "antd"
 import { useState } from "react"
 import './ArticleComment.css'
 
@@ -34,17 +34,6 @@ function ArticleComment (props) {
                         <Typography.Text style={{ fontSize: '12px', margin: 0 }}>{props.date}</Typography.Text>
                     </div>
                 </div>    
-                <div>
-                    <Progress                                                                   
-                        type="circle"
-                        width={40}                                                 
-                        strokeColor="#f39c12"
-                        trailColor="#3c3c3c"                                 
-                        strokeWidth={6}      
-                        percent={props.score}
-                        format={percent => `${percent / 10}`}
-                    /> 
-                </div>
             </div>
             <Typography.Paragraph ellipsis={{ rows: 5 }}>
                 {props.text}

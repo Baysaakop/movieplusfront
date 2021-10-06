@@ -8,6 +8,7 @@ import FilmPopover from "../Film/FilmPopover"
 import moment from "moment"
 import { useHistory } from "react-router-dom"
 import { connect } from "react-redux"
+import Filmography from "./Filmography"
 
 function ArtistDetail (props) {
     const history = useHistory()
@@ -314,90 +315,22 @@ function ArtistDetail (props) {
                             ) : []}   
                             { crew && getProducer(crew).length > 0 ? (
                                 <Col xs={24} sm={24} md={24} lg={12}>
-                                    <div className="container">
-                                        <Typography.Title level={5}>Бүтээлүүд (Продюсер)</Typography.Title>            
-                                        <Timeline style={{ marginTop: '16px' }}>
-                                            {crew ? getProducer(crew).map(member => (
-                                                <Timeline.Item>
-                                                    <Popover
-                                                        title={false}
-                                                        placement="rightTop"
-                                                        content={
-                                                            <FilmPopover film={member.film} />
-                                                        }
-                                                    >
-                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
-                                                    </Popover>                                            
-                                                </Timeline.Item>             
-                                            )) : []}                                                                
-                                        </Timeline>    
-                                    </div>
+                                    <Filmography title="Продюсер" data={getProducer(crew)} />                                   
                                 </Col> 
                             ) : []}           
                             { crew && getDirector(crew).length > 0 ? (
                                 <Col xs={24} sm={24} md={24} lg={12}>
-                                    <div className="container">
-                                        <Typography.Title level={5}>Бүтээлүүд (Найруулагч)</Typography.Title>            
-                                        <Timeline style={{ marginTop: '16px' }}>
-                                            {crew ? getDirector(crew).map(member => (
-                                                <Timeline.Item>
-                                                    <Popover
-                                                        title={false}
-                                                        placement="rightTop"
-                                                        content={
-                                                            <FilmPopover film={member.film} />
-                                                        }
-                                                    >
-                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
-                                                    </Popover>                                            
-                                                </Timeline.Item>             
-                                            )) : []}                                                                
-                                        </Timeline>    
-                                    </div>
+                                    <Filmography title="Найруулагч" data={getDirector(crew)} />                                    
                                 </Col> 
                             ) : []}  
                             { crew && getScreenWriter(crew).length > 0 ? (
                                 <Col xs={24} sm={24} md={24} lg={12}>
-                                    <div className="container">
-                                        <Typography.Title level={5}>Бүтээлүүд (Зохиолч)</Typography.Title>            
-                                        <Timeline style={{ marginTop: '16px' }}>
-                                            {crew ? getScreenWriter(crew).map(member => (
-                                                <Timeline.Item>
-                                                    <Popover
-                                                        title={false}
-                                                        placement="rightTop"
-                                                        content={
-                                                            <FilmPopover film={member.film} />
-                                                        }
-                                                    >
-                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
-                                                    </Popover>                                            
-                                                </Timeline.Item>             
-                                            )) : []}                                                                
-                                        </Timeline>    
-                                    </div>
+                                    <Filmography title="Кино зохиолч" data={getScreenWriter(crew)} />                                    
                                 </Col> 
                             ) : []}  
                             { crew && getCinematographer(crew).length > 0 ? (
                                 <Col xs={24} sm={24} md={24} lg={12}>
-                                    <div className="container">
-                                        <Typography.Title level={5}>Бүтээлүүд (Зураглаач)</Typography.Title>            
-                                        <Timeline style={{ marginTop: '16px' }}>
-                                            {crew ? getCinematographer(crew).map(member => (
-                                                <Timeline.Item>
-                                                    <Popover
-                                                        title={false}
-                                                        placement="rightTop"
-                                                        content={
-                                                            <FilmPopover film={member.film} />
-                                                        }
-                                                    >
-                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>{moment(member.film.releasedate).year()} - {member.film.title}</a>                                   
-                                                    </Popover>                                            
-                                                </Timeline.Item>             
-                                            )) : []}                                                                
-                                        </Timeline>    
-                                    </div>
+                                    <Filmography title="Зураглаач" data={getCinematographer(crew)} />     
                                 </Col> 
                             ) : []}                                                                  
                         </Row>

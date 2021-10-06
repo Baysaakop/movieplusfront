@@ -53,13 +53,13 @@ function CustomMenu (props) {
                 <div className="menu-left">
                     <a href="/">
                         <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
-                    </a>                                           
+                    </a>                                                               
+                </div>
+                <div className="menu-right">                       
                     <Button className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
                     <Button className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                     <Button className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
-                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                                   
-                </div>
-                <div className="menu-right">                        
+                    <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                                    
                     {/* <Button icon={<FormOutlined />} type="primary" size="middle" href="writereview" style={{ marginRight: '16px' }}>Нийтлэл бичих</Button>                                        */}
                     { user ? (
                         <Tooltip title="Profile">

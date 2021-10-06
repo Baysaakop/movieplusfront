@@ -37,18 +37,18 @@
 }
 
 .menu-xxl {
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 .menu-xl {
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 12%;
+  padding-right: 12%;
 }
 
 .menu-lg {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .menu-large .menu-left {
@@ -57,26 +57,26 @@
   align-items: center;
 }
 
-.menu-large .menu-left .menu-item {
-  margin-left: 16px;
+.menu-large .menu-right .menu-item {
+  margin-right: 16px;
   transition: 0.3s ease-in-out;
 }
 
-.menu-large .menu-left .menu-item:hover {
+.menu-large .menu-right .menu-item:hover {
   background: #d5d5d5;
 }
 
-.layout-dark .menu-large .menu-left .menu-item:hover {
+.layout-dark .menu-large .menu-right .menu-item:hover {
   background: #22282e;
 }
 
-.menu-large .menu-left .selected-menu-item {
-  margin-left: 16px;
+.menu-large .menu-right .selected-menu-item {
+  margin-right: 16px;
   transition: 0.3s ease-in-out;
   border: 1px solid #000;
 }
 
-.layout-dark .menu-large .menu-left .selected-menu-item {
+.layout-dark .menu-large .menu-right .selected-menu-item {
   border: 1px solid #fff;
 }
 
