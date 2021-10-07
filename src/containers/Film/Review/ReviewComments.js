@@ -1,66 +1,71 @@
 import { UserOutlined } from "@ant-design/icons"
-import { Typography, Avatar, Form, Input, Button } from "antd"
+import { Typography, Avatar, Form, Input, Button, message, Spin, Divider } from "antd"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import api from "../../../api"
 import ReviewComment from "./ReviewComment"
+import moment from 'moment'
 
 function ReviewComments (props) {
 
     const [form] = Form.useForm()
-    // const [comments, setComments] = useState()    
+    const [comments, setComments] = useState()    
 
-    // useEffect(() => {        
-    //     getComments(props.review)
-    // }, [props.review])
+    useEffect(() => {        
+        getComments(props.review)
+    }, [props.review])
 
-    // function getComments(id) {
-    //     const url = api.comments + "?review=" + id
-    //     axios({
-    //         method: 'GET',
-    //         url: url,
-    //         headers: {
-    //             'Content-Type': 'application/json'                
-    //         }
-    //     })
-    //     .then(res => {                            
-    //         setComments(res.data.results)                  
-    //     })
-    //     .catch(err => {
-    //         message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
-    //     })
-    // }
+    function getComments(id) {
+        const url = api.articleComments + "?review=" + id
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'                
+            }
+        })
+        .then(res => {                            
+            setComments(res.data.results)                  
+        })
+        .catch(err => {
+            message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+        })
+    }
 
-    // function onFinish (values) {        
-    //     if (!props.user || !props.token) {
-    //         message.error("Та эхлээд нэвтэрсэн байх шаардлагатай.")            
-    //     } else {
-    //         axios({
-    //             method: 'POST',
-    //             url: `${api.comments}/`,
-    //             data: {                    
-    //                 film: props.film,
-    //                 comment: values.comment,                    
-    //                 token: props.token,
-    //             },
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Token ${props.token}`
-    //             }
-    //         }).then(res => {                                 
-    //             form.resetFields()
-    //             getComments(props.film)            
-    //         }).catch(err => {
-    //             console.log(err.message)            
-    //         })
-    //     }        
-    // }
+    function onFinish (values) {        
+        if (!props.user || !props.token) {
+            message.error("Та эхлээд нэвтэрсэн байх шаардлагатай.")            
+        } else {
+            axios({
+                method: 'POST',
+                url: `${api.articleComments}/`,
+                data: {                    
+                    review: props.review,
+                    comment: values.comment,                    
+                    token: props.token,
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${props.token}`
+                }
+            }).then(res => {                                 
+                form.resetFields()
+                getComments(props.review)            
+            }).catch(err => {
+                console.log(err.message)            
+            })
+        }        
+    }
 
-    // function order(data) {
-    //     return data.sort((a, b) => moment(b.created_at) - moment(a.created_at))
-    // }
+    function order(data) {
+        return data.sort((a, b) => moment(b.created_at) - moment(a.created_at))
+    }
 
     return (
         <div>
             <div className="container comment-section">
-                <Typography.Title level={3}>Сэтгэгдэл (3)</Typography.Title>
+                <Typography.Title level={4} style={{ margin: 0 }}>Сэтгэгдэл ({comments ? comments.length : 0})</Typography.Title>
+                <Divider />
                 { props.user ? (
                     <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                         <div>               
@@ -80,7 +85,7 @@ function ReviewComments (props) {
                             )}                   
                         </div>
                         <div style={{ marginLeft: '12px', width: '100%' }}>
-                            <Form form={form}>
+                            <Form form={form} onFinish={onFinish}>
                                 <Form.Item name="comment" rules={[{ required: true, message: 'Хоосон коммент оруулах боломжгүйг анхаарна уу.' }]} style={{ marginBottom: '8px' }}>
                                     <Input.TextArea rows={4} placeholder="Сэтгэгдэл бичих..." style={{ width: '100%' }} />                    
                                 </Form.Item>
@@ -91,6 +96,19 @@ function ReviewComments (props) {
                 ) : (
                     []
                 )}   
+                { comments ? order(comments).map(item => (
+                    <ReviewComment             
+                        key={item.id}
+                        data={item}
+                        user={props.user}       
+                        token={props.token}             
+                        onDelete={() => getComments(props.film)}
+                    />
+                )) : 
+                    <div className="loading">
+                        <Spin />
+                    </div>
+                }        
                 {/* <ReviewComment             
                     key={1}
                     data={item}

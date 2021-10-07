@@ -172,17 +172,21 @@ function ReviewWrite (props) {
                     <div className="container" style={{ maxWidth: '800px'}}>
                         <Typography.Title level={4}>{film.title} ({moment(film.releasedate).year()}) - Review бичих</Typography.Title>
                         <Form layout="vertical" form={form} onFinish={onFinish}> 
-                            <Form.Item name="thumbnail" label="Зураг:">
+                            <Form.Item name="thumbnail">
+                                <Typography.Title level={5}>Зураг:</Typography.Title>       
                                 <ImageUpload onImageSelected={onSelectThumbnail} width={getWidth()} height={280} />                        
                             </Form.Item>
-                            <Form.Item name="title" label="Гарчиг:" rules={[{ required: true, message: 'Гарчиг оруулна уу!' }]}>
+                            <Form.Item name="title" rules={[{ required: true, message: 'Гарчиг оруулна уу!' }]}>
+                                <Typography.Title level={5}>Гарчиг:</Typography.Title>      
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="score" label="Үнэлгээ:">
+                            <Form.Item name="score">
+                                <Typography.Title level={5}>Үнэлгээ:</Typography.Title>
                                 <Rate allowHalf value={score ? score / 2 : 0} onChange={onRate} />
                                 <span className="ant-rate-text" style={{ fontWeight: 'bold', fontSize: '18px' }}> - {score ? score : ''}</span>
                             </Form.Item>
-                            <Form.Item name="outline" label="Outline:" rules={[{ required: true, message: 'Outline оруулна уу!' }]}>
+                            <Form.Item name="outline" rules={[{ required: true, message: 'Outline оруулна уу!' }]}>
+                                <Typography.Title level={5}>Товч:</Typography.Title>           
                                 <Input.TextArea rows={4} />
                             </Form.Item>
                             <Typography.Title level={5}>Review:</Typography.Title>                        

@@ -21,7 +21,7 @@ function ReviewComment (props) {
         } else {
             axios({
                 method: 'PUT',
-                url: `${api.comments}/${comment.id}/`,
+                url: `${api.articleComments}/${comment.id}/`,
                 data: {
                     like: true,                 
                     token: props.token,
@@ -44,7 +44,7 @@ function ReviewComment (props) {
         } else {
             axios({
                 method: 'PUT',
-                url: `${api.comments}/${comment.id}/`,
+                url: `${api.articleComments}/${comment.id}/`,
                 data: {
                     dislike: true,                 
                     token: props.token,

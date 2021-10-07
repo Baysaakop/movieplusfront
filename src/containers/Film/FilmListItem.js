@@ -176,17 +176,10 @@ function FilmListItem (props) {
                             <Col xs={24} sm={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                                 <FilmScore type="mid" score={film.avg_score} />     
                                 <div style={{ marginLeft: '12px' }}>
-                                    <Typography.Title level={5} style={{ marginBottom: 0 }}>Үзэгчдээс</Typography.Title>
+                                    <Typography.Title level={5} style={{ marginBottom: 0 }}>Үнэлгээ</Typography.Title>
                                     <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                 </div>                                                                        
-                            </Col>
-                            <Col xs={24} sm={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                <FilmScore type="mid" score={47} />     
-                                <div style={{ marginLeft: '12px' }}>
-                                    <Typography.Title level={5} style={{ marginBottom: 0 }}>Шүүмжлэгчдээс</Typography.Title>
-                                    <Typography.Text>/ Санал: {formatCount(26)} /</Typography.Text>
-                                </div>                                                                        
-                            </Col>
+                            </Col>                            
                         </Row>
                     </div>    
                     { film.is_released ? (

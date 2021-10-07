@@ -114,11 +114,11 @@ function FilmCreate (props) {
 
     function getWidth() {
         if (window.screen.availWidth >= 1600) {
-            return (window.screen.availWidth * 0.7) * 0.75 - 64
+            return (window.screen.availWidth * 0.6) * 0.75 - 64
         } else if (window.screen.availWidth >= 1200) {
-            return (window.screen.availWidth * 0.8) * 0.75 - 64
+            return (window.screen.availWidth * 0.76) * 0.75 - 64
         } else if (window.screen.availWidth >= 992) {
-            return (window.screen.availWidth - 16) * 0.75 - 64
+            return (window.screen.availWidth - 24) * 0.75 - 64
         } else {
             return (window.screen.availWidth - 56)
         }
@@ -126,11 +126,11 @@ function FilmCreate (props) {
 
     function getHeight() {
         if (window.screen.availWidth >= 1600) {
-            return ((window.screen.availWidth * 0.7) * 0.75 - 64) / 3
+            return ((window.screen.availWidth * 0.6) * 0.75 - 64) / 3
         } else if (window.screen.availWidth >= 1200) {
-            return ((window.screen.availWidth * 0.8) * 0.75 - 64) / 3
+            return ((window.screen.availWidth * 0.76) * 0.75 - 64) / 3
         } else if (window.screen.availWidth >= 992) {
-            return ((window.screen.availWidth - 16) * 0.75 - 64) / 3
+            return ((window.screen.availWidth - 24) * 0.75 - 64) / 3
         } else {
             return (window.screen.availWidth - 56) / 3
         }

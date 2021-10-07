@@ -235,12 +235,12 @@ function FilmList (props) {
                             </Space>
                         </Col>
                         <Col xs={24} sm={24} md={4}>
-                            <Form.Item name="yearfrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (min)</Typography.Title>}>
+                            <Form.Item name="yearfrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (доод)</Typography.Title>}>
                                 <InputNumber defaultValue={1900} style={{ width: '100%' }} onChange={onSelectYearFrom} />
                             </Form.Item>
                         </Col>
                         <Col xs={24} sm={24} md={4}>
-                            <Form.Item name="yearto" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (max)</Typography.Title>}>
+                            <Form.Item name="yearto" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (дээд)</Typography.Title>}>
                                 <InputNumber defaultValue={moment().year()} style={{ width: '100%' }} onChange={onSelectYearTo} />
                             </Form.Item>
                         </Col>

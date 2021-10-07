@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs } from "antd"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs, notification } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
 import { AppstoreAddOutlined, CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
@@ -156,9 +156,20 @@ function FilmDetail (props) {
                 }
             })            
             .then(res => {                
-                if (res.status === 200) {
+                if (res.status === 200) {                    
                     setUser(res.data.user)
                     setFilm(res.data.film)
+                    if (res.data.flag === true) {
+                        notification['success']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтанд нэмэгдлээ.`,                            
+                        });
+                    } else {
+                        notification['warning']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтаас хасагдлаа.`,                            
+                        });
+                    }
                 }                                                         
             })
             .catch(err => {                      
@@ -188,6 +199,17 @@ function FilmDetail (props) {
                 if (res.status === 200) {
                     setUser(res.data.user)
                     setFilm(res.data.film)
+                    if (res.data.flag === true) {
+                        notification['success']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
+                        });
+                    } else {
+                        notification['warning']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтаас хасагдлаа.`,                            
+                        });
+                    }
                 }                                                        
             })
             .catch(err => {                      
@@ -217,6 +239,17 @@ function FilmDetail (props) {
                 if (res.status === 200) {
                     setUser(res.data.user)
                     setFilm(res.data.film)
+                    if (res.data.flag === true) {
+                        notification['success']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтанд нэмэгдлээ.`,                            
+                        });
+                    } else {
+                        notification['warning']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтаас хасагдлаа.`,                            
+                        });
+                    }
                 }                                                        
             })
             .catch(err => {                      
@@ -246,6 +279,10 @@ function FilmDetail (props) {
                 if (res.status === 200) {
                     setUser(res.data.user)
                     setFilm(res.data.film)
+                    notification['success']({
+                        message: 'Үнэлгээ өгсөнд баярлалаа.',
+                        description: `${res.data.film.title} кинонд өгсөн таны үнэлгээг хүлээж авлаа.`,                            
+                    });
                 }                                                        
             })
             .catch(err => {                      

@@ -125,7 +125,8 @@ body {
 .layout-dark .ant-descriptions-item-label,
 .layout-dark .ant-descriptions-item-content,
 .layout-dark .ant-btn-text,
-.layout-dark .ant-list-item-meta-title > a {
+.layout-dark .ant-list-item-meta-title > a,
+.layout-dark .ant-rate-text {
   color: #fff;
 }
 

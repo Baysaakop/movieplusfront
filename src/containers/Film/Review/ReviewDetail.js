@@ -1,7 +1,7 @@
 import axios from "axios"
 import api from "../../../api"
 import { connect } from "react-redux"
-import { Grid, message, Row, Col, Spin, Typography, Space, Button, Avatar, Tooltip } from "antd"
+import { Grid, message, Row, Col, Spin, Typography, Space, Button, Avatar, Tooltip, Divider } from "antd"
 import { useEffect, useState } from "react"
 import moment from 'moment'
 import './ReviewDetail.css'
@@ -90,20 +90,23 @@ function ReviewDetail (props) {
                             <Typography.Paragraph style={{ fontSize: '16px', marginBottom: '8px' }}>
                                 <div style={{ width: '100%', overflow: 'hidden' }} dangerouslySetInnerHTML={{__html: review.content }} />                                               
                             </Typography.Paragraph>      
-                            <Row gutter={[16, 16]}>
-                                <Col xs={24} sm={24} md={24} lg={16}>
-                                    <Space size={[8, 8]}>
-                                        <Button type="ghost" shape="round" icon={<EyeOutlined />}> {review.view_count}</Button>
-                                        <Button type="ghost" shape="round" icon={<LikeOutlined />}> {review.like_count}</Button>
-                                        <Button type="ghost" shape="round" icon={<CommentOutlined />}> {review.comments.length}</Button>
-                                    </Space>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={8} style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-                                    {moment(review.created_at).format("YYYY оны MM сарын DD")}
-                                </Col>
-                            </Row>
+                            <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
+                                {moment(review.created_at).format("YYYY оны MM сарын DD")}
+                            </div>
+                            <Divider />
+                            <Space size={[8, 8]}>                                
+                                <Tooltip title="Таалагдсан">
+                                    <Button type="ghost" shape="round" icon={<LikeOutlined />}> {review.like_count}</Button>
+                                </Tooltip>
+                                <Tooltip title="Уншсан">
+                                    <Button type="text" shape="round" icon={<EyeOutlined />}> {review.view_count}</Button>
+                                </Tooltip>
+                                <Tooltip title="Сэтгэгдэл">
+                                    <Button type="text" shape="round" icon={<CommentOutlined />}> {review.comments.length}</Button>
+                                </Tooltip>
+                            </Space>                           
                         </div>
-                        <ReviewComments user={user} review={review.id} />
+                        <ReviewComments user={user} token={props.token} review={review.id} />
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={8}>
                         <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
