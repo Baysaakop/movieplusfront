@@ -370,14 +370,24 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={12} lg={6}>
                                     <Typography.Title level={5}>Үргэлжлэх хугацаа</Typography.Title>
                                     <Typography.Text>{getDuration(film.duration)}</Typography.Text>                            
-                                </Col>
+                                </Col>                                
+                                <Col span={24}>
+                                    <Typography.Title level={5}>Агуулга</Typography.Title>
+                                    <Typography.Paragraph>
+                                        { film.plot !== "" ? (
+                                            <div dangerouslySetInnerHTML={{__html: film.plot }} />   
+                                        ) : (
+                                            'Sed vel dignissim quam. Integer facilisis lobortis odio, in varius leo. Sed lobortis non odio eu mattis. In ut tempor turpis, in dapibus sem. Aliquam aliquet eros sed varius placerat. Proin sollicitudin luctus magna ac vulputate. Phasellus bibendum tortor nec est tincidunt, quis euismod orci pulvinar.'
+                                        )}       
+                                    </Typography.Paragraph>
+                                </Col>         
                                 <Col xs={24} sm={24} md={24} lg={8} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>                                    
                                     <FilmScore type="detail" score={film.avg_score} />
                                     <div style={{ marginLeft: '12px' }}>
                                         <Typography.Title level={4} style={{ marginBottom: 0 }}>Үнэлгээ</Typography.Title>
                                         <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                     </div>                                                                        
-                                </Col>                           
+                                </Col>                                                  
                                 <Col xs={24} sm={24} md={24} lg={16}>
                                     { film.is_released ? (
                                         <div className="actions">
@@ -467,29 +477,7 @@ function FilmDetail (props) {
                         </div>
                         <div className="container" style={{ marginTop: '24px' }}>       
                             <Tabs defaultActiveKey="1" className="film-detail-tabs">
-                                <Tabs.TabPane tab="Мэдээлэл" key="1">
-                                    {/* <div className="film-description">
-                                        <Typography.Title level={5}>Танилцуулга</Typography.Title>
-                                        <Typography.Paragraph>
-                                            { film.description !== "" ? (
-                                                <div dangerouslySetInnerHTML={{__html: film.description }} />   
-                                            ) : (
-                                                'Sed vel dignissim quam. Integer facilisis lobortis odio, in varius leo. Sed lobortis non odio eu mattis. In ut tempor turpis, in dapibus sem. Aliquam aliquet eros sed varius placerat. Proin sollicitudin luctus magna ac vulputate. Phasellus bibendum tortor nec est tincidunt, quis euismod orci pulvinar.'
-                                            )}                            
-                                        </Typography.Paragraph>
-                                    </div> */}
-                                    <div className="film-plot">
-                                        <Typography.Title level={5}>Агуулга</Typography.Title>
-                                        <Typography.Paragraph>
-                                            { film.plot !== "" ? (
-                                                <div dangerouslySetInnerHTML={{__html: film.plot }} />   
-                                            ) : (
-                                                'Sed vel dignissim quam. Integer facilisis lobortis odio, in varius leo. Sed lobortis non odio eu mattis. In ut tempor turpis, in dapibus sem. Aliquam aliquet eros sed varius placerat. Proin sollicitudin luctus magna ac vulputate. Phasellus bibendum tortor nec est tincidunt, quis euismod orci pulvinar.'
-                                            )}       
-                                        </Typography.Paragraph>
-                                    </div>
-                                </Tabs.TabPane>
-                                <Tabs.TabPane tab="Баг бүрэлдэхүүн" key="2">
+                                <Tabs.TabPane tab="Баг бүрэлдэхүүн" key="1">
                                     <List                                
                                         itemLayout="horizontal"    
                                         dataSource={crew ? getWholeCrew(crew) : undefined}
@@ -515,7 +503,7 @@ function FilmDetail (props) {
                                         )}
                                     />               
                                 </Tabs.TabPane>
-                                <Tabs.TabPane tab="Жүжигчид" key="3">
+                                <Tabs.TabPane tab="Жүжигчид" key="2">
                                     <div className="film-cast">                                        
                                         <List
                                             grid={{
@@ -538,6 +526,9 @@ function FilmDetail (props) {
                                             )}
                                         />
                                     </div>
+                                </Tabs.TabPane>
+                                <Tabs.TabPane tab="Зураг" key="3">
+                                    <Typography.Text>Зураг</Typography.Text>
                                 </Tabs.TabPane>
                             </Tabs>                                                                                                                                          
                         </div>                        

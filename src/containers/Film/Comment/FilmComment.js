@@ -1,4 +1,4 @@
-import { CloseCircleOutlined, DislikeFilled, DislikeOutlined, EditOutlined, LikeFilled, LikeOutlined, MessageFilled, MessageOutlined, UserOutlined } from "@ant-design/icons"
+import { CloseCircleOutlined, DislikeFilled, DislikeOutlined, EditOutlined, LikeFilled, LikeOutlined, UserOutlined } from "@ant-design/icons"
 import { Avatar, Button, Divider, Input, Space, Typography, Form, message, Popconfirm, notification } from "antd"
 import { useEffect, useState } from "react"
 import './FilmComment.css'
@@ -9,7 +9,7 @@ import api from "../../../api"
 function FilmComment (props) {
     const [form] = Form.useForm()
     const [comment, setComment] = useState()    
-    const [reply, setReply] = useState(false)
+    // const [reply, setReply] = useState(false)
     const [edit, setEdit] = useState(false)
 
     useEffect(() => {
@@ -62,9 +62,9 @@ function FilmComment (props) {
         }    
     }
 
-    function onReply () {
-        setReply(!reply)
-    }
+    // function onReply () {
+    //     setReply(!reply)
+    // }
 
     function onEdit () {
         setEdit(!edit)
@@ -180,7 +180,7 @@ function FilmComment (props) {
                                     ) : (
                                         <Button size="small" shape="round" type="text" icon={<DislikeOutlined />} onClick={onDislike}> {comment.dislikers.length}</Button>
                                     )}                                                                    
-                                    <Button size="small" shape="round" type="text" icon={ reply ? <MessageFilled /> : <MessageOutlined />} onClick={onReply}> Reply</Button>
+                                    {/* <Button size="small" shape="round" type="text" icon={ reply ? <MessageFilled /> : <MessageOutlined />} onClick={onReply}> Reply</Button> */}
                                     { props.user && props.user.id === comment.user.id ? (
                                         <Button size="small" shape="round" type="text" icon={ edit ? <CloseCircleOutlined/> : <EditOutlined />} onClick={onEdit}>{ edit ? 'Болих' : 'Засах' }</Button>
                                     ) : (

@@ -52,7 +52,7 @@ function CustomMenu (props) {
             <div className={ screens.xxl ? "menu-large menu-xxl" : screens.xl ? "menu-large menu-xl" : "menu-large menu-lg" }>       
                 <div className="menu-left">
                     <a href="/">
-                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
+                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>LOGO</div>                    
                     </a>                                                               
                 </div>
                 <div className="menu-right">                       

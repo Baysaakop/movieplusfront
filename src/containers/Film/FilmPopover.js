@@ -10,7 +10,7 @@ function FilmPopover (props) {
                 <Col span={16}>
                     <Typography.Text style={{ fontWeight: 'bold' }}>{props.film.title}</Typography.Text>       
                     <br />
-                    <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 6 }}>{props.film.description}</Typography.Paragraph>             
+                    <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 6 }}>{props.film.plot}</Typography.Paragraph>             
                 </Col>
             </Row>
         </div>

@@ -1,3 +1,7 @@
+.artist-info {
+  margin-top: 24px;
+}
+
 .artist-social {
   display: flex;
   justify-content: space-around;
