@@ -75,7 +75,7 @@ function ReviewComment (props) {
         } else {
             axios({
                 method: 'PUT',
-                url: `${api.comments}/${comment.id}/`,
+                url: `${api.articleComments}/${comment.id}/`,
                 data: {                    
                     edit: true,
                     comment: values.comment,                    
@@ -101,7 +101,7 @@ function ReviewComment (props) {
         } else {
             axios({
                 method: 'DELETE',
-                url: `${api.comments}/${comment.id}/`,
+                url: `${api.articleComments}/${comment.id}/`,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${props.token}`

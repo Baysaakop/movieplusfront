@@ -18,20 +18,22 @@ import Moderator from './containers/Moderator/Moderator';
 import ReviewWrite from './containers/Film/Review/ReviewWrite';
 import ReviewDetail from './containers/Film/Review/ReviewDetail';
 import ReviewList from './containers/Film/Review/ReviewList';
+import SeriesList from './containers/Series/SeriesList';
 
 function BaseRouter () {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/films" component={FilmList} />
-            <Route exact path="/films/:id" component={FilmDetail} />            
+            <Route exact path="/films/:id" component={FilmDetail} />       
+            <Route exact path="/series" component={SeriesList} />     
             <Route exact path="/artists" component={ArtistList} />
             <Route exact path="/artists/:id" component={ArtistDetail} />
             <Route exact path="/articles" component={ArticleList} />
             <Route exact path="/articles/:id" component={ArticleDetail} />
             <Route exact path="/reviews/" component={ReviewList} />
             <Route exact path="/reviews/:id" component={ReviewDetail} />
-            <Route exact path="/writereview/:id" component={ReviewWrite} />
+            <Route exact path="/writereview/:id" component={ReviewWrite} />            
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />

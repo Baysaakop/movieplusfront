@@ -102,7 +102,7 @@ function ReviewComments (props) {
                         data={item}
                         user={props.user}       
                         token={props.token}             
-                        onDelete={() => getComments(props.film)}
+                        onDelete={() => getComments(props.review)}
                     />
                 )) : 
                     <div className="loading">
