@@ -13,12 +13,12 @@ const api = {
     productions: baseUrl + 'api/movies/productions',
     occupations: baseUrl + 'api/movies/occupations',            
     artists: baseUrl + 'api/movies/artists',        
-    comments: baseUrl + 'api/movies/comments',
+    reviews: baseUrl + 'api/movies/reviews',
     // articles
     categories: baseUrl + 'api/articles/categories',   
     articleComments: baseUrl + 'api/articles/comments',
     articles: baseUrl + 'api/articles/articles',   
-    reviews: baseUrl + 'api/articles/reviews',        
+    // reviews: baseUrl + 'api/articles/reviews',        
     // users
     users: baseUrl + 'api/users',
     authFacebook: baseUrl + 'rest-auth/facebook/',

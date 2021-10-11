@@ -10,7 +10,6 @@ import Trailer from "../../components/Trailer"
 import blank from './blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
-import FilmComments from "./Comment/FilmComments"
 import GenreTag from "../../components/GenreTag"
 import FilmReviews from "./Review/FilmReviews"
 import FilmScore from "./FilmScore"
@@ -52,7 +51,7 @@ function FilmDetail (props) {
             }
         })
         .then(res => {                         
-            console.log(res.data)           
+            //console.log(res.data)           
             setFilm(res.data)                  
         })
         .catch(err => {
@@ -534,8 +533,7 @@ function FilmDetail (props) {
                         </div>                        
                         { film.is_released ? (
                             <>
-                                <FilmReviews film={film.id} user={user} token={props.token} />
-                                <FilmComments film={film.id} user={user} token={props.token} />
+                                <FilmReviews film={film} user={user} token={props.token} />                                
                             </>
                         ) : ([])}
                     </Col>
