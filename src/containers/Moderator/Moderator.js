@@ -12,6 +12,10 @@ import ArtistFilmCrew from './Artist/ArtistFilmCrew';
 import ArtistFilmCast from './Artist/ArtistFilmCast';
 import FilmCrew from './Film/FilmCrew';
 import FilmCast from './Film/FilmCast';
+import SeriesCreate from './Series/SeriesCreate';
+import SeriesUpdate from './Series/SeriesUpdate';
+import SeriesCrew from './Series/SeriesCrew';
+import SeriesCast from './Series/SeriesCast';
 
 function Moderator (props) {
     const [loading, setLoading] = useState(false)
@@ -110,6 +114,14 @@ function Moderator (props) {
                                 <FilmCrew token={props.token} />
                             ) : key === "4" ? (
                                 <FilmCast token={props.token} />
+                            ) : key === "5" ? (
+                                <SeriesCreate token={props.token} />
+                            ) : key === "6" ? (
+                                <SeriesUpdate token={props.token} />
+                            ) : key === "7" ? (
+                                <SeriesCrew token={props.token} />
+                            ) : key === "8" ? (
+                                <SeriesCast token={props.token} />
                             ) : key === "9" ? (
                                 <ArtistCreate token={props.token} />
                             ) : key === "10" ? (

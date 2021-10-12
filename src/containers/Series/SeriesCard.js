@@ -2,14 +2,14 @@ import { HeartOutlined, MoreOutlined, StarOutlined, CheckOutlined, ClockCircleOu
 // import SaveIcon from '../../components/SaveIcon'
 import { Card, Typography, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
 import { useEffect, useState } from "react";
-import './FilmCard.css'
-import blank from './blank.jpg'
+import '../Film/FilmCard.css'
+import blank from '../Film/blank.jpg'
 import axios from "axios";
 import api from "../../api";
 import moment from 'moment'
-import FilmScore from "./FilmScore";
+import FilmScore from "../Film/FilmScore";
 
-function FilmCard (props) {
+function SeriesCard (props) {
 
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [user, setUser] = useState()
@@ -145,7 +145,7 @@ function FilmCard (props) {
                         hoverable                                
                         cover={                   
                             <div className="film-poster-container">
-                                <a href={`/films/${film.id}`}>
+                                <a href={`/series/${film.id}`}>
                                     <div style={{ width: '100%', height: '100%' }}>
                                         <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
                                             <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
@@ -168,21 +168,21 @@ function FilmCard (props) {
                                     width={60}                            
                                 >
                                     <Tooltip title="Таалагдсан" placement="right">
-                                        { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                        { user && user.profile.series_liked.filter(x => x === film.id).length > 0 ? 
                                             <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
                                         : 
                                             <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
                                         }                                                           
                                     </Tooltip>
                                     <Tooltip title="Үзсэн" placement="right">
-                                        { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
+                                        { user && user.profile.series_watched.filter(x => x === film.id).length > 0 ? 
                                             <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                         :
                                             <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                         }                                
                                     </Tooltip>
                                     <Tooltip title="Дараа үзэх" placement="right">
-                                        { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                        { user && user.profile.series_watchlist.filter(x => x === film.id).length > 0 ? 
                                             <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
                                         :
                                             <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
@@ -192,18 +192,18 @@ function FilmCard (props) {
                                         <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
                                     </Tooltip>                             */}
                                     <Tooltip title="Үнэлгээ өгөх" placement="right">
-                                        { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
+                                        { user && user.profile.series_scores.filter(x => x.series === film.id).length > 0 ? 
                                             <Popover                                    
                                                 placement="right"
-                                                title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
+                                                title={<strong>Таны үнэлгээ: {user.profile.series_scores.filter(x => x.series === film.id)[0].user_score}</strong>}
                                                 trigger="click"
                                                 content={
                                                     <div>
-                                                        <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
+                                                        <Rate defaultValue={user.profile.series_scores.filter(x => x.series === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
                                                     </div>
                                                 }
                                             >
-                                                <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
+                                                <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.series_scores.filter(x => x.series === film.id)[0].user_score}</Button> 
                                             </Popover>       
                                         : 
                                             <Popover                                    
@@ -235,4 +235,4 @@ function FilmCard (props) {
     )
 }
 
-export default FilmCard
+export default SeriesCard

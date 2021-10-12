@@ -10,9 +10,8 @@ import { PlusOutlined } from "@ant-design/icons"
 const { TextArea } = Input
 const { Option } = Select
 
-function FilmCreate (props) {
-    const [form] = Form.useForm()   
-    // const [description, setDescription] = useState();
+function SeriesCreate (props) {
+    const [form] = Form.useForm()       
     const [loading, setLoading] = useState()
     const [poster, setPoster] = useState()
     const [landscape, setLandscape] = useState()
@@ -46,9 +45,6 @@ function FilmCreate (props) {
         setLoading(true)       
         var formData = new FormData();
         formData.append('title', values.title)
-        // if (description) {
-        //     formData.append('description', description)
-        // }
         if (values.plot) {
             formData.append('plot', values.plot)
         }
@@ -58,14 +54,20 @@ function FilmCreate (props) {
         if (values.duration) {
             formData.append('duration', values.duration)
         }
+        if (values.seasons) {
+            formData.append('seasons', values.seasons)
+        }
+        if (values.episodes) {
+            formData.append('episodes', values.episodes)
+        }
         if (values.releasedate) {
             formData.append('releasedate', moment(values.releasedate).format("YYYY-MM-DD"))
         }         
         if (values.is_released !== undefined) {
             formData.append('is_released', values.is_released)
         }
-        if (values.in_theater !== undefined) {
-            formData.append('in_theater', values.in_theater)
+        if (values.on_tv !== undefined) {
+            formData.append('on_tv', values.on_tv)
         }  
         if (values.rating) {
             formData.append('rating', values.rating)
@@ -82,7 +84,7 @@ function FilmCreate (props) {
         formData.append('token', props.token)         
         axios({
             method: 'POST',
-            url: `${api.films}/`,
+            url: `${api.series}/`,
             data: formData,
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -90,7 +92,7 @@ function FilmCreate (props) {
             }
         }).then(res => {                        
             if (res.status === 201) {                      
-                message.success(`${values.title} кино нэмэгдлээ.`)
+                message.success(`${values.title} цуврал нэмэгдлээ.`)
                 form.resetFields()
                 // setDescription(undefined)
                 setPoster(undefined)
@@ -161,7 +163,7 @@ function FilmCreate (props) {
             </div>
         ) : (
             <div>
-                <Typography.Title level={3}>Кино нэмэх</Typography.Title>
+                <Typography.Title level={3}>Цуврал нэмэх</Typography.Title>
                 <Form layout="vertical" form={form} onFinish={onFinish}>               
                     <Row gutter={[16, 0]}>
                         <Col span={24}>
@@ -176,14 +178,14 @@ function FilmCreate (props) {
                         <Col xs={24} sm={8} md={8} lg={8} xl={6}>
                             <Form.Item name="poster" label="Постер:">                               
                                 <ImageUpload onImageSelected={onPosterSelected} width={getPosterWidth()} height={getPosterHeight()} />                        
-                            </Form.Item>                   
+                            </Form.Item>                                                  
                             <Form.Item name="is_released" label="Нээлтээ хийсэн:">                               
                                 <Radio.Group defaultValue={true}>
                                     <Radio value={true}>Тийм</Radio>
                                     <Radio value={false}>Үгүй</Radio>
                                 </Radio.Group> 
                             </Form.Item>     
-                            <Form.Item name="in_theater" label="Театрт гарч буй:">                               
+                            <Form.Item name="on_tv" label="Одоо гарч буй:">                               
                                 <Radio.Group defaultValue={false}>
                                     <Radio value={true}>Тийм</Radio>
                                     <Radio value={false}>Үгүй</Radio>
@@ -191,11 +193,11 @@ function FilmCreate (props) {
                             </Form.Item>                       
                         </Col>
                         <Col xs={24} sm={16} md={16} lg={16} xl={18}>
-                            <Form.Item name="title" label="Нэр:" rules={[{ required: true, message: 'Та киноны нэрийг оруулна уу!' }]}>
+                            <Form.Item name="title" label="Нэр:" rules={[{ required: true, message: 'Цувралын нэрийг оруулна уу!' }]}>
                                 <Input />
                             </Form.Item>                        
                             <Row gutter={[16, 0]}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={8}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
                                     <Form.Item name="genres" label="Төрөл жанр:">                        
                                         <Select
                                             showSearch
@@ -216,8 +218,13 @@ function FilmCreate (props) {
                                             )}
                                         </Select>                        
                                     </Form.Item>
+                                </Col>                                
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                    <Form.Item name="releasedate" label="Нээлт:">
+                                        <DatePicker style={{ width: '100%' }} />
+                                    </Form.Item>
                                 </Col>
-                                <Col xs={24} sm={24} md={9} lg={9} xl={6}>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                     <Form.Item name="rating" label="Насны ангилал:">                        
                                         <Select
                                             showSearch                                
@@ -238,38 +245,25 @@ function FilmCreate (props) {
                                         </Select>                        
                                     </Form.Item>                                                
                                 </Col>
-                                <Col xs={24} sm={24} md={9} lg={9} xl={6}>
-                                    <Form.Item name="releasedate" label="Нээлт:">
-                                        <DatePicker style={{ width: '100%' }} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={24} md={6} lg={6} xl={4}>
+                                <Col xs={8} sm={8} md={8} lg={8} xl={4}>
                                     <Form.Item name="duration" label="Хугацаа:">
                                         <InputNumber defaultValue={90} min={0} style={{ width: '100%' }} />
+                                    </Form.Item>
+                                </Col>     
+                                <Col xs={8} sm={8} md={8} lg={8} xl={4}>
+                                    <Form.Item name="seasons" label="Бүлэг:">
+                                        <InputNumber defaultValue={1} min={1} style={{ width: '100%' }} />
+                                    </Form.Item>
+                                </Col>       
+                                <Col xs={8} sm={8} md={8} lg={8} xl={4}>
+                                    <Form.Item name="episodes" label="Анги:">
+                                        <InputNumber defaultValue={1} min={1} style={{ width: '100%' }} />
                                     </Form.Item>
                                 </Col>                                                            
                             </Row>
                             <Form.Item name="trailer" label="Трейлер:">
                                 <Input />
-                            </Form.Item>
-                            {/* <Form.Item name="description" label="Дэлгэрэнгүй:">                            
-                                <Editor                                
-                                    apiKey='wpwv44irouwa2fnzez4rgccg20gz5bri6qmwlt4wbeuha01r'
-                                    initialValue=""
-                                    init={{
-                                        height: 300,
-                                        menubar: ['file', 'insert'],                                    
-                                        plugins: [
-                                            'advlist autolink lists link image imagetools charmap print preview anchor',
-                                            'searchreplace visualblocks code fullscreen',
-                                            'insertdatetime media table paste code help wordcount'
-                                        ],                                        
-                                        toolbar:
-                                            'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | image'
-                                    }}                                    
-                                    onEditorChange={handleEditorChange}
-                                />
-                            </Form.Item>  */}
+                            </Form.Item>                            
                             <Form.Item name="plot" label="Агуулга:">
                                 <TextArea rows={10} />
                             </Form.Item>  
@@ -290,4 +284,4 @@ function FilmCreate (props) {
     )
 }
 
-export default FilmCreate
+export default SeriesCreate

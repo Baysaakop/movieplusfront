@@ -19,7 +19,7 @@ function FilmReview (props) {
 
 
     function getScore () {
-        let item = review.user.profile.scores.find(x => x.film === props.film.id)        
+        let item = review.user.profile.film_scores.find(x => x.film === props.film.id)        
         if (item && item !== null) {
             return item.user_score
         }
@@ -70,7 +70,9 @@ function FilmReview (props) {
     }
 
     function onHide (review) {
-        setReview(review)
+        if (review) {
+            setReview(review)
+        }
         setVisible(false)
     }
 

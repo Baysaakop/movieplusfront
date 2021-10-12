@@ -6,6 +6,7 @@ import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import moment from 'moment'
 import { BarsOutlined, TableOutlined } from "@ant-design/icons"
+import SeriesCard from "./SeriesCard"
 
 function SeriesList (props) {    
     const history = useHistory()
@@ -195,7 +196,7 @@ function SeriesList (props) {
                     <a href="/">Нүүр</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    Кино
+                    Цуврал
                 </Breadcrumb.Item>
             </Breadcrumb>
             <div className="container film-filter">
@@ -295,9 +296,9 @@ function SeriesList (props) {
                             }}
                             dataSource={films}
                             renderItem={film => (
-                                <List.Item key={film.id}>
-                                    <Typography.Title level={5}>{film.title}</Typography.Title>
+                                <List.Item key={film.id}>                                    
                                     {/* <FilmCard film={film} user={user} token={props.token} history={history} /> */}
+                                    <SeriesCard film={film} user={user} token={props.token} history={history} />
                                 </List.Item>
                             )}
                         />                                    

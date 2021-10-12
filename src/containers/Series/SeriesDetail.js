@@ -3,16 +3,16 @@ import axios from "axios"
 import api from "../../api"
 import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs, notification } from "antd"
 import moment from "moment"
-import './FilmDetail.css'
+import '../Film/FilmDetail.css'
 import { CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import ArtistPopover from "../Artist/ArtistPopover"
 import Trailer from "../../components/Trailer"
-import blank from './blank.jpg'
+import blank from '../Film/blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import GenreTag from "../../components/GenreTag"
-import FilmReviews from "./Review/FilmReviews"
-import FilmScore from "./FilmScore"
+import FilmReviews from "../Film/Review/FilmReviews"
+import FilmScore from "../Film/FilmScore"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -23,7 +23,7 @@ const data = [
     'VOO',    
 ];
 
-function FilmDetail (props) {
+function SeriesDetail (props) {
     const history = useHistory()
     const [user, setUser] = useState()
     const [film, setFilm] = useState()
@@ -37,14 +37,14 @@ function FilmDetail (props) {
             getUser()
         }
         getFilm()
-        getCrew()
-        getMainCast() 
-        getCast()        
+        // getCrew()
+        // getMainCast() 
+        // getCast()        
     }, [props.user]) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getFilm() {
         const id = props.match.params.id
-        const url = api.films + "/" + id + "/"
+        const url = api.series + "/" + id + "/"
         axios({
             method: 'GET',
             url: url,
@@ -175,22 +175,22 @@ function FilmDetail (props) {
                 },
                 data: {
                     like: true,
-                    film: film.id
+                    series: film.id
                 }
             })            
             .then(res => {                
                 if (res.status === 200) {                    
                     setUser(res.data.user)
-                    setFilm(res.data.film)
+                    setFilm(res.data.series)
                     if (res.data.flag === true) {
                         notification['success']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтанд нэмэгдлээ.`,                            
+                            description: `${res.data.series.title} цуврал таалагдсан цувралын жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтаас хасагдлаа.`,                            
+                            description: `${res.data.series.title} цуврал таалагдсан цувралын жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                 }                                                         
@@ -215,22 +215,22 @@ function FilmDetail (props) {
                 },
                 data: {
                     watched: true,
-                    film: film.id
+                    series: film.id
                 }
             })            
             .then(res => {
                 if (res.status === 200) {
                     setUser(res.data.user)
-                    setFilm(res.data.film)
+                    setFilm(res.data.series)
                     if (res.data.flag === true) {
                         notification['success']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
+                            description: `${res.data.series.title} цуврал үзсэн цувралын жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтаас хасагдлаа.`,                            
+                            description: `${res.data.series.title} цуврал үзсэн цувралын жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                 }                                                        
@@ -255,22 +255,22 @@ function FilmDetail (props) {
                 },
                 data: {
                     watchlist: true,
-                    film: film.id
+                    series: film.id
                 }
             })            
             .then(res => {
                 if (res.status === 200) {
                     setUser(res.data.user)
-                    setFilm(res.data.film)
+                    setFilm(res.data.series)
                     if (res.data.flag === true) {
                         notification['success']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтанд нэмэгдлээ.`,                            
+                            description: `${res.data.series.title} цуврал дараа үзэх цувралын жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
                             message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтаас хасагдлаа.`,                            
+                            description: `${res.data.series.title} цуврал дараа үзэх цувралын жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                 }                                                        
@@ -295,16 +295,16 @@ function FilmDetail (props) {
                 },
                 data: {
                     score: val * 2,
-                    film: film.id
+                    series: film.id
                 }
             })            
             .then(res => {
                 if (res.status === 200) {
                     setUser(res.data.user)
-                    setFilm(res.data.film)
+                    setFilm(res.data.series)
                     notification['success']({
                         message: 'Үнэлгээ өгсөнд баярлалаа.',
-                        description: `${res.data.film.title} кинонд өгсөн таны үнэлгээг хүлээж авлаа.`,                            
+                        description: `${res.data.series.title} цувралд өгсөн таны үнэлгээг хүлээж авлаа.`,                            
                     });
                 }                                                        
             })
@@ -325,7 +325,7 @@ function FilmDetail (props) {
                         <a href="/">Нүүр</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
-                        <a href="/films">Кино</a>
+                        <a href="/series">Цуврал</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         {film.title}
@@ -374,25 +374,33 @@ function FilmDetail (props) {
                             <Typography.Title level={2} style={{ marginBottom: 0 }}>{film.title} ({moment(film.releasedate).year()})</Typography.Title>
                             <Divider style={{ margin: '8px 0 16px 0' }} />
                             <Row gutter={[24, 24]}>
-                                <Col xs={24} sm={24} md={12} lg={6}>
+                                <Col xs={24} sm={24} md={12} lg={8}>
                                     <Typography.Title level={5}>Төрөл жанр</Typography.Title>
                                     <Space size={[8, 8]} wrap>
                                         {film.genres.map(genre => (
-                                        <GenreTag genre={genre.name} />                                                    
+                                            <GenreTag genre={genre.name} />                                                    
                                         ))}                       
                                     </Space>                                       
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={6}>
+                                <Col xs={24} sm={24} md={12} lg={8}>
                                     <Typography.Title level={5}>Насны ангилал</Typography.Title>
                                     <Typography.Text>13+</Typography.Text>
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={6}>
+                                <Col xs={24} sm={24} md={12} lg={8}>
                                     <Typography.Title level={5}>Нээлтийн огноо</Typography.Title>
                                     <Typography.Text>{moment(film.releasedate).year()} оны {moment(film.releasedate).month() + 1} сарын {moment(film.releasedate).date()}</Typography.Text>                            
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={6}>
+                                <Col xs={24} sm={24} md={12} lg={8}>
                                     <Typography.Title level={5}>Үргэлжлэх хугацаа</Typography.Title>
                                     <Typography.Text>{getDuration(film.duration)}</Typography.Text>                            
+                                </Col>         
+                                <Col xs={24} sm={24} md={12} lg={8}>
+                                    <Typography.Title level={5}>Нийт бүлэг</Typography.Title>
+                                    <Typography.Text>{film.seasons}</Typography.Text>                            
+                                </Col>         
+                                <Col xs={24} sm={24} md={12} lg={8}>
+                                    <Typography.Title level={5}>Нийт анги</Typography.Title>
+                                    <Typography.Text>{film.episodes}</Typography.Text>                            
                                 </Col>                                
                                 <Col span={24}>
                                     <Typography.Title level={5}>Агуулга</Typography.Title>
@@ -416,7 +424,7 @@ function FilmDetail (props) {
                                         <div className="actions">
                                             <div className="action">
                                                 <Tooltip title="Таалагдсан">
-                                                    { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                                    { user && user.profile.series_liked.filter(x => x === film.id).length > 0 ? 
                                                         <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
                                                     : 
                                                         <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
@@ -426,7 +434,7 @@ function FilmDetail (props) {
                                             </div>
                                             <div className="action">                                            
                                                 <Tooltip title="Үзсэн">
-                                                    { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
+                                                    { user && user.profile.series_watched.filter(x => x === film.id).length > 0 ? 
                                                         <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                                     :
                                                         <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
@@ -436,7 +444,7 @@ function FilmDetail (props) {
                                             </div>
                                             <div className="action">
                                                 <Tooltip title="Дараа үзэх">
-                                                    { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                                    { user && user.profile.series_watchlist.filter(x => x === film.id).length > 0 ? 
                                                         <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
                                                     :
                                                         <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
@@ -451,18 +459,18 @@ function FilmDetail (props) {
                                                 <Typography.Title level={5}>{formatCount(0)}</Typography.Title>                         
                                             </div> */}
                                             <div className="action">
-                                                { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
+                                                { user && user.profile.series_scores.filter(x => x.series === film.id).length > 0 ? 
                                                     <Popover                                    
                                                         placement="right"
-                                                        title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
+                                                        title={<strong>Таны үнэлгээ: {user.profile.series_scores.filter(x => x.series === film.id)[0].user_score}</strong>}
                                                         trigger="click"
                                                         content={
                                                             <div>
-                                                                <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
+                                                                <Rate defaultValue={user.profile.series_scores.filter(x => x.series === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
                                                             </div>
                                                         }
                                                     >
-                                                        <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
+                                                        <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.series_scores.filter(x => x.series === film.id)[0].user_score}</Button> 
                                                     </Popover>       
                                                 : 
                                                     <Popover                                    
@@ -581,7 +589,7 @@ function FilmDetail (props) {
                         </div>                        
                         { film.is_released ? (
                             <>
-                                <FilmReviews film={film} user={user} token={props.token} />                                
+                                {/* <FilmReviews film={film} user={user} token={props.token} />                                 */}
                             </>
                         ) : ([])}
                     </Col>
@@ -602,4 +610,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(FilmDetail)
+export default connect(mapStateToProps)(SeriesDetail)

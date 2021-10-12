@@ -1,6 +1,6 @@
 import moment from 'moment'
-import { AppstoreAddOutlined, HeartOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Row, Col, Typography, Space, Button, Tooltip, Popover, Rate, message, Spin } from "antd";
+import { HeartOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { Row, Col, Typography, Space, Button, Tooltip, Popover, Rate, message, Spin, Descriptions } from "antd";
 import { useEffect, useState } from "react";
 import './FilmCard.css'
 import blank from './blank.jpg'
@@ -146,18 +146,28 @@ function FilmListItem (props) {
         }
     }
 
+    function getDuration (duration) {
+        let hour = Math.floor(duration / 60)
+        let min = duration - (hour * 60)
+        if (hour > 0) {
+            return `${hour} цаг ${min} мин`
+        } else {
+            return `${min} мин`
+        }        
+    }
+
     return (
         <div className="film-listitem">
             { film ? (
                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                     <div className="container" style={{ width: '100%' }}>
-                        <Row gutter={[24, 0]}>
-                            <Col xs={12} sm={12} md={12} lg={3}>
+                        <Row gutter={[24, 16]}>
+                            <Col xs={8} sm={4} md={4} lg={3}>
                                 <a href={`/films/${film.id}/`}>
-                                    <img alt={film.title} src={film.poster ? film.poster : blank} style={{ height: '168px', width: 'auto', objectFit: 'scale-down' }} />
+                                    <img alt={film.title} src={film.poster ? film.poster : blank} style={{ height: '128px', width: 'auto', objectFit: 'scale-down' }} />
                                 </a>
                             </Col>
-                            <Col xs={12} sm={12} md={12} lg={9}>
+                            <Col xs={16} sm={14} md={14} lg={12}>
                                 <a href={`/films/${film.id}/`}>
                                     <Typography.Title level={5}>{film.title} ({moment(film.releasedate).year()})</Typography.Title>                                    
                                 </a>
@@ -170,16 +180,31 @@ function FilmListItem (props) {
                                 :
                                     <></>
                                 }     
-                                {/* { film.rating ? <Typography.Text style={{ display: 'block', margin: '4px 0' }}>{film.rating.name}</Typography.Text> : <></> }               
-                                { film.duration ? <Typography.Text style={{ display: 'block', margin: '4px 0' }}>{getDuration(film.duration)}</Typography.Text> : <></> }  */}
+                                { window.screen.availWidth > 575 ? (
+                                    <Descriptions column={2} size="small" style={{ marginTop: '8px' }}>
+                                        <Descriptions.Item label="Насны ангилал">-----</Descriptions.Item>
+                                        <Descriptions.Item label="Нээлт">{moment(film.releasedate).format("YYYY-MM-DD")}</Descriptions.Item>
+                                        <Descriptions.Item label="Үргэлжлэх хугацаа">{getDuration(film.duration)}</Descriptions.Item>                                    
+                                    </Descriptions>
+                                ) : (
+                                    <></>
+                                )}                                
                             </Col>
-                            <Col xs={24} sm={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                            <Col xs={24} sm={6} md={6} lg={5} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <FilmScore type="mid" score={film.avg_score} />     
                                 <div style={{ marginLeft: '12px' }}>
                                     <Typography.Title level={5} style={{ marginBottom: 0 }}>Үнэлгээ</Typography.Title>
                                     <Typography.Text>/ Санал: {formatCount(film.score_count)} /</Typography.Text>
                                 </div>                                                                        
-                            </Col>                            
+                            </Col>                         
+                            <Col xs={0} sm={0} md={0} lg={4}>
+                                <Descriptions column={1} size="small">
+                                    <Descriptions.Item label="Үзсэн">{formatCount(film.watched_count)}</Descriptions.Item>
+                                    <Descriptions.Item label="Таалагдсан">{formatCount(film.like_count)}</Descriptions.Item>
+                                    <Descriptions.Item label="Дараа үзэх">{formatCount(film.watchlist_count)}</Descriptions.Item>
+                                    <Descriptions.Item label="Сэтгэгдэл">{formatCount(film.review_count)}</Descriptions.Item>
+                                </Descriptions>
+                            </Col>                                    
                         </Row>
                     </div>    
                     { film.is_released ? (
@@ -205,9 +230,9 @@ function FilmListItem (props) {
                                     <Button className="watchlist" size="large" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
                                 }        
                             </Tooltip>
-                            <Tooltip title="Жагсаалтад нэмэх" placement="right">
+                            {/* <Tooltip title="Жагсаалтад нэмэх" placement="right">
                                 <Button className="addlist" size="large" type="text" icon={<AppstoreAddOutlined />} />                            
-                            </Tooltip>                            
+                            </Tooltip>                             */}
                             <Tooltip title="Үнэлгээ өгөх" placement="right">
                                 { user && user.profile.scores.filter(x => x.film === film.id).length > 0 ? 
                                     <Popover                                    

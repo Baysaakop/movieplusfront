@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Col, Form, Input, InputNumber, List, message, Pagination, Row, Select, Space, Spin, Tooltip, Typography } from "antd"
+import { Breadcrumb, Button, Col, Form, Input, InputNumber, List, message, Pagination, Row, Select, Space, Spin, Typography } from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
@@ -171,6 +171,8 @@ function FilmList (props) {
         const params = new URLSearchParams(props.location.search)        
         params.delete("order")
         params.append("order", value)
+        params.delete("page")
+        params.append("page", 1)
         history.push(`/films?${params.toString()}`)        
     }
     
@@ -226,12 +228,8 @@ function FilmList (props) {
                         <Col xs={24} sm={24} md={4}>
                             <Typography.Title level={5} style={{ marginBottom: '8px' }}>Харагдац:</Typography.Title>
                             <Space size={[8, 8]}>
-                                <Tooltip title="Grid View">
-                                    <Button size="large" type={ isList === false ? "ghost" : "text" } icon={<TableOutlined />} onClick={onSelectGrid} />
-                                </Tooltip>
-                                <Tooltip title="List View">
-                                    <Button size="large" type={ isList === true ? "ghost" : "text" } icon={<BarsOutlined />} onClick={onSelectList} />
-                                </Tooltip>
+                                <Button size="middle" type={ isList === false ? "ghost" : "text" } icon={<TableOutlined />} onClick={onSelectGrid} />
+                                <Button size="middle" type={ isList === true ? "ghost" : "text" } icon={<BarsOutlined />} onClick={onSelectList} />
                             </Space>
                         </Col>
                         <Col xs={24} sm={24} md={4}>
@@ -244,14 +242,14 @@ function FilmList (props) {
                                 <InputNumber defaultValue={moment().year()} style={{ width: '100%' }} onChange={onSelectYearTo} />
                             </Form.Item>
                         </Col>
-                        {/* <Col xs={24} sm={24} md={12} lg={6} xl={3}>
-                            <Form.Item name="scorefrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Үнэлгээ (min)</Typography.Title>}>
-                                <InputNumber defaultValue={10} min={10} max={100} style={{ width: '100%' }} onChange={onSelectScoreFrom} />
+                        {/* <Col xs={24} sm={24} md={4}>
+                            <Form.Item name="scorefrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Үнэлгээ (доод)</Typography.Title>}>
+                                <InputNumber defaultValue={1} min={1} max={10} style={{ width: '100%' }} onChange={onSelectScoreFrom} />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={12} lg={6} xl={3}>
-                            <Form.Item name="scoreto" label={<Typography.Title level={5} style={{ margin: 0 }}>Үнэлгээ (max)</Typography.Title>}>
-                                <InputNumber defaultValue={100} min={10} max={100} style={{ width: '100%' }} onChange={onSelectScoreTo} />
+                        <Col xs={24} sm={24} md={4}>
+                            <Form.Item name="scoreto" label={<Typography.Title level={5} style={{ margin: 0 }}>Үнэлгээ (дээд)</Typography.Title>}>
+                                <InputNumber defaultValue={10} min={1} max={10} style={{ width: '100%' }} onChange={onSelectScoreTo} />
                             </Form.Item>
                         </Col> */}
                         <Col xs={24} sm={24} md={12}>

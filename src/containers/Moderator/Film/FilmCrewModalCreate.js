@@ -14,6 +14,7 @@ function FilmCrewModalCreate (props) {
     const [occupations, setOccupations] = useState()
 
     useEffect(() => {
+        console.log(props)
         axios({
             method: 'GET',                        
             url: api.occupations
@@ -50,7 +51,12 @@ function FilmCrewModalCreate (props) {
             if (values.roles) {
                 var formData = new FormData();
                 formData.append('artist', selection.id)
-                formData.append('film', props.film)
+                if (props.film) {
+                    formData.append('film', props.film)
+                }                
+                if (props.series) {
+                    formData.append('series', props.series)
+                }                
                 formData.append('roles', values.roles)
                 formData.append('token', props.token)
                 axios({

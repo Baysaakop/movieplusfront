@@ -36,7 +36,12 @@ function FilmCastModalCreate (props) {
             const url = `${api.cast}/`
             var formData = new FormData();
             formData.append('artist', selection.id)
-            formData.append('film', props.film)                
+            if (props.film) {
+                formData.append('film', props.film)                
+            } 
+            if (props.series) {
+                formData.append('series', props.series)                
+            }
             formData.append('token', props.token)
             if (checked) {
                 formData.append('is_lead', true)

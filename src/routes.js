@@ -19,6 +19,7 @@ import Moderator from './containers/Moderator/Moderator';
 // import ReviewDetail from './containers/Film/Review/ReviewDetail';
 // import ReviewList from './containers/Film/Review/ReviewList';
 import SeriesList from './containers/Series/SeriesList';
+import SeriesDetail from './containers/Series/SeriesDetail';
 
 function BaseRouter () {
     return (
@@ -27,6 +28,7 @@ function BaseRouter () {
             <Route exact path="/films" component={FilmList} />
             <Route exact path="/films/:id" component={FilmDetail} />       
             <Route exact path="/series" component={SeriesList} />     
+            <Route exact path="/series/:id" component={SeriesDetail} />       
             <Route exact path="/artists" component={ArtistList} />
             <Route exact path="/artists/:id" component={ArtistDetail} />
             <Route exact path="/articles" component={ArticleList} />

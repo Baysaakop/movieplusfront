@@ -3,11 +3,16 @@ import moment from 'moment'
 import FilmPopover from "../Film/FilmPopover"
 
 function Filmography (props) {
+
+    function orderByYear (crew) {
+        return crew.sort((a, b) => moment(a.film.releasedate).year() - moment(b.film.releasedate).year())
+    }
+
     return (        
         <div className="container">
             <Typography.Title level={5}>{props.title}</Typography.Title>            
             <Timeline style={{ marginTop: '16px' }}>
-                {props.data.map(member => (
+                {orderByYear(props.data).map(member => (
                     <Timeline.Item>
                         <Popover
                             title={false}

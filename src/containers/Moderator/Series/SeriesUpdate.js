@@ -9,7 +9,7 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 const { Search, TextArea } = Input
 const { Option } = Select
 
-function FilmUpdate (props) {
+function SeriesUpdate (props) {
     const [form] = Form.useForm()   
     const [loading, setLoading] = useState()
     const [poster, setPoster] = useState()
@@ -42,8 +42,7 @@ function FilmUpdate (props) {
         })        
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
     
-    function onFinish (values) {              
-        console.log(values)
+    function onFinish (values) {                      
         if (selection) {
             setLoading(true)       
             var formData = new FormData();        
@@ -59,14 +58,20 @@ function FilmUpdate (props) {
             if (values.duration && values.duration !== selection.duration) {
                 formData.append('duration', values.duration)
             }
+            if (values.seasons && values.seasons !== selection.seasons) {
+                formData.append('seasons', values.seasons)
+            }
+            if (values.episodes && values.episodes !== selection.episodes) {
+                formData.append('episodes', values.episodes)
+            }
             if (values.releasedate && moment(values.releasedate).format("YYYY-MM-DD") !== moment(selection.releasedate).format("YYYY-MM-DD")) {
                 formData.append('releasedate', moment(values.releasedate).format("YYYY-MM-DD"))
             }         
             if (values.is_released !== undefined && values.is_released !== selection.is_released) {
                 formData.append('is_released', values.is_released)
             }
-            if (values.in_theater !== undefined && values.in_theater !== selection.in_theater) {
-                formData.append('in_theater', values.in_theater)
+            if (values.on_tv !== undefined && values.on_tv !== selection.on_tv) {
+                formData.append('on_tv', values.on_tv)
             }  
             if (values.rating && selection.rating && values.rating !== selection.rating.id.toString()) {
                 formData.append('rating', values.rating)
@@ -74,9 +79,6 @@ function FilmUpdate (props) {
             if (values.genres && selection.genres && values.genres !== getGenreIDs(selection.genres)) {
                 formData.append('genres', values.genres)
             } 
-            // if (description && description !== selection.description) {
-            //     formData.append('description', description)
-            // }
             if (poster && poster !== selection.poster) {
                 formData.append('poster', poster)
             } 
@@ -86,7 +88,7 @@ function FilmUpdate (props) {
             formData.append('token', props.token)         
             axios({
                 method: 'PUT',
-                url: `${api.films}/${selection.id}/`,
+                url: `${api.series}/${selection.id}/`,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -94,7 +96,7 @@ function FilmUpdate (props) {
                 }
             }).then(res => {                        
                 if (res.status === 200) {                      
-                    message.info(`${selection.title} киног засварлалаа.`)
+                    message.info(`${selection.title} цувралыг засварлалаа.`)
                     form.resetFields()                    
                     setPoster(undefined)
                     setLandscape(undefined)
@@ -107,7 +109,7 @@ function FilmUpdate (props) {
                 setLoading(false)          
             })        
         } else {
-            message.error("Кино сонгогдоогүй байна.")
+            message.error("Цуврал сонгогдоогүй байна.")
         }       
     }
 
@@ -116,13 +118,13 @@ function FilmUpdate (props) {
             setLoading(true)                      
             axios({
                 method: 'DELETE',
-                url: `${api.films}/${selection.id}/`,                
+                url: `${api.series}/${selection.id}/`,                
                 headers: {                    
                     'Authorization': `Token ${props.token}`            
                 }
             }).then(res => {                                
                 if (res.status === 204) {                      
-                    message.warning(`${selection.title} кино устгагдлаа.`)
+                    message.warning(`${selection.title} цуврал устгагдлаа.`)
                     form.resetFields()                    
                     setPoster(undefined)
                     setLandscape(undefined)
@@ -135,7 +137,7 @@ function FilmUpdate (props) {
                 setLoading(false)          
             })        
         } else {
-            message.error("Кино сонгогдоогүй байна.")
+            message.error("Цуврал сонгогдоогүй байна.")
         }       
     }
 
@@ -190,7 +192,7 @@ function FilmUpdate (props) {
     // }
 
     function onSearch(val) {                
-        let url = `${api.films}?title=${val}`
+        let url = `${api.series}?title=${val}`
         axios({
             method: 'GET',
             url: url,
@@ -210,10 +212,12 @@ function FilmUpdate (props) {
             rating: film.rating ? film.rating.id.toString() : undefined,
             releasedate: film.releasedate ? moment(film.releasedate) : undefined,
             duration: film.duration ? film.duration : undefined,
+            seasons: film.seasons ? film.seasons : undefined,
+            episodes: film.episodes ? film.episodes : undefined,
             plot: film.plot,
             trailer: film.trailer,
             is_released: film.is_released,
-            in_theater: film.in_theater,
+            on_tv: film.on_tv,
         })
         if (film.landscape) {
             setLandscape(film.landscape)
@@ -243,15 +247,15 @@ function FilmUpdate (props) {
             </div>
         ) : (
             <div>
-                <Typography.Title level={3}>Кино засах</Typography.Title>
+                <Typography.Title level={3}>Цуврал засах</Typography.Title>
                 <Row gutter={[16, 16]}>
                     <Col xs={24} sm={24} md={24} lg={12}>
-                        <Search placeholder="Кино хайх" onSearch={onSearch} enterButton />
+                        <Search placeholder="Цуврал хайх" onSearch={onSearch} enterButton />
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={12}>
                         <Select
                             showSearch                                
-                            placeholder="Кино сонгоно уу"                                                
+                            placeholder="Цуврал сонгоно уу"                                                
                             optionFilterProp="children"       
                             onSelect={onSelect} 
                             style={{ width: '100%' }}                        
@@ -292,7 +296,7 @@ function FilmUpdate (props) {
                                         <Radio value={false}>Үгүй</Radio>
                                     </Radio.Group> 
                                 </Form.Item>     
-                                <Form.Item name="in_theater" label="Театрт гарч буй:">                               
+                                <Form.Item name="on_tv" label="Одоо гарч буй:">                               
                                     <Radio.Group defaultValue={false}>
                                         <Radio value={true}>Тийм</Radio>
                                         <Radio value={false}>Үгүй</Radio>
@@ -300,11 +304,11 @@ function FilmUpdate (props) {
                                 </Form.Item>                       
                             </Col>
                             <Col xs={24} sm={16} md={16} lg={16} xl={18}>
-                                <Form.Item name="title" label="Нэр:" rules={[{ required: true, message: 'Та киноны нэрийг оруулна уу!' }]}>
+                                <Form.Item name="title" label="Нэр:" rules={[{ required: true, message: 'Цувралын нэрийг оруулна уу!' }]}>
                                     <Input />
                                 </Form.Item>                        
                                 <Row gutter={[16, 0]}>
-                                    <Col xs={24} sm={24} md={24} lg={24} xl={8}>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
                                         <Form.Item name="genres" label="Төрөл жанр:">                        
                                             <Select
                                                 showSearch
@@ -325,8 +329,13 @@ function FilmUpdate (props) {
                                                 )}
                                             </Select>                        
                                         </Form.Item>
+                                    </Col>                                
+                                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                        <Form.Item name="releasedate" label="Нээлт:">
+                                            <DatePicker style={{ width: '100%' }} />
+                                        </Form.Item>
                                     </Col>
-                                    <Col xs={24} sm={24} md={9} lg={9} xl={6}>
+                                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item name="rating" label="Насны ангилал:">                        
                                             <Select
                                                 showSearch                                
@@ -347,14 +356,19 @@ function FilmUpdate (props) {
                                             </Select>                        
                                         </Form.Item>                                                
                                     </Col>
-                                    <Col xs={24} sm={24} md={9} lg={9} xl={6}>
-                                        <Form.Item name="releasedate" label="Нээлт:">
-                                            <DatePicker style={{ width: '100%' }} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={6} lg={6} xl={4}>
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={4}>
                                         <Form.Item name="duration" label="Хугацаа:">
                                             <InputNumber defaultValue={90} min={0} style={{ width: '100%' }} />
+                                        </Form.Item>
+                                    </Col>     
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={4}>
+                                        <Form.Item name="seasons" label="Бүлэг:">
+                                            <InputNumber defaultValue={1} min={1} style={{ width: '100%' }} />
+                                        </Form.Item>
+                                    </Col>       
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={4}>
+                                        <Form.Item name="episodes" label="Анги:">
+                                            <InputNumber defaultValue={1} min={1} style={{ width: '100%' }} />
                                         </Form.Item>
                                     </Col>                                                            
                                 </Row>
@@ -389,4 +403,4 @@ function FilmUpdate (props) {
     )
 }
 
-export default FilmUpdate
+export default SeriesUpdate
