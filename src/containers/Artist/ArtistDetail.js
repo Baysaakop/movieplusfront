@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, message, Popover, Row, Spin, Timeline, Tooltip, Typography } from "antd"
+import { Breadcrumb, Button, Col, Divider, message, Row, Spin, Tooltip, Typography } from "antd"
 import { BellOutlined, FacebookFilled, InstagramOutlined, LikeOutlined, TwitterOutlined, YoutubeFilled } from "@ant-design/icons"
 import './ArtistDetail.css'
-import FilmPopover from "../Film/FilmPopover"
-import moment from "moment"
 import { useHistory } from "react-router-dom"
 import { connect } from "react-redux"
 import Filmography from "./Filmography"
@@ -14,16 +12,20 @@ function ArtistDetail (props) {
     const history = useHistory()
     const [user, setUser] = useState()
     const [artist, setArtist] = useState()
-    const [crew, setCrew] = useState()
-    const [cast, setCast] = useState()
+    const [filmCrew, setFilmCrew] = useState()
+    const [seriesCrew, setSeriesCrew] = useState()
+    const [filmCast, setFilmCast] = useState()
+    const [seriesCast, setSeriesCast] = useState()    
 
     useEffect(() => {
         if (props.token && !user) {
             getUser()
         }
         getArtist()
-        getCrew()
-        getCast()
+        getFilmCrew()
+        getSeriesCrew()
+        getFilmCast()
+        getSeriesCast()
     }, [props.token]) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getArtist() {
@@ -37,7 +39,6 @@ function ArtistDetail (props) {
             }
         })
         .then(res => {            
-            console.log(res.data)
             setArtist(res.data)                  
         })
         .catch(err => {
@@ -60,9 +61,9 @@ function ArtistDetail (props) {
         })
     }  
 
-    function getCrew() {
+    function getFilmCrew() {
         const id = props.match.params.id
-        const url = api.crew + "?artist=" + id
+        const url = api.crew + "?artist=" + id + "&type=film"
         axios({
             method: 'GET',
             url: url,
@@ -71,17 +72,16 @@ function ArtistDetail (props) {
             }
         })
         .then(res => {                        
-            console.log(res.data)
-            setCrew(res.data.results)                  
+            setFilmCrew(res.data.results)                  
         })
         .catch(err => {
             message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
         })
     }
 
-    function getCast() {
+    function getSeriesCrew() {
         const id = props.match.params.id
-        const url = api.cast + "?artist=" + id
+        const url = api.crew + "?artist=" + id + "&type=series"
         axios({
             method: 'GET',
             url: url,
@@ -90,61 +90,48 @@ function ArtistDetail (props) {
             }
         })
         .then(res => {                        
-            console.log(res.data)
-            setCast(res.data.results)                  
+            setSeriesCrew(res.data.results)                  
         })
         .catch(err => {
             message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
         })
     }
 
-    function getDirector (members) {
-        let results = []
-        members.forEach(member => {
-            member.roles.forEach(r => {
-                if (r.id === 2) {
-                    results.push(member)
-                }
-            })
+    function getFilmCast() {
+        const id = props.match.params.id
+        const url = api.cast + "?artist=" + id + "&type=film"
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'                
+            }
         })
-        return results
+        .then(res => {                        
+            setFilmCast(res.data.results)                  
+        })
+        .catch(err => {
+            message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+        })
     }
 
-    function getProducer (members) {
-        let results = []
-        members.forEach(member => {
-            member.roles.forEach(r => {
-                if (r.id === 3) {
-                    results.push(member)
-                }
-            })
+    function getSeriesCast() {
+        const id = props.match.params.id
+        const url = api.cast + "?artist=" + id + "&type=series"
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'                
+            }
         })
-        return results
+        .then(res => {                        
+            setSeriesCast(res.data.results)                  
+        })
+        .catch(err => {
+            message.error("Алдаа гарлаа. Та хуудсаа refresh хийнэ үү.")
+        })
     }    
-    
-    function getCinematographer(members) {
-        let results = []
-        members.forEach(member => {
-            member.roles.forEach(r => {
-                if (r.id === 4) {
-                    results.push(member)
-                }
-            })
-        })
-        return results
-    }
-
-    function getScreenWriter (members) {
-        let results = []
-        members.forEach(member => {
-            member.roles.forEach(r => {
-                if (r.id === 5) {
-                    results.push(member)
-                }
-            })
-        })
-        return results
-    }
 
     function formatCount(count) {
         if (count >= 1000000) {
@@ -288,51 +275,23 @@ function ArtistDetail (props) {
                                 </div>
                             </div>        
                         </div>
-                        <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
-                            { cast && cast.length > 0 ? (
-                                <Col xs={24} sm={24} md={24} lg={12}>
-                                    <div className="container">
-                                        <Typography.Title level={5}>Бүтээлүүд (Жүжигчин)</Typography.Title>            
-                                        <Timeline style={{ marginTop: '16px' }}>
-                                            {cast ? cast.map(member => (
-                                                <Timeline.Item>
-                                                    <Popover
-                                                        title={false}
-                                                        placement="rightTop"
-                                                        content={
-                                                            <FilmPopover film={member.film} />
-                                                        }
-                                                    >
-                                                        <a className="film-timeline" href={`/films/${member.film.id}`}>
-                                                            {moment(member.film.releasedate).year()} - {member.film.title} {member.role_name ? ` | Дүр: ${member.role_name}` : ''}
-                                                        </a>                                   
-                                                    </Popover>                                            
-                                                </Timeline.Item>             
-                                            )) : []}                                                                
-                                        </Timeline>    
-                                    </div>
-                                </Col> 
-                            ) : []}   
-                            { crew && getProducer(crew).length > 0 ? (
-                                <Col xs={24} sm={24} md={24} lg={12}>
-                                    <Filmography title="Продюсер" data={getProducer(crew)} />                                   
-                                </Col> 
-                            ) : []}           
-                            { crew && getDirector(crew).length > 0 ? (
-                                <Col xs={24} sm={24} md={24} lg={12}>
-                                    <Filmography title="Найруулагч" data={getDirector(crew)} />                                    
-                                </Col> 
-                            ) : []}  
-                            { crew && getScreenWriter(crew).length > 0 ? (
-                                <Col xs={24} sm={24} md={24} lg={12}>
-                                    <Filmography title="Кино зохиолч" data={getScreenWriter(crew)} />                                    
-                                </Col> 
-                            ) : []}  
-                            { crew && getCinematographer(crew).length > 0 ? (
-                                <Col xs={24} sm={24} md={24} lg={12}>
-                                    <Filmography title="Зураглаач" data={getCinematographer(crew)} />     
-                                </Col> 
-                            ) : []}                                                                  
+                        <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>                            
+                            <Col xs={24} sm={24} md={24} lg={12}>
+                            { filmCast && filmCast.length > 0 ? (                                
+                                <Filmography type="cast" mode="film" title="Кино дүрүүд" data={filmCast} />                                     
+                            ) : []}
+                            { filmCrew && filmCrew.length > 0 ? (                                
+                                <Filmography type="crew" mode="film" title="Кино бүтээлүүд" data={filmCrew} />                                     
+                            ) : []}
+                            </Col> 
+                            <Col xs={24} sm={24} md={24} lg={12}>
+                            { seriesCast && seriesCast.length > 0 ? (                                
+                                <Filmography type="cast" mode="series" title="ТВ Цувралын дүрүүд" data={seriesCast} />                                     
+                            ) : []}
+                            { seriesCrew && seriesCrew.length > 0 ? (                                
+                                <Filmography type="crew" mode="series" title="ТВ Цувралууд" data={seriesCrew} />                                     
+                            ) : []}
+                            </Col> 
                         </Row>
                     </Col>                                        
                 </Row>

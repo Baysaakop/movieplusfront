@@ -5,7 +5,7 @@ function FilmPopover (props) {
         <div className="popover-container" style={{ width: '300px' }}>
             <Row gutter={[8, 8]}>
                 <Col span={8}>
-                    <img alt={props.film.name} src={props.film.poster} style={{ width: '100%', height: 'auto' }} />
+                    <img alt={props.film.title} src={props.film.poster} style={{ width: '100%', height: 'auto' }} />
                 </Col>
                 <Col span={16}>
                     <Typography.Text style={{ fontWeight: 'bold' }}>{props.film.title}</Typography.Text>       
