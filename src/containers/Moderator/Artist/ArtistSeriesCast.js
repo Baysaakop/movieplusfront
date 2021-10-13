@@ -10,7 +10,7 @@ import ArtistFilmCastModalUpdate from "./ArtistFilmCastModalUpdate"
 const { Search } = Input
 const { Option } = Select
 
-function ArtistFilmCast (props) {        
+function ArtistSeriesCast (props) {        
     const [artists, setArtists] = useState()
     const [selection, setSelection] = useState()
     const [cast, setCast] = useState()
@@ -39,7 +39,7 @@ function ArtistFilmCast (props) {
     }
     
     function getCast(id, page) {        
-        const url = `${api.cast}?artist=${id}&type=film&page=${page}`
+        const url = `${api.cast}?artist=${id}&type=series&page=${page}`
         axios({
             method: 'GET',
             url: url,
@@ -59,7 +59,7 @@ function ArtistFilmCast (props) {
 
     function orderByYear (cast) {
         if (cast) {
-            return cast.sort((a, b) => moment(a.film.releasedate).year() - moment(b.film.releasedate).year())
+            return cast.sort((a, b) => moment(a.series.releasedate).year() - moment(b.series.releasedate).year())
         } 
         return undefined       
     }
@@ -145,8 +145,8 @@ function ArtistFilmCast (props) {
                 <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>
                 { modalCreate && selection ? 
                     <ArtistFilmCastModalCreate 
-                        type="film"
-                        title="Кино нэмэх"
+                        type="series"
+                        title="Цуврал нэмэх"
                         artist={selection.id}
                         token={props.token} 
                         hide={onModalCreateHide} 
@@ -163,11 +163,11 @@ function ArtistFilmCast (props) {
                 <Col xs={24} sm={24} md={24} lg={6}></Col>
                 { member ? 
                     <ArtistFilmCastModalUpdate
-                        type="film"
-                        title={`Дүр засах - ${member.film.title}`}
+                        type="series"
+                        title={`Дүр засах - ${member.series.title}`}
                         id={member.id}
                         artist={member.artist.id}
-                        film={member.film.id}
+                        film={member.series.id}
                         is_lead={member.is_lead === true}
                         role_name={member.role_name}
                         token={props.token} 
@@ -183,10 +183,10 @@ function ArtistFilmCast (props) {
                     renderItem={item => (
                         <List.Item key={item.id}>
                             <Col xs={24} sm={24} md={24} lg={2}>
-                                {moment(item.film.releasedate).year()}
+                                {moment(item.series.releasedate).year()}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={8}>
-                                {item.film.title}
+                                {item.series.title}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={4}>
                                 {item.role_name}
@@ -219,4 +219,4 @@ function ArtistFilmCast (props) {
     )
 }
 
-export default ArtistFilmCast
+export default ArtistSeriesCast

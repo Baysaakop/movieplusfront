@@ -14,7 +14,10 @@ function ArtistFilmCastModalCreate (props) {
     const [checked, setChecked] = useState(false)
 
     function onSearch(val) {                
-        let url = `${api.films}?title=${val}`
+        let url = `${api.films}?title=${val}`        
+        if (props.type === "series") {
+            url = `${api.series}?title=${val}`
+        } 
         axios({
             method: 'GET',
             url: url,
@@ -35,8 +38,12 @@ function ArtistFilmCastModalCreate (props) {
         if (selection) {
             const url = `${api.cast}/`
             var formData = new FormData();
-            formData.append('artist', props.artist)
-            formData.append('film', selection.id)                
+            formData.append('artist', props.artist)            
+            if (props.type === "film") {
+                formData.append('film', selection.id)
+            } else if (props.type === "series") {
+                formData.append('series', selection.id)
+            }                         
             formData.append('token', props.token)
             if (checked) {
                 formData.append('is_lead', true)
@@ -87,12 +94,12 @@ function ArtistFilmCastModalCreate (props) {
                 <div>
                     <Row gutter={[16, 16]}>
                         <Col span={24}>
-                            <Search placeholder="Кино хайх" onSearch={onSearch} enterButton />
+                            <Search placeholder="Уран бүтээл хайх" onSearch={onSearch} enterButton />
                         </Col>
                         <Col span={24}>
                             <Select
                                 showSearch                                
-                                placeholder="Кино сонгоно уу"                                                
+                                placeholder="Уран бүтээл сонгоно уу"                                                
                                 optionFilterProp="children"       
                                 onSelect={onSelect} 
                                 style={{ width: '100%' }}                        

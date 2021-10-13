@@ -27,8 +27,12 @@ function ArtistFilmCrewModalUpdate (props) {
         if (values.roles) {
             const url = `${api.crew}/${props.id}/`
             var formData = new FormData();
-            formData.append('artist', props.artist)
-            formData.append('film', props.film)
+            formData.append('artist', props.artist)            
+            if (props.type === "film") {
+                formData.append('film', props.film)
+            } else if (props.type === "series") {
+                formData.append('film', props.series)
+            }      
             formData.append('roles', values.roles)
             formData.append('token', props.token)
             axios({

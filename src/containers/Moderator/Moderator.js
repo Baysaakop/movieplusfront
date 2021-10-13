@@ -16,6 +16,8 @@ import SeriesCreate from './Series/SeriesCreate';
 import SeriesUpdate from './Series/SeriesUpdate';
 import SeriesCrew from './Series/SeriesCrew';
 import SeriesCast from './Series/SeriesCast';
+import ArtistSeriesCrew from './Artist/ArtistSeriesCrew';
+import ArtistSeriesCast from './Artist/ArtistSeriesCast';
 
 function Moderator (props) {
     const [loading, setLoading] = useState(false)
@@ -130,6 +132,10 @@ function Moderator (props) {
                                 <ArtistFilmCrew token={props.token} />
                             ) : key === "12" ? (
                                 <ArtistFilmCast token={props.token} />
+                            ) : key === "13" ? (
+                                <ArtistSeriesCrew token={props.token} />
+                            ) : key === "14" ? (
+                                <ArtistSeriesCast token={props.token} />
                             ) : (
                                 <></>
                             )}

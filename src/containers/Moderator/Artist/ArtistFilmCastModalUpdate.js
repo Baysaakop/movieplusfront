@@ -19,7 +19,11 @@ function ArtistFilmCastModalUpdate (props) {
         const url = `${api.cast}/${props.id}/`
         var formData = new FormData();
         formData.append('artist', props.artist)
-        formData.append('film', props.film)        
+        if (props.type === "film") {
+            formData.append('film', props.film)
+        } else if (props.type === "series") {
+            formData.append('film', props.series)
+        }      
         formData.append('token', props.token)
         if (checked !== props.is_lead) {
             formData.append('is_lead', checked)

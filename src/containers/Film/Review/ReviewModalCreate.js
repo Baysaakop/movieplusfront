@@ -19,9 +19,13 @@ function ReviewModalCreate (props) {
         if (comment && comment !== null && comment !== '') {
             setLoading(true)
             var formData = new FormData();
-            formData.append('film', props.film.id)            
+            if (props.type === "film") {
+                formData.append('film', props.film.id)            
+            } else if (props.type === "series") {
+                formData.append('series', props.film.id)            
+            }            
             formData.append('token', props.token)                         
-            formData.append('is_spoiler', values.spoiler)        
+            formData.append('is_spoiler', values.spoiler)                    
             formData.append('title', values.title && values.title !== '' ? values.title : `${props.film.title} киноны сэтгэгдэл`)
             formData.append('comment', comment)             
             axios({

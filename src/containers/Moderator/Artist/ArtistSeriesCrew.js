@@ -4,20 +4,20 @@ import { useState } from "react"
 import api from "../../../api"
 import moment from "moment"
 import { PlusOutlined } from "@ant-design/icons"
-import ArtistFilmCastModalCreate from "./ArtistFilmCastModalCreate"
-import ArtistFilmCastModalUpdate from "./ArtistFilmCastModalUpdate"
+import ArtistFilmCrewModalCreate from "./ArtistFilmCrewModalCreate"
+import ArtistFilmCrewModalUpdate from "./ArtistFilmCrewModalUpdate"
 
 const { Search } = Input
 const { Option } = Select
 
-function ArtistFilmCast (props) {        
+function ArtistSeriesCrew (props) {        
     const [artists, setArtists] = useState()
     const [selection, setSelection] = useState()
-    const [cast, setCast] = useState()
+    const [crew, setCrew] = useState()
     const [total, setTotal] = useState()
     const [page, setPage] = useState()
-    const [modalCreate, setModalCreate] = useState(false)    
-    const [member, setMember] = useState()
+    const [modalCreate, setModalCreate] = useState(false)
+    const [member, setMember] = useState(false)
 
     function onSearch(val) {                
         let url = `${api.artists}?name=${val}`
@@ -34,12 +34,12 @@ function ArtistFilmCast (props) {
 
     function onSelect(e) {
         let artist = artists.find(x => x.id === parseInt(e))
-        getCast(artist.id, 1)     
+        getCrew(artist.id, 1)     
         setSelection(artist)        
     }
     
-    function getCast(id, page) {        
-        const url = `${api.cast}?artist=${id}&type=film&page=${page}`
+    function getCrew(id, page) {        
+        const url = `${api.crew}?artist=${id}&type=series&page=${page}`
         axios({
             method: 'GET',
             url: url,
@@ -49,7 +49,7 @@ function ArtistFilmCast (props) {
         })
         .then(res => {                        
             console.log(res.data)
-            setCast(res.data.results)                  
+            setCrew(res.data.results)                  
             setTotal(res.data.count)
         })
         .catch(err => {
@@ -57,31 +57,38 @@ function ArtistFilmCast (props) {
         })
     }
 
-    function orderByYear (cast) {
-        if (cast) {
-            return cast.sort((a, b) => moment(a.film.releasedate).year() - moment(b.film.releasedate).year())
+    function orderByYear (crew) {
+        if (crew) {
+            return crew.sort((a, b) => moment(a.series.releasedate).year() - moment(b.series.releasedate).year())
         } 
         return undefined       
     }
 
+    function getRoles (roles) {
+        let result = []
+        roles.forEach(role => {
+            result.push(role.name)
+        })
+        return result.toString()
+    }
+
     function onModalCreateHide () {
-        getCast(selection.id, 1)
+        getCrew(selection.id, 1)
         setModalCreate(false)
     }
 
     function onModalUpdateShow (item) {
-        setMember(item)        
+        setMember(item)     
     }
 
     function onModalUpdateHide () {
         setMember(undefined)
-        getCast(selection.id, 1)
-        // setModalUpdate(false)
+        getCrew(selection.id, 1)        
     }
 
     function onPageChange (pageNum, pageSize) {        
         setPage(pageNum)
-        getCast(selection.id, pageNum)
+        getCrew(selection.id, pageNum)
     }
 
     function showTotal() {
@@ -89,7 +96,7 @@ function ArtistFilmCast (props) {
     }  
 
     function onDelete (id) {
-        const url = `${api.cast}/${id}/`
+        const url = `${api.crew}/${id}/`
         axios({
             method: 'DELETE',
             url: url,            
@@ -101,7 +108,7 @@ function ArtistFilmCast (props) {
         .then(res => {                        
             if (res.status === 204) {                      
                 message.info(`Амжилттай`)
-                getCast(selection.id, 1)                                                                                                                                      
+                getCrew(selection.id, 1)                                                                                                                                      
             }      
         })
         .catch(err => {
@@ -144,9 +151,9 @@ function ArtistFilmCast (props) {
                 <Typography.Title level={5} style={{ margin: '16px 0' }}>Ажлууд</Typography.Title>
                 <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>
                 { modalCreate && selection ? 
-                    <ArtistFilmCastModalCreate 
-                        type="film"
-                        title="Кино нэмэх"
+                    <ArtistFilmCrewModalCreate 
+                        type="series"
+                        title="Цуврал нэмэх"
                         artist={selection.id}
                         token={props.token} 
                         hide={onModalCreateHide} 
@@ -158,18 +165,16 @@ function ArtistFilmCast (props) {
             <Row gutter={[16, 16]}>                                                           
                 <Col xs={24} sm={24} md={24} lg={2}>Он</Col>
                 <Col xs={24} sm={24} md={24} lg={8}>Кино</Col>
-                <Col xs={24} sm={24} md={24} lg={4}>Дүр</Col>
-                <Col xs={24} sm={24} md={24} lg={4}>Гол дүр</Col>
+                <Col xs={24} sm={24} md={24} lg={8}>Роль</Col>
                 <Col xs={24} sm={24} md={24} lg={6}></Col>
                 { member ? 
-                    <ArtistFilmCastModalUpdate
-                        type="film"
-                        title={`Дүр засах - ${member.film.title}`}
+                    <ArtistFilmCrewModalUpdate
+                        type="series"
+                        title={`Роль засах - ${member.series.title}`}
                         id={member.id}
                         artist={member.artist.id}
-                        film={member.film.id}
-                        is_lead={member.is_lead === true}
-                        role_name={member.role_name}
+                        film={member.series.id}
+                        roles={member.roles}
                         token={props.token} 
                         hide={onModalUpdateHide} 
                     /> 
@@ -178,25 +183,22 @@ function ArtistFilmCast (props) {
                 }             
                 <List 
                     itemLayout="horizontal"
-                    dataSource={orderByYear(cast)}
+                    dataSource={orderByYear(crew)}
                     style={{ width: '100%' }}
                     renderItem={item => (
                         <List.Item key={item.id}>
                             <Col xs={24} sm={24} md={24} lg={2}>
-                                {moment(item.film.releasedate).year()}
+                                {moment(item.series.releasedate).year()}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={8}>
-                                {item.film.title}
+                                {item.series.title}
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={4}>
-                                {item.role_name}
-                            </Col>
-                            <Col xs={24} sm={24} md={24} lg={4}>
-                                {item.is_lead ? 'Гол' : 'Туслах'}
+                            <Col xs={24} sm={24} md={24} lg={8}>
+                                {getRoles(item.roles)}
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={6}>
                                 <Space size={[8, 8]} wrap>
-                                    <Button size="small" type="text" onClick={() => onModalUpdateShow(item)}>Засах</Button>                                   
+                                    <Button size="small" type="text" onClick={() => onModalUpdateShow(item)}>Засах</Button>                                    
                                     <Popconfirm title="Устгахдаа итгэлтэй байна уу？" okText="Тийм" cancelText="Үгүй" onConfirm={() => onDelete(item.id)}>
                                         <Button size="small" danger type="text">Устгах</Button>
                                     </Popconfirm>
@@ -219,4 +221,4 @@ function ArtistFilmCast (props) {
     )
 }
 
-export default ArtistFilmCast
+export default ArtistSeriesCrew

@@ -39,7 +39,7 @@ function ArtistFilmCrew (props) {
     }
     
     function getCrew(id, page) {        
-        const url = `${api.crew}?artist=${id}&page=${page}`
+        const url = `${api.crew}?artist=${id}&type=film&page=${page}`
         axios({
             method: 'GET',
             url: url,
@@ -152,6 +152,7 @@ function ArtistFilmCrew (props) {
                 <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>
                 { modalCreate && selection ? 
                     <ArtistFilmCrewModalCreate 
+                        type="film"
                         title="Кино нэмэх"
                         artist={selection.id}
                         token={props.token} 
@@ -168,6 +169,7 @@ function ArtistFilmCrew (props) {
                 <Col xs={24} sm={24} md={24} lg={6}></Col>
                 { member ? 
                     <ArtistFilmCrewModalUpdate
+                        type="film"
                         title={`Роль засах - ${member.film.title}`}
                         id={member.id}
                         artist={member.artist.id}

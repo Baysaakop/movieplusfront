@@ -4,11 +4,11 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import api from "../../../api"
 import moment from 'moment'
-import FilmReview from "./FilmReview"
 import { useHistory } from "react-router"
-import ReviewModalCreate from "./ReviewModalCreate"
+import SeriesReview from "./SeriesReview"
+import ReviewModalCreate from "../../Film/Review/ReviewModalCreate"
 
-function FilmReviews (props) {    
+function SeriesReviews (props) {    
     const history = useHistory()
     const [reviews, setReviews] = useState()    
     const [page, setPage] = useState(1) 
@@ -20,7 +20,7 @@ function FilmReviews (props) {
     }, [props.film])
 
     function getReviews(id, page) {
-        const url = api.reviews + "?film=" + id + "&page=" + page
+        const url = api.reviews + "?series=" + id + "&page=" + page
         axios({
             method: 'GET',
             url: url,
@@ -75,13 +75,13 @@ function FilmReviews (props) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography.Title level={4}>Сэтгэгдэл ({total})</Typography.Title>
                 <Button icon={<FormOutlined />} type="dashed" onClick={onNewReviewClick}>Сэтгэгдэл бичих</Button>     
-                { visible ? <ReviewModalCreate type="film" film={props.film} user={props.user} token={props.token} hide={onHide} /> : <></> }
+                { visible ? <ReviewModalCreate type="series" film={props.film} user={props.user} token={props.token} hide={onHide} /> : <></> }
             </div>
             { reviews && reviews.length > 0 ?  
                 <div>
                     {
                         order(reviews).map(item => (
-                            <FilmReview             
+                            <SeriesReview             
                                 key={item.id}
                                 data={item}
                                 user={props.user}       
@@ -111,4 +111,4 @@ function FilmReviews (props) {
     )
 }
 
-export default FilmReviews
+export default SeriesReviews

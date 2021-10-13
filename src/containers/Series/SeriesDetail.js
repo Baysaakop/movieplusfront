@@ -11,8 +11,8 @@ import blank from '../Film/blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import GenreTag from "../../components/GenreTag"
-import FilmReviews from "../Film/Review/FilmReviews"
 import FilmScore from "../Film/FilmScore"
+import SeriesReviews from "./Review/SeriesReviews"
 
 const data = [
     // 'PRIME CINEPLEX',
@@ -37,9 +37,9 @@ function SeriesDetail (props) {
             getUser()
         }
         getFilm()
-        // getCrew()
-        // getMainCast() 
-        // getCast()        
+        getCrew()
+        getMainCast() 
+        getCast()        
     }, [props.user]) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getFilm() {
@@ -78,7 +78,7 @@ function SeriesDetail (props) {
 
     function getCrew() {
         const id = props.match.params.id
-        const url = api.crew + "?film=" + id
+        const url = api.crew + "?series=" + id
         axios({
             method: 'GET',
             url: url,
@@ -96,7 +96,7 @@ function SeriesDetail (props) {
 
     function getMainCast() {
         const id = props.match.params.id
-        const url = api.cast + "?film=" + id + "&is_lead=true"
+        const url = api.cast + "?series=" + id + "&is_lead=true"
         axios({
             method: 'GET',
             url: url,
@@ -114,7 +114,7 @@ function SeriesDetail (props) {
 
     function getCast() {
         const id = props.match.params.id
-        const url = api.cast + "?film=" + id + "&is_lead=false"
+        const url = api.cast + "?series=" + id + "&is_lead=false"
         axios({
             method: 'GET',
             url: url,
@@ -452,12 +452,6 @@ function SeriesDetail (props) {
                                                 </Tooltip>
                                                 <Typography.Title level={5}>{formatCount(film.watchlist_count)}</Typography.Title>
                                             </div>
-                                            {/* <div className="action">
-                                                <Tooltip title="Жагсаалтад нэмэх">
-                                                    <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />   
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(0)}</Typography.Title>                         
-                                            </div> */}
                                             <div className="action">
                                                 { user && user.profile.series_scores.filter(x => x.series === film.id).length > 0 ? 
                                                     <Popover                                    
@@ -588,8 +582,8 @@ function SeriesDetail (props) {
                             </Tabs>                                                                                                                                          
                         </div>                        
                         { film.is_released ? (
-                            <>
-                                {/* <FilmReviews film={film} user={user} token={props.token} />                                 */}
+                            <>                                
+                                <SeriesReviews film={film} user={user} token={props.token} /> 
                             </>
                         ) : ([])}
                     </Col>
