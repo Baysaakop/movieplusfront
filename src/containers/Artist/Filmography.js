@@ -100,7 +100,7 @@ function Filmography (props) {
 
     return (        
         <div className="container">
-            <Typography.Title level={5}>{props.title}</Typography.Title>       
+            <Typography.Title level={5}>{props.title} ({props.data.length})</Typography.Title>       
             <Table columns={props.type === "crew" ? crewColumns : castColumns} dataSource={orderByYear(props.data)} size="small" pagination={false} />     
         </div>        
     )

@@ -98,6 +98,7 @@ function FilmReview (props) {
             { review ? (
                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                     <div>
+                        <a href={`/users/${review.user.id}`}>
                         {review.user.profile.avatar ? (
                             <Avatar 
                                 className="profile-icon"
@@ -112,6 +113,7 @@ function FilmReview (props) {
                                 style={{ background: '#2c3e50' }}                                                              
                             />
                         )}             
+                        </a>
                     </div>
                     <div style={{ marginLeft: '12px', width: '100%' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>          
@@ -120,7 +122,7 @@ function FilmReview (props) {
                                     <Typography.Title level={5} style={{ margin: 0 }}>{review.title}</Typography.Title>
                                 </a>
                                 <Typography.Text style={{ fontSize: '12px', margin: 0 }}>
-                                    <span>Нийтлэсэн: <a href={`/profiles/${review.user.id}`}>{review.user.username}</a></span>
+                                    <span>Нийтлэсэн: <a href={`/users/${review.user.id}`}>{review.user.username}</a></span>
                                     <span> / {moment(review.created_at).format("YYYY-MM-DD")} /</span>
                                 </Typography.Text>
                             </div>      

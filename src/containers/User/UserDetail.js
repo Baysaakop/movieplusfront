@@ -1,24 +1,25 @@
-import { Button, Result, Row, Col, Avatar, Typography, Spin, Progress, Tabs } from 'antd';
+import { Row, Col, Avatar, Typography, Spin, Progress, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import api from '../api';
-import './Profile.css'
-import { CheckOutlined, ClockCircleOutlined, HeartOutlined, StarOutlined, ToolOutlined, UserOutlined } from '@ant-design/icons';
-import ProfileFilms from '../containers/Film/ProfileFilms';
+import api from '../../api';
+import './UserDetail.css'
+import { CheckOutlined, ClockCircleOutlined, HeartOutlined, StarOutlined, UserOutlined } from '@ant-design/icons';
+import ProfileFilms from '../Film/ProfileFilms';
 
-function Profile (props) {    
+function UserDetail (props) {    
     const [loading, setLoading] = useState(false)
-    const [user, setUser] = useState();
+    const [user, setUser] = useState()
+    const [profile, setProfile] = useState()
 
     useEffect(() => {        
-        if (props.token && props.token !== null && !user) {
-            getUser()
+        getUser()
+        if (props.token && props.token !== null && !profile) {
+            getProfile()
         }
     }, [props.token]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    function getUser () {
-        setLoading(true)
+    function getProfile () {        
         axios({
             method: 'GET',
             url: api.profile,
@@ -26,8 +27,26 @@ function Profile (props) {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${props.token}`
             }
-        }).then(res => {                    
-            console.log(res.data)
+        }).then(res => {                
+            console.log(res.data)                                           
+            setProfile(res.data)
+        }).catch(err => {
+            console.log(err.message)            
+        })
+    }    
+
+    function getUser () {
+        setLoading(true)
+        const id = props.match.params.id
+        const url = api.users + "/" + id + "/"
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json',                
+            }
+        }).then(res => {     
+            console.log(res.data)                           
             setUser(res.data)
             setLoading(false)
         }).catch(err => {
@@ -43,7 +62,7 @@ function Profile (props) {
             </div>
         ) : user ? (
             <div>
-                <div className="container profile-top">
+                <div className="container user-detail-top">
                     <Row gutter={[24, 24]}>
                         <Col xs={24} sm={24} md={24} lg={12}>
                             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -65,8 +84,7 @@ function Profile (props) {
                                 </div>
                                 <div style={{ marginLeft: '16px' }}>
                                     <Typography.Title level={3} style={{ margin: 0 }}>{user.username}</Typography.Title>
-                                    <Typography.Text type="secondary">#DESCRIPTION</Typography.Text><br/>
-                                    <Button size="small" icon={<ToolOutlined />} type="ghost" style={{ marginTop: '8px' }}>Мэдээлэл засах</Button>
+                                    <Typography.Text type="secondary">#DESCRIPTION</Typography.Text><br/>                                    
                                 </div>
                             </div>
                         </Col>
@@ -110,16 +128,16 @@ function Profile (props) {
                         <Tabs.TabPane key="2" tab="Кино">
                             <Tabs defaultActiveKey="1">
                                 <Tabs.TabPane key="1" tab={<span><CheckOutlined />Үзсэн</span>}>
-                                    <ProfileFilms type="film" action="watched" user={user} profile={user} token={props.token} />
+                                    <ProfileFilms type="film" action="watched" user={user} profile={profile} token={props.token} />
                                 </Tabs.TabPane>
                                 <Tabs.TabPane key="2" tab={<span><HeartOutlined />Таалагдсан</span>}>
-                                    <ProfileFilms type="film" action="liked" user={user} profile={user} token={props.token} />
+                                    <ProfileFilms type="film" action="liked" user={user} profile={profile} token={props.token} />
                                 </Tabs.TabPane>                                
                                 <Tabs.TabPane key="3" tab={<span><ClockCircleOutlined />Дараа үзэх</span>}>
-                                    <ProfileFilms type="film" action="watchlist" user={user} profile={user} token={props.token} />
+                                    <ProfileFilms type="film" action="watchlist" user={user} profile={profile} token={props.token} />
                                 </Tabs.TabPane>
                                 <Tabs.TabPane key="4" tab={<span><StarOutlined />Үнэлгээ өгсөн</span>}>
-                                    <ProfileFilms type="film" action="scores" user={user} profile={user} token={props.token} />
+                                    <ProfileFilms type="film" action="scores" user={user} profile={profile} token={props.token} />
                                 </Tabs.TabPane>
                             </Tabs>
                         </Tabs.TabPane>
@@ -131,17 +149,8 @@ function Profile (props) {
                         </Tabs.TabPane>
                     </Tabs>
                 </div>                
-            </div>
-        ) : (
-            <div style={{ width: '100%', height: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Result
-                    status="403"
-                    title="403"
-                    subTitle="Уучлаарай, та нэвтэрсэн байх шаардлагатай."
-                    extra={<Button type="primary" href="/login">Нэвтрэх</Button>}
-                />
-            </div>
-        )      
+            </div>       
+        ) : []
     )
 }
 
@@ -151,4 +160,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps)(UserDetail)

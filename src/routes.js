@@ -20,6 +20,7 @@ import Moderator from './containers/Moderator/Moderator';
 // import ReviewList from './containers/Film/Review/ReviewList';
 import SeriesList from './containers/Series/SeriesList';
 import SeriesDetail from './containers/Series/SeriesDetail';
+import UserDetail from './containers/User/UserDetail';
 
 function BaseRouter () {
     return (
@@ -43,6 +44,7 @@ function BaseRouter () {
             <Route exact path="/password/reset" component={PasswordReset} />         
             <Route exact path="/rest-auth/password/reset/confirm/:uid/:token" component={PasswordResetConfirm} />            
             <Route exact path="/profile" component={Profile} />                
+            <Route exact path="/users/:id" component={UserDetail} />
             <Route exact path="/moderator" component={Moderator} />                
             <Route exact path='*' component={PageNotFound} />        
         </Switch>

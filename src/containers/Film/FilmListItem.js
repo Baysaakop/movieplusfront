@@ -209,13 +209,6 @@ function FilmListItem (props) {
                     </div>    
                     { film.is_released ? (
                         <div className="actions">
-                            <Tooltip title="Таалагдсан" placement="right">
-                                { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
-                                    <Button className="like-fill" size="large" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                : 
-                                    <Button className="like" size="large" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                }                                                           
-                            </Tooltip>
                             <Tooltip title="Үзсэн" placement="right">
                                 { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
                                     <Button className="watched-fill" size="large" type="text" icon={<CheckOutlined />} onClick={onWatched} />
@@ -223,6 +216,13 @@ function FilmListItem (props) {
                                     <Button className="watched" size="large" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                 }                                
                             </Tooltip>
+                            <Tooltip title="Таалагдсан" placement="right">
+                                { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                    <Button className="like-fill" size="large" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                : 
+                                    <Button className="like" size="large" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                }                                                           
+                            </Tooltip>                           
                             <Tooltip title="Дараа үзэх" placement="right">
                                 { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
                                     <Button className="watchlist-fill" size="large" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
@@ -234,18 +234,18 @@ function FilmListItem (props) {
                                 <Button className="addlist" size="large" type="text" icon={<AppstoreAddOutlined />} />                            
                             </Tooltip>                             */}
                             <Tooltip title="Үнэлгээ өгөх" placement="right">
-                                { user && user.profile.scores.filter(x => x.film === film.id).length > 0 ? 
+                                { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
                                     <Popover                                    
                                         placement="right"
-                                        title={<strong>Таны үнэлгээ: {user.profile.scores.filter(x => x.film === film.id)[0].user_score}</strong>}
+                                        title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
                                         trigger="click"
                                         content={
                                             <div>
-                                                <Rate defaultValue={user.profile.scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
+                                                <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
                                             </div>
                                         }
                                     >
-                                        <Button className="rate-fill" size="large" type="text">{user.profile.scores.filter(x => x.film === film.id)[0].user_score}</Button> 
+                                        <Button className="rate-fill" size="large" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
                                     </Popover>       
                                 : 
                                     <Popover                                    

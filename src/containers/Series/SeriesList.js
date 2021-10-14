@@ -203,9 +203,9 @@ function SeriesList (props) {
                 <Form form={form} layout="vertical">
                     <Row gutter={[16, 0]}>
                         <Col xs={24} sm={24} md={12}>                                                                                                         
-                            <Form.Item name="search" label={<Typography.Title level={5} style={{ margin: 0 }}>Кино хайх</Typography.Title>}>
+                            <Form.Item name="search" label={<Typography.Title level={5} style={{ margin: 0 }}>Цуврал хайх</Typography.Title>}>
                                 <Input.Search                                            
-                                    placeholder="Кино хайх..."                                     
+                                    placeholder="Цуврал хайх..."                                     
                                     onSearch={onSearch} 
                                     enterButton                                    
                                 />   

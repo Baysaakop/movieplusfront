@@ -167,13 +167,6 @@ function SeriesCard (props) {
                                     getContainer={false}                            
                                     width={60}                            
                                 >
-                                    <Tooltip title="Таалагдсан" placement="right">
-                                        { user && user.profile.series_liked.filter(x => x === film.id).length > 0 ? 
-                                            <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                        : 
-                                            <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                        }                                                           
-                                    </Tooltip>
                                     <Tooltip title="Үзсэн" placement="right">
                                         { user && user.profile.series_watched.filter(x => x === film.id).length > 0 ? 
                                             <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
@@ -181,6 +174,13 @@ function SeriesCard (props) {
                                             <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                         }                                
                                     </Tooltip>
+                                    <Tooltip title="Таалагдсан" placement="right">
+                                        { user && user.profile.series_liked.filter(x => x === film.id).length > 0 ? 
+                                            <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                        : 
+                                            <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                        }                                                           
+                                    </Tooltip>                                    
                                     <Tooltip title="Дараа үзэх" placement="right">
                                         { user && user.profile.series_watchlist.filter(x => x === film.id).length > 0 ? 
                                             <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />

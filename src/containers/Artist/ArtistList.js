@@ -85,13 +85,13 @@ function ArtistList (props) {
                 <div className="artistlist">
                     <List
                         grid={{
-                            gutter: [24, 8],
-                            xs: 3,
+                            gutter: [16, 0],
+                            xs: 4,
                             sm: 4,
-                            md: 6,
-                            lg: 8,
-                            xl: 8,
-                            xxl: 8,
+                            md: 8,
+                            lg: 10,
+                            xl: 10,
+                            xxl: 10,
                         }}
                         dataSource={artists}
                         renderItem={artist => (
@@ -103,7 +103,7 @@ function ArtistList (props) {
                     <Pagination 
                         current={page} 
                         total={total}
-                        pageSize={24}
+                        pageSize={40}
                         showSizeChanger={false}
                         showTotal={showTotal}
                         onChange={onPageChange}                 

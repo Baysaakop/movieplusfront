@@ -414,16 +414,6 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={24} lg={16}>
                                     { film.is_released ? (
                                         <div className="actions">
-                                            <div className="action">
-                                                <Tooltip title="Таалагдсан">
-                                                    { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
-                                                        <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                                    : 
-                                                        <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                                    }
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(film.like_count)}</Typography.Title>
-                                            </div>
                                             <div className="action">                                            
                                                 <Tooltip title="Үзсэн">
                                                     { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
@@ -434,6 +424,16 @@ function FilmDetail (props) {
                                                 </Tooltip>
                                                 <Typography.Title level={5}>{formatCount(film.watched_count)}</Typography.Title>
                                             </div>
+                                            <div className="action">
+                                                <Tooltip title="Таалагдсан">
+                                                    { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                                        <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                                    : 
+                                                        <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                                    }
+                                                </Tooltip>
+                                                <Typography.Title level={5}>{formatCount(film.like_count)}</Typography.Title>
+                                            </div>                                           
                                             <div className="action">
                                                 <Tooltip title="Дараа үзэх">
                                                     { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 

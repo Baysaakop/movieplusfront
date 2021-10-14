@@ -286,7 +286,7 @@ function FilmList (props) {
                     ) : (                            
                         <List
                             grid={{
-                                gutter: [24, 0],
+                                gutter: [16, 0],
                                 xs: 2,
                                 sm: 3,
                                 md: 4,
