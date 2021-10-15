@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
 import { message, List, Pagination, Spin, Typography } from "antd"
-import FilmCard from "./FilmCard"
+import SeriesCard from "./SeriesCard"
 import { useHistory } from "react-router"
 
-function ProfileFilms (props) {
+function ProfileSeries (props) {
     const history = useHistory()
     // const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
@@ -23,7 +23,7 @@ function ProfileFilms (props) {
         setLoading(true)        
         axios({
             method: 'GET',
-            url: `${api.films}?user=${user.id}&action=${action}&page=${page}`,
+            url: `${api.series}?user=${user.id}&action=${action}&page=${page}`,
         }).then(res => {                             
             setFilms(res.data.results)
             setTotal(res.data.count)
@@ -43,8 +43,8 @@ function ProfileFilms (props) {
         return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total}:</Typography.Text>;
     }  
 
-    function getScore(film) {
-        return props.user.profile.film_scores.find(x => x.film === film).user_score
+    function getScore(series) {
+        return props.user.profile.series_scores.find(x => x.series === series).user_score
     }
 
     // function getGenres() {
@@ -114,7 +114,7 @@ function ProfileFilms (props) {
                         dataSource={films}
                         renderItem={film => (
                             <List.Item key={film.id}>
-                                <FilmCard action={props.action} score={props.action === "scores" ? getScore(film.id) : 0} film={film} user={props.profile} token={props.token} history={history} />
+                                <SeriesCard action={props.action} score={props.action === "scores" ? getScore(film.id) : 0} film={film} user={props.profile} token={props.token} history={history} />
                             </List.Item>
                         )}
                     />      
@@ -132,4 +132,4 @@ function ProfileFilms (props) {
     )
 } 
 
-export default ProfileFilms
+export default ProfileSeries

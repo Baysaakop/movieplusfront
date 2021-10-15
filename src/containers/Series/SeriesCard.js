@@ -1,6 +1,6 @@
 import { HeartOutlined, MoreOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
 // import SaveIcon from '../../components/SaveIcon'
-import { Card, Typography, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
+import { Card, Typography, Button, Drawer, Tooltip, Popover, Rate, message, Spin, Avatar } from "antd";
 import { useEffect, useState } from "react";
 import '../Film/FilmCard.css'
 import blank from '../Film/blank.jpg'
@@ -153,7 +153,17 @@ function SeriesCard (props) {
                                     </div>
                                 </a>
                                 <div className="film-score">
-                                    <FilmScore type="card" score={film.avg_score} />
+                                    { props.action === "watched" ? (
+                                        <Avatar style={{ background: 'rgba(76, 209, 55, 1)' }} icon={<CheckOutlined />} />
+                                    ) : props.action === "liked" ? (
+                                        <Avatar style={{ background: 'rgba(231, 76, 60, 1)' }} icon={<HeartOutlined />} />
+                                    ) : props.action === "watchlist" ? (
+                                        <Avatar style={{ background: 'rgba(72, 52, 212, 1)' }} icon={<ClockCircleOutlined />} />
+                                    ) : props.action === "scores" ? (
+                                        <FilmScore type="card" score={props.score * 10} />
+                                    ) : (
+                                        <FilmScore type="card" score={film.avg_score} />
+                                    )}                                  
                                 </div>
                                 <div className="film-actions">
                                     <Button size="small" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />

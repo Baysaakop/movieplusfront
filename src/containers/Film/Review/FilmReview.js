@@ -134,8 +134,8 @@ function FilmReview (props) {
                             { review.is_spoiler ? (
                                 <Typography.Text type="danger">!!! SPOILER ALERT !!!</Typography.Text>
                             ) : <></>}
-                            <Typography.Paragraph ellipsis={{ rows: 5 }} style={{ margin: 0 }}>                                
-                                <div dangerouslySetInnerHTML={{__html: review.comment }} />                                
+                            <Typography.Paragraph style={{ margin: 0 }}>                                
+                                <div dangerouslySetInnerHTML={{__html: review.comment }} />                                                                
                             </Typography.Paragraph> 
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                                 <Space size={[8, 8]} wrap>
