@@ -1,9 +1,10 @@
 import { Breadcrumb, List, Spin } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import api from "../../api"
 import ArticleCard from "./ArticleCard"
 
-function NewsList (props) {
+function ArticleList (props) {
 
     const [loading, setLoading] = useState(false)
     const [articles, setArticles] = useState(false)
@@ -14,11 +15,13 @@ function NewsList (props) {
 
     function getNews() {        
         setLoading(true)
+        const url = `${api.articles}?page=1`
         axios({
             method: 'GET',
-            url: 'https://newsapi.org/v2/everything?q=apple&from=2021-08-22&to=2021-08-22&sortBy=popularity&apiKey=a52be9a836324a96ba0dcf324b916b7f',                         
-        }).then(res => {            
-            setArticles(res.data.articles)
+            url: url
+        }).then(res => {     
+            console.log(res.data)       
+            setArticles(res.data.results)
             setLoading(false)
         }).catch(err => {
             console.log(err)
@@ -65,4 +68,4 @@ function NewsList (props) {
     )
 }
 
-export default NewsList
+export default ArticleList

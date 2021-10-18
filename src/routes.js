@@ -21,19 +21,25 @@ import Moderator from './containers/Moderator/Moderator';
 import SeriesList from './containers/Series/SeriesList';
 import SeriesDetail from './containers/Series/SeriesDetail';
 import UserDetail from './containers/User/UserDetail';
+import ArticleWrite from './containers/Article/ArticleWrite';
 
 function BaseRouter () {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
+            {/* Film */}
             <Route exact path="/films" component={FilmList} />
             <Route exact path="/films/:id" component={FilmDetail} />       
+            {/* Series */}
             <Route exact path="/series" component={SeriesList} />     
             <Route exact path="/series/:id" component={SeriesDetail} />       
+            {/* Artist */}
             <Route exact path="/artists" component={ArtistList} />
             <Route exact path="/artists/:id" component={ArtistDetail} />
+            {/* Article */}
             <Route exact path="/articles" component={ArticleList} />
             <Route exact path="/articles/:id" component={ArticleDetail} />
+            <Route exact path="/newarticle" component={ArticleWrite} />
             {/* <Route exact path="/reviews/" component={ReviewList} />
             <Route exact path="/reviews/:id" component={ReviewDetail} />
             <Route exact path="/writereview/:id" component={ReviewWrite} />             */}

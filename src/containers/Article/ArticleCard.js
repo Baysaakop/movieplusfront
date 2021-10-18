@@ -4,7 +4,7 @@ import { Card, Avatar, Typography, Button, Space, Tooltip, Tag } from "antd";
 import moment from "moment";
 import './ArticleCard.css'
 
-function NewsCard (props) {
+function ArticleCard (props) {
     return (
         <div>            
             <Card            
@@ -13,8 +13,8 @@ function NewsCard (props) {
                 className="article-card"
                 cover={
                     <div className="article-image-container">
-                        <a href={`/articles/1`}>
-                            <img alt={props.article.title} src={props.article.urlToImage} />
+                        <a href={`/articles/${props.article.id}`}>
+                            <img alt={props.article.title} src={props.article.thumbnail} />
                         </a>
                         <div className="article-card-title">
                             {props.article.title}
@@ -27,13 +27,13 @@ function NewsCard (props) {
                 }                
             >                
                 <Card.Meta
-                    avatar={<Avatar size="large" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title={<Typography.Title level={5} style={{ margin: 0 }}>{props.article.author}</Typography.Title>}
-                    description={<Typography.Text type="secondary">{moment(props.article.publishedAt).format("YYYY-MM-DD HH:MM")}</Typography.Text>}
+                    avatar={<Avatar size="large" src={props.article.author.profile.avatar} />}
+                    title={<Typography.Title level={5} style={{ margin: 0 }}>{props.article.author.username}</Typography.Title>}
+                    description={<Typography.Text type="secondary">{moment(props.article.created_at).format("YYYY-MM-DD")}</Typography.Text>}
                 />
                 <a href={`/articles/1`}>
-                    <Typography.Paragraph ellipsis={{ rows: 3 }} style={{ marginTop: '8px' }}>
-                        {props.article.content}
+                    <Typography.Paragraph ellipsis={{ rows: 4 }} style={{ marginTop: '8px' }}>
+                        {props.article.outline}
                     </Typography.Paragraph>                    
                 </a>
                 <div className="article-card-footer">
@@ -57,4 +57,4 @@ function NewsCard (props) {
     )   
 }
 
-export default NewsCard
+export default ArticleCard
