@@ -195,8 +195,18 @@ body {
 .layout-dark .ant-input-number,
 .layout-dark .ant-input-number-handler-wrap,
 .layout-dark .ant-pagination-item,
-.layout-dark .ant-pagination-item-link {
+.layout-dark .ant-pagination-item-link,
+.layout-dark .ant-table-cell {
   background-color: #11181e;
+  color: #fff;
+}
+
+.layout-dark .ant-table-thead > tr > th {
+  background-color: #09161c;
+}
+
+.layout-dark .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #09161c;
   color: #fff;
 }
 
@@ -251,10 +261,20 @@ body {
 }
 
 .ant-tooltip-inner {
-  background: #11181e;
+  background-color: #11181e;
 }
 
 .layout-dark .ant-tooltip-inner {
   background: #e5e5e5;
   color: #000;
 }
+
+/* .layout-light .ant-popover .ant-popover-content .ant-popover-inner {
+  background-color: #fff;
+  color: #000;
+}
+
+.layout-dark .ant-popover .ant-popover-content .ant-popover-inner {
+  background-color: #11181e;
+  color: #fff;
+} */

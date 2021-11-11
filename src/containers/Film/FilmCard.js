@@ -166,7 +166,7 @@ function FilmCard (props) {
                                     )}                                    
                                 </div>
                                 <div className="film-actions">
-                                    <Button size="small" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />
+                                    <Button size="middle" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />
                                 </div>
                                 <Drawer        
                                     className="drawer"                    

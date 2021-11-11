@@ -52,7 +52,7 @@ function CustomMenu (props) {
             <div className={ screens.xxl ? "menu-large menu-xxl" : screens.xl ? "menu-large menu-xl" : "menu-large menu-lg" }>       
                 <div className="menu-left">
                     <a href="/">
-                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>LOGO</div>                    
+                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>MOVIE+</div>                    
                     </a>                                                               
                 </div>
                 <div className="menu-right">                       
@@ -91,7 +91,7 @@ function CustomMenu (props) {
             <div className="menu-small menu-xs">           
                 <div className="menu-top">
                     <a href="/">
-                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>FILM+</div>                    
+                        <div className="logo" shape="square" size="large" onClick={() => handleMenuClick('home')}>MOVIE+</div>                    
                     </a>                    
                     { collapsed ?
                     <Button className="hamburger-close" icon={<CloseOutlined />} size="large" type="text" onClick={handleMenuCollapsed} /> 

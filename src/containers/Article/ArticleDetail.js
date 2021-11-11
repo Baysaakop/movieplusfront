@@ -130,9 +130,15 @@ function ArticleDetail (props) {
                                     <Col span={24}>
                                         <Typography.Title level={5} style={{ marginBottom: '4px' }}>Сошиал сувгууд</Typography.Title>
                                         <div className="article-author-social">
-                                            <Tooltip title="Facebook" placement="top">
-                                                <Button className="article-author-social-icon fb" size="large" shape="circle" type="text" icon={<FacebookFilled />} />
-                                            </Tooltip>    
+                                            { article.author.profile.facebook_channel ? (
+                                                <a href={article.author.profile.facebook_channel}>
+                                                    <Tooltip title="Facebook" placement="top">
+                                                        <Button className="article-author-social-icon fb" size="large" shape="circle" type="text" icon={<FacebookFilled />} />
+                                                    </Tooltip>    
+                                                </a>
+                                            ) : (
+                                                <></>
+                                            )}                                            
                                             <Tooltip title="Instagram" placement="top">
                                                 <Button className="article-author-social-icon instagram" size="large" shape="circle" type="text" icon={<InstagramOutlined />} />
                                             </Tooltip>                   

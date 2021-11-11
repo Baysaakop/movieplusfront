@@ -18,7 +18,7 @@ function FilmSwiper (props) {
 
     function getFilms() {        
         setLoading(true)
-        let url = `${api.films}/`
+        let url = `${api.films}?order=${props.field}`
         axios({
             method: 'GET',
             url: url,
@@ -81,7 +81,7 @@ function FilmSwiper (props) {
                     scrollOnDevice={true}
                 >
                     {films ? films.map(film => (
-                        <FilmCard film={film} />
+                        <FilmCard film={film} user={props.user} token={props.token} history={props.history} />
                     )) : []}  
                 </InfiniteCarousel>                                                      
             </div>

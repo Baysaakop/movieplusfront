@@ -72,7 +72,7 @@ function CustomLayout (props) {
             </Content>
             <Footer className="footer">    
                 <div>
-                    © 2021 FILM+ Project. All Rights Reserved. Designed and developed by ON+ LLC                 
+                    © 2021 MOVIE+ Project. All Rights Reserved. Designed and developed by ON+ LLC                 
                 </div>            
             </Footer>
         </Layout>

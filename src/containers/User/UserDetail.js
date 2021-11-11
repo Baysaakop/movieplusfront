@@ -172,9 +172,9 @@ function UserDetail (props) {
                         <Tabs.TabPane key="1" tab="Профайл">
                             <Row gutter={[24, 0]}>
                                 <Col xs={24} sm={24} md={24} lg={16}>
-                                    <Typography.Title level={5}>Хамгийн дуртай</Typography.Title>
-                                    <Typography.Title level={5}>Хамгийн өндөр үнэлсэн</Typography.Title>
                                     <Typography.Title level={5}>Сүүлд үзсэн</Typography.Title>
+                                    <Typography.Title level={5}>Таалагдсан</Typography.Title>
+                                    <Typography.Title level={5}>Өндөр үнэлгээ өгсөн</Typography.Title>                                    
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={8}>
                                     <Typography.Title level={5}>Сошиал хаягууд</Typography.Title>

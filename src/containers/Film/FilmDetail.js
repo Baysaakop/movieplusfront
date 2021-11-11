@@ -4,7 +4,7 @@ import api from "../../api"
 import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs, notification } from "antd"
 import moment from "moment"
 import './FilmDetail.css'
-import { CheckOutlined, ClockCircleOutlined, DesktopOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
+import { CheckOutlined, ClockCircleOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
 import ArtistPopover from "../Artist/ArtistPopover"
 import Trailer from "../../components/Trailer"
 import blank from './blank.jpg'
@@ -17,10 +17,22 @@ import FilmScore from "./FilmScore"
 const data = [
     // 'PRIME CINEPLEX',
     // 'URGOO',
-    // 'TENGIS',
-    'LOOKTV',
-    'SKYGO',
-    'VOO',    
+    // 'TENGIS', 
+    {
+        name: 'LOOKTV',
+        logo: 'https://looktv.mn/images/app_logo.svg',
+        background: '#07121b'
+    },
+    {
+        name: 'SKYGO',
+        logo: 'https://my.skygo.mn/app/images/skygo_logo_black.png',
+        background: 'linear-gradient(180deg,#5e6b80,#3e3a56 50%,#19203a)'
+    },
+    {
+        name: 'VOO',
+        logo: 'https://play-lh.googleusercontent.com/wKQnA8AT10Xa2T75OAcy-n_oRFoLKuqL2ELcVIV005eAy9N9cEUJYhzzApGMU9xrlcM',
+        background: '#000'
+    }
 ];
 
 function FilmDetail (props) {
@@ -350,7 +362,7 @@ function FilmDetail (props) {
                                 </div>
                             </div>                            
                             { film.trailer ? (
-                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                <Button className="play-trailer" block size="large" type="primary" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
                             ) : (                                        
                                 <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
                             )}                                    
@@ -363,7 +375,14 @@ function FilmDetail (props) {
                                 dataSource={data}
                                 renderItem={item => (
                                     <List.Item key={item}>
-                                        <Button icon={<DesktopOutlined /> } type="ghost" shape="round">{item}</Button>
+                                        <a href="/">
+                                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                <div style={{ background: item.background, width: '64px', height: '48px', padding: '0 8px', borderRadius: '5px', marginRight: '8px' }}>
+                                                    <img alt={item.name} src={item.logo} style={{ height: '100%', width: '100%', objectFit: 'scale-down' }} />
+                                                </div>
+                                                <Typography.Text>{item.name}</Typography.Text>
+                                            </div>
+                                        </a>
                                     </List.Item>
                                 )}
                             />
@@ -416,11 +435,33 @@ function FilmDetail (props) {
                                         <div className="actions">
                                             <div className="action">                                            
                                                 <Tooltip title="Үзсэн">
+                                                    {/* <Popover                                    
+                                                        placement="right"                                                        
+                                                        trigger="click"
+                                                        content={
+                                                            <div>
+                                                                <Radio.Group defaultValue={1}>
+                                                                    <Space direction="vertical">
+                                                                        <Radio value={1}>Дээр үед үзсэн</Radio>
+                                                                        <Radio value={2}>Үзсэн огноо оруулах</Radio>
+                                                                        <DatePicker style={{ width: '100%' }} />
+                                                                        <Button block type="primary">Хадгалах</Button>
+                                                                    </Space>
+                                                                </Radio.Group>
+                                                            </div>
+                                                        }
+                                                    >
+                                                        { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
+                                                            <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                                        :
+                                                            <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} />
+                                                        }
+                                                    </Popover>           */}
                                                     { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
                                                         <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
                                                     :
                                                         <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                                    }
+                                                    }                                                 
                                                 </Tooltip>
                                                 <Typography.Title level={5}>{formatCount(film.watched_count)}</Typography.Title>
                                             </div>

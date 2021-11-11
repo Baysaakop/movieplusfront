@@ -5,13 +5,13 @@ function Trailer (props) {
 
     function getWidth() {
         if (window.screen.availWidth >= 1600) {
-            return window.screen.availWidth * 0.7
+            return window.screen.availWidth * 0.6
         } else if (window.screen.availWidth >= 1200) {
-            return window.screen.availWidth * 0.8
+            return window.screen.availWidth * 0.76
         } else if (window.screen.availWidth >= 992) {
-            return window.screen.availWidth - 32
+            return window.screen.availWidth - 48
         } else {
-            return window.screen.availWidth - 16
+            return window.screen.availWidth - 32
         }
     }
 
@@ -19,9 +19,9 @@ function Trailer (props) {
         if (window.screen.availWidth >= 1200) {
             return window.screen.availWidth * 0.35
         } else if (window.screen.availWidth >= 992) {
-            return (window.screen.availWidth - 32) * 0.5
+            return (window.screen.availWidth - 48) * 0.5
         } else {
-            return (window.screen.availWidth - 16) * 0.6
+            return (window.screen.availWidth - 32) * 0.6
         }
     }
 
