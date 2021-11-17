@@ -362,7 +362,7 @@ function FilmDetail (props) {
                                 </div>
                             </div>                            
                             { film.trailer ? (
-                                <Button className="play-trailer" block size="large" type="primary" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
                             ) : (                                        
                                 <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
                             )}                                    

@@ -12,7 +12,7 @@ function FilmSwiper (props) {
     const [loading, setLoading] = useState(false)
     const [films, setFilms] = useState()    
 
-    useEffect(() => {        
+    useEffect(() => {                
         getFilms()        
     }, []) // eslint-disable-line react-hooks/exhaustive-deps        
 
@@ -44,7 +44,7 @@ function FilmSwiper (props) {
                         <Typography.Title level={4} style={{ margin: 0 }}>{props.title}</Typography.Title>
                     </div>
                     <div>
-                        <Button type="primary" icon={<DoubleRightOutlined />}>Бүгд</Button>
+                        <Button type="ghost" icon={<DoubleRightOutlined />}>Бүгд</Button>
                     </div>
                 </div>
                 <InfiniteCarousel

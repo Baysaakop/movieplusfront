@@ -234,7 +234,6 @@ function FilmCard (props) {
                             </div>                        
                         }                       
                     >                    
-                        {/* <Typography.Text className="film-releasedate">{film.releasedate}</Typography.Text> */}
                     </Card>
                     <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{film.title} ({moment(film.releasedate).year()})</Typography.Paragraph>
                 </>

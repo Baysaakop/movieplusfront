@@ -1,0 +1,27 @@
+.footer-xxl {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.footer-xl {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.footer-lg {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.footer-xs {
+  padding: 24px;
+}
+
+.footer-xxl,
+.footer-xl,
+.footer-lg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+}

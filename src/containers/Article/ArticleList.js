@@ -7,7 +7,7 @@ import ArticleCard from "./ArticleCard"
 function ArticleList (props) {
 
     const [loading, setLoading] = useState(false)
-    const [articles, setArticles] = useState(false)
+    const [articles, setArticles] = useState()
 
     useEffect(() => {
         getNews()

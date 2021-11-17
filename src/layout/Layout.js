@@ -5,6 +5,7 @@ import { ArrowUpOutlined, TranslationOutlined } from '@ant-design/icons'
 import SunIcon from './SunIcon'
 import MoonIcon from './MoonIcon'
 import './Layout.css'
+import CustomFooter from '../components/CustomFooter'
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid
@@ -71,9 +72,7 @@ function CustomLayout (props) {
                 
             </Content>
             <Footer className="footer">    
-                <div>
-                    © 2021 MOVIE+ Project. All Rights Reserved. Designed and developed by ON+ LLC                 
-                </div>            
+                <CustomFooter />         
             </Footer>
         </Layout>
     );  

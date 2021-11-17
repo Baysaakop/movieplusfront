@@ -1,12 +1,15 @@
-import { Col, Row } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import api from '../../api';
+import BoxOffice from './BoxOffice';
 import FilmSwiper from '../Film/FilmSwiper';
 import './Home.css';
 import HomeCarousel from './HomeCarousel';
+import NewTrailers from './NewTrailers';
+import HomeArticles from './HomeArticles';
 // import LeaderboardItem from './LeaderboardItem';
 // import axios from 'axios';  
 // import api from '../api';
@@ -44,6 +47,8 @@ function Home (props) {
                     <HomeCarousel />
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={8} style={{ height: '100%' }}>
+                    <Typography.Title level={4}>Box Office (7 хоног)</Typography.Title>
+                    <BoxOffice />
                     {/* <Typography.Title level={4}><CrownOutlined />  Leaderboard</Typography.Title>
                     <LeaderboardItem avatar="https://www.w3schools.com/bootstrap4/img_avatar4.png" title="Fantabolous Article" author="Jessica Jones" percent={99} />                    
                     <LeaderboardItem avatar="https://scontent.fuln1-2.fna.fbcdn.net/v/t1.6435-9/87077813_2744961182284766_328801625072205824_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=PSzog0fgG9YAX-iRSiR&_nc_ht=scontent.fuln1-2.fna&oh=9daf9e48a7cca1a1e98a2ac53fc1175c&oe=61437DDC" title="Best or Worst Spidey?" author="Peter Parker" percent={88} />                                       
@@ -52,10 +57,13 @@ function Home (props) {
                     <LeaderboardItem avatar="https://www.w3schools.com/howto/img_avatar.png" title="Top 10 films of Studio Ghibli" author="James Johnson" percent={55} />                                                             */}
                 </Col>                
             </Row>
-            <div>
-                <FilmSwiper title="Шинээр нээлтээ хийсэн" field="-releasedate" user={user} token={props.token} history={history} />
-                <FilmSwiper title="Өндөр үнэлгээтэй" field="-avg_score" user={user} token={props.token} history={history} />
-            </div>
+            <FilmSwiper title="Шинээр нээлтээ хийсэн" field="-releasedate" user={user} token={props.token} history={history} />
+            {/* <div style={{ background: '#30336b', width: '100%', height: '120px', marginTop: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography.Title level={3} style={{ color: '#fff' }}>ADS</Typography.Title>
+                </div> */}           
+            <NewTrailers />                            
+            <FilmSwiper title="Өндөр үнэлгээтэй" field="-avg_score" user={user} token={props.token} history={history} />            
+            <HomeArticles />            
         </div>
     )
 }

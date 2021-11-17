@@ -9,3 +9,8 @@
   border-left: 8px solid #000;
   padding-left: 8px;
 }
+
+.layout-dark .film-swiper-title {
+  border-left: 8px solid #fff;
+  padding-left: 8px;
+}
