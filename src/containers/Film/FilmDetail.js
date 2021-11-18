@@ -1,15 +1,15 @@
+import './FilmDetail.css'
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
-import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Tooltip, Typography, Rate, Tabs, notification } from "antd"
 import moment from "moment"
-import './FilmDetail.css'
-import { CheckOutlined, ClockCircleOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
-import ArtistPopover from "../Artist/ArtistPopover"
-import Trailer from "../../components/Trailer"
 import blank from './blank.jpg'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { Breadcrumb, Button, Col, Divider, List, message, Popover, Row, Space, Spin, Typography, Rate, Tabs, notification, DatePicker, Checkbox } from "antd"
+import { CheckOutlined, ClockCircleOutlined, HeartOutlined, PlayCircleOutlined, StarOutlined } from "@ant-design/icons"
+import ArtistPopover from "../Artist/ArtistPopover"
+import Trailer from "../../components/Trailer"
 import GenreTag from "../../components/GenreTag"
 import FilmReviews from "./Review/FilmReviews"
 import FilmScore from "./FilmScore"
@@ -43,6 +43,8 @@ function FilmDetail (props) {
     const [mainCast, setMainCast] = useState()
     const [cast, setCast] = useState()
     const [trailer, setTrailer] = useState(false)        
+    const [dateVisible, setDateVisible] = useState(false)
+    const [dateWatched, setDateWatched] = useState(moment())
 
     useEffect(() => {
         if (props.token && !user) {
@@ -176,6 +178,60 @@ function FilmDetail (props) {
         }
     }
 
+    function onSelectDate(val) {   
+        if (val && val !== null) {
+            setDateWatched(val)
+        } else {
+            setDateWatched(undefined)
+        }
+    }
+
+    function onWatched () {
+        if (user && props.token) {
+            let data = {
+                watched: true,
+                film: film.id
+            }
+            if (dateVisible && dateWatched) {
+                data['date'] = moment(dateWatched).format("YYYY-MM-DD")
+            }                                    
+            axios({
+                method: 'PUT',
+                url: `${api.users}/${user.id}/`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${props.token}`                  
+                },
+                data: data
+            })            
+            .then(res => {
+                if (res.status === 200) {
+                    setUser(res.data.user)
+                    setFilm(res.data.film)
+                    if (res.data.flag === true) {
+                        notification['success']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
+                        });
+                    } else {
+                        notification['warning']({
+                            message: 'Жагсаалт шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтаас хасагдлаа.`,                            
+                        });
+                    }
+                    setDateVisible(false)
+                    setDateWatched(moment().format("YYYY-MM-DD"))
+                }                                                        
+            })
+            .catch(err => {                      
+                console.log(err.message)      
+                message.error("Алдаа гарлаа. Хуудсаа refresh хийнэ үү.")
+            })    
+        } else {
+            history.push("/login")
+        }       
+    }
+
     function onLike () {
         if (user && props.token) {
             axios({
@@ -214,47 +270,7 @@ function FilmDetail (props) {
         } else {
             history.push("/login")
         }       
-    }
-
-    function onWatched () {
-        if (user && props.token) {
-            axios({
-                method: 'PUT',
-                url: `${api.users}/${user.id}/`,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${props.token}`                  
-                },
-                data: {
-                    watched: true,
-                    film: film.id
-                }
-            })            
-            .then(res => {
-                if (res.status === 200) {
-                    setUser(res.data.user)
-                    setFilm(res.data.film)
-                    if (res.data.flag === true) {
-                        notification['success']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
-                        });
-                    } else {
-                        notification['warning']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтаас хасагдлаа.`,                            
-                        });
-                    }
-                }                                                        
-            })
-            .catch(err => {                      
-                console.log(err.message)      
-                message.error("Алдаа гарлаа. Хуудсаа refresh хийнэ үү.")
-            })    
-        } else {
-            history.push("/login")
-        }       
-    }
+    }    
 
     function onWatchlist () {
         if (user && props.token) {
@@ -356,11 +372,29 @@ function FilmDetail (props) {
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={8} lg={8} xl={6}>
                         <div style={{ position: 'relative', overflow: 'hidden' }}>
-                            <div style={{ width: '100%', height: '100%', marginBottom: '24px' }}>
+                            <div style={{ width: '100%', height: '100%' }}>
                                 <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
                                     <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
                                 </div>
                             </div>                            
+                            <div className="film-stats">
+                                <div className="stat">
+                                    <CheckOutlined style={{ marginRight: '4px' }} />
+                                    <Typography.Text>{formatCount(film.watched_count)}</Typography.Text>
+                                </div>
+                                <div className="stat">
+                                    <HeartOutlined style={{ marginRight: '4px' }} />
+                                    <Typography.Text>{formatCount(film.like_count)}</Typography.Text>
+                                </div>
+                                <div className="stat">
+                                    <ClockCircleOutlined style={{ marginRight: '4px' }} />
+                                    <Typography.Text>{formatCount(film.watchlist_count)}</Typography.Text>
+                                </div>
+                                <div className="stat">
+                                    <StarOutlined style={{ marginRight: '4px' }} />
+                                    <Typography.Text>{formatCount(film.score_count)}</Typography.Text>
+                                </div>
+                            </div>
                             { film.trailer ? (
                                 <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
                             ) : (                                        
@@ -406,7 +440,7 @@ function FilmDetail (props) {
                                     <Typography.Text>13+</Typography.Text>
                                 </Col>
                                 <Col xs={24} sm={24} md={12} lg={6}>
-                                    <Typography.Title level={5}>Нээлтийн огноо</Typography.Title>
+                                    <Typography.Title level={5}>Нээлт</Typography.Title>
                                     <Typography.Text>{moment(film.releasedate).year()} оны {moment(film.releasedate).month() + 1} сарын {moment(film.releasedate).date()}</Typography.Text>                            
                                 </Col>
                                 <Col xs={24} sm={24} md={12} lg={6}>
@@ -433,57 +467,43 @@ function FilmDetail (props) {
                                 <Col xs={24} sm={24} md={24} lg={16}>
                                     { film.is_released ? (
                                         <div className="actions">
-                                            <div className="action">                                            
-                                                <Tooltip title="Үзсэн">
-                                                    {/* <Popover                                    
-                                                        placement="right"                                                        
-                                                        trigger="click"
-                                                        content={
-                                                            <div>
-                                                                <Radio.Group defaultValue={1}>
-                                                                    <Space direction="vertical">
-                                                                        <Radio value={1}>Дээр үед үзсэн</Radio>
-                                                                        <Radio value={2}>Үзсэн огноо оруулах</Radio>
-                                                                        <DatePicker style={{ width: '100%' }} />
-                                                                        <Button block type="primary">Хадгалах</Button>
-                                                                    </Space>
-                                                                </Radio.Group>
-                                                            </div>
-                                                        }
-                                                    >
-                                                        { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
-                                                            <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                                        :
-                                                            <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} />
-                                                        }
-                                                    </Popover>           */}
-                                                    { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
-                                                        <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                                    :
-                                                        <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                                    }                                                 
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(film.watched_count)}</Typography.Title>
-                                            </div>
-                                            <div className="action">
-                                                <Tooltip title="Таалагдсан">
-                                                    { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
-                                                        <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                                    : 
-                                                        <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                            <div className="action">                                                                                            
+                                                { user && user.profile.films_watched.filter(x => x.film === film.id).length > 0 ? 
+                                                    <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                                :
+                                                <Popover                                    
+                                                    placement="right"                                                        
+                                                    trigger="click"
+                                                    content={
+                                                        <div>
+                                                            <Space direction="vertical">
+                                                                <Checkbox checked={dateVisible} onChange={() => setDateVisible(!dateVisible)}>Үзсэн өдөр тэмдэглэх</Checkbox>
+                                                                {dateVisible ? <DatePicker value={dateWatched} style={{ width: '100%' }} onChange={onSelectDate} /> : <></>}                                                                
+                                                                <Button block icon={<CheckOutlined />} type="primary" onClick={onWatched}>Хадгалах</Button>
+                                                            </Space>
+                                                        </div>
                                                     }
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(film.like_count)}</Typography.Title>
+                                                >
+                                                    <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} />
+                                                </Popover>          
+                                                }        
+                                                <Typography.Text level={5} style={{ display: 'block' }}>Үзсэн</Typography.Text>
+                                            </div>
+                                            <div className="action">                                                
+                                                { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                                    <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                                : 
+                                                    <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                                }                                                
+                                                <Typography.Text level={5} style={{ display: 'block' }}>Таалагдсан</Typography.Text>
                                             </div>                                           
-                                            <div className="action">
-                                                <Tooltip title="Дараа үзэх">
-                                                    { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                                        <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                                    :
-                                                        <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                                    }                                                
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(film.watchlist_count)}</Typography.Title>
+                                            <div className="action">                                                
+                                                { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                                    <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                :
+                                                    <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                }                                                                                                
+                                                <Typography.Text level={5} style={{ display: 'block' }}>Дараа үзэх</Typography.Text>
                                             </div>
                                             {/* <div className="action">
                                                 <Tooltip title="Жагсаалтад нэмэх">
@@ -519,20 +539,18 @@ function FilmDetail (props) {
                                                         <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} /> 
                                                     </Popover>       
                                                 }
-                                                <Typography.Title level={5}>{formatCount(film.score_count)}</Typography.Title>
+                                                <Typography.Text level={5} style={{ display: 'block' }}>Үнэлгээ өгөх</Typography.Text>
                                             </div>                                        
                                         </div>
                                     ) : (
                                         <div className="actions">                                            
                                             <div className="action">
-                                                <Tooltip title="Дараа үзэх">
-                                                    { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                                        <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                                    :
-                                                        <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                                    }                                                
-                                                </Tooltip>
-                                                <Typography.Title level={5}>{formatCount(film.watchlist_count)}</Typography.Title>
+                                                { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                                    <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                :
+                                                    <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                }      
+                                                <Typography.Text level={5} style={{ display: 'block' }}>Дараа үзэх</Typography.Text>
                                             </div>                                                                                                                       
                                         </div>
                                     )}                                    

@@ -5,6 +5,13 @@
   border-radius: 2px;
 }
 
+.film-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 4px 0px;
+}
+
 .layout-dark .film-detail .ant-tag {
   background: #11181e;
   color: #fff;
@@ -22,13 +29,14 @@
 .film-detail .actions {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 24px;
 }
 
 .film-detail .actions .action {
   text-align: center;
-  margin-right: 16px;
+  margin-right: 8px;
+  width: 88px;
 }
 
 .film-detail .actions .ant-btn {

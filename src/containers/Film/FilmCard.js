@@ -16,9 +16,10 @@ function FilmCard (props) {
     const [film, setFilm] = useState()
 
     useEffect(() => {
+        setDrawerOpen(props.selected)
         setFilm(props.film)
         setUser(props.user)
-    }, [props.film, props.user])
+    }, [props.film, props.user, props.selected])
 
     function onLike () {
         if (user && props.token) {
@@ -134,8 +135,16 @@ function FilmCard (props) {
         } else {
             props.history.push("/login")
         }       
-    }
+    }    
 
+    function openDrawer () {        
+        props.onSelect(film.id)
+    }   
+
+    function closeDrawer () {        
+        props.onSelect(undefined)
+    }   
+    
     return (
         <div className="film-card">
             { film ? (
@@ -166,76 +175,98 @@ function FilmCard (props) {
                                     )}                                    
                                 </div>
                                 <div className="film-actions">
-                                    <Button size="middle" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={() => setDrawerOpen(true)} />
+                                    <Button size="middle" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={openDrawer} />
                                 </div>
-                                <Drawer        
-                                    className="drawer"                    
-                                    placement="right"                            
-                                    closable={false}
-                                    onClose={() => setDrawerOpen(false)}
-                                    visible={drawerOpen}
-                                    getContainer={false}                            
-                                    width={60}                            
-                                >
-                                    <Tooltip title="Үзсэн" placement="right">
-                                        { user && user.profile.films_watched.filter(x => x === film.id).length > 0 ? 
-                                            <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                        :
-                                            <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
-                                        }                                
-                                    </Tooltip>
-                                    <Tooltip title="Таалагдсан" placement="right">
-                                        { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
-                                            <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                        : 
-                                            <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
-                                        }                                                           
-                                    </Tooltip>                                    
-                                    <Tooltip title="Дараа үзэх" placement="right">
-                                        { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                            <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                        :
-                                            <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
-                                        }        
-                                    </Tooltip>
-                                    {/* <Tooltip title="Жагсаалтад нэмэх" placement="right">
-                                        <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
-                                    </Tooltip>                             */}
-                                    <Tooltip title="Үнэлгээ өгөх" placement="right">
-                                        { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
-                                            <Popover                                    
-                                                placement="right"
-                                                title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
-                                                trigger="click"
-                                                content={
-                                                    <div>
-                                                        <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
-                                                    </div>
-                                                }
-                                            >
-                                                <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
-                                            </Popover>       
-                                        : 
-                                            <Popover                                    
-                                                placement="right"
-                                                title={<strong>Үнэлгээ өгөх</strong>}
-                                                trigger="click"
-                                                content={
-                                                    <div>
-                                                        <Rate allowHalf count={5} onChange={onRate} />
-                                                    </div>
-                                                }
-                                            >
-                                                <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} /> 
-                                            </Popover>       
-                                        }                
-                                    </Tooltip>                                    
-                                </Drawer>
+                                { film.is_released ? (
+                                    <Drawer        
+                                        className="drawer"                    
+                                        placement="right"                            
+                                        closable={false}
+                                        onClose={closeDrawer}
+                                        visible={drawerOpen}
+                                        getContainer={false}                            
+                                        width={60}                            
+                                    >
+                                        <Tooltip title="Үзсэн" placement="right">
+                                            { user && user.profile.films_watched.filter(x => x.film === film.id).length > 0 ? 
+                                                <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                            :
+                                                <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                            }                                
+                                        </Tooltip>
+                                        <Tooltip title="Таалагдсан" placement="right">
+                                            { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
+                                                <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                            : 
+                                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                            }                                                           
+                                        </Tooltip>                                    
+                                        <Tooltip title="Дараа үзэх" placement="right">
+                                            { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                            :
+                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                            }        
+                                        </Tooltip>
+                                        {/* <Tooltip title="Жагсаалтад нэмэх" placement="right">
+                                            <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
+                                        </Tooltip>                             */}
+                                        <Tooltip title="Үнэлгээ өгөх" placement="right">
+                                            { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
+                                                <Popover                                    
+                                                    placement="right"
+                                                    title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
+                                                    trigger="click"
+                                                    content={
+                                                        <div>
+                                                            <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
+                                                </Popover>       
+                                            : 
+                                                <Popover                                    
+                                                    placement="right"
+                                                    title={<strong>Үнэлгээ өгөх</strong>}
+                                                    trigger="click"
+                                                    content={
+                                                        <div>
+                                                            <Rate allowHalf count={5} onChange={onRate} />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} /> 
+                                                </Popover>       
+                                            }                
+                                        </Tooltip>                                    
+                                    </Drawer>
+                                ) : (
+                                    <Drawer        
+                                        className="drawer"                    
+                                        placement="right"                            
+                                        closable={false}
+                                        onClose={closeDrawer}
+                                        visible={drawerOpen}
+                                        getContainer={false}                            
+                                        width={60}                            
+                                    >
+                                        <Tooltip title="Дараа үзэх" placement="right">
+                                            { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
+                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                            :
+                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                            }        
+                                        </Tooltip>
+                                    </Drawer>
+                                )}
                             </div>                        
                         }                       
                     >                    
                     </Card>
-                    <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>{film.title} ({moment(film.releasedate).year()})</Typography.Paragraph>
+                    <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>
+                        {film.title} ({moment(film.releasedate).year()})
+                    </Typography.Paragraph>
                 </>
             ) : (
                 <Spin />

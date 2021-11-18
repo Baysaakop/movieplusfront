@@ -25,6 +25,7 @@ function ProfileFilms (props) {
             method: 'GET',
             url: `${api.films}?user=${user.id}&action=${action}&page=${page}`,
         }).then(res => {                             
+            console.log(res.data.results)
             setFilms(res.data.results)
             setTotal(res.data.count)
             setLoading(false)

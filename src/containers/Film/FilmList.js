@@ -20,6 +20,7 @@ function FilmList (props) {
     const [page, setPage] = useState(1)    
     const [total, setTotal] = useState()
     const [isList, setIsList] = useState(false)
+    const [selected, setSelected] = useState()
 
     useEffect(() => {                
         if (props.token && !user) {
@@ -193,6 +194,10 @@ function FilmList (props) {
         return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total}:</Typography.Text>;
     }  
 
+    function onSelect(id) {
+        setSelected(id)
+    }
+
     return (
         <div style={{ width: '100%', margin: 0, padding: 0 }}>
             <Breadcrumb>
@@ -297,7 +302,7 @@ function FilmList (props) {
                             dataSource={films}
                             renderItem={film => (
                                 <List.Item key={film.id}>
-                                    <FilmCard film={film} user={user} token={props.token} history={history} />
+                                    <FilmCard selected={selected === film.id ? true : false} film={film} user={user} token={props.token} history={history} onSelect={onSelect} />
                                 </List.Item>
                             )}
                         />                                    
