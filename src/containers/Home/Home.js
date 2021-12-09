@@ -8,7 +8,7 @@ import BoxOffice from './BoxOffice';
 import FilmSwiper from '../Film/FilmSwiper';
 import './Home.css';
 import HomeCarousel from './HomeCarousel';
-import NewTrailers from './NewTrailers';
+//import NewTrailers from './NewTrailers';
 import HomeArticles from './HomeArticles';
 // import LeaderboardItem from './LeaderboardItem';
 // import axios from 'axios';  
@@ -61,7 +61,7 @@ function Home (props) {
             {/* <div style={{ background: '#30336b', width: '100%', height: '120px', marginTop: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Typography.Title level={3} style={{ color: '#fff' }}>ADS</Typography.Title>
                 </div> */}           
-            <NewTrailers />                            
+            {/* <NewTrailers />                             */}
             <FilmSwiper title="Өндөр үнэлгээтэй" field="-avg_score" user={user} token={props.token} history={history} />            
             <HomeArticles />            
         </div>

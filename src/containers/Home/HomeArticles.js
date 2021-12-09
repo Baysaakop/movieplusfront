@@ -40,7 +40,7 @@ function HomeArticles (props) {
             ) : (
                 <div className="news-list" style={{ marginTop: '24px' }}>
                     <div className="film-swiper-header">
-                        <div className="film-swiper-title">
+                        <div className="film-list-title">
                             <Typography.Title level={4} style={{ margin: 0 }}>Шинэ нийтлэл</Typography.Title>
                         </div>
                         <div>

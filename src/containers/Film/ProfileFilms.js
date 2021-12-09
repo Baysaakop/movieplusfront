@@ -15,17 +15,16 @@ function ProfileFilms (props) {
     // const [genres, setGenres] = useState()  
 
     useEffect(() => {
-        getFilms(props.user, props.action, page)
+        getFilms(props.item, props.action, page)
         // getGenres()
-    }, [props.user, props.action, page])
+    }, [props.item, props.action, page])
 
     function getFilms(user, action, page) {        
         setLoading(true)        
         axios({
             method: 'GET',
             url: `${api.films}?user=${user.id}&action=${action}&page=${page}`,
-        }).then(res => {                             
-            console.log(res.data.results)
+        }).then(res => {                                         
             setFilms(res.data.results)
             setTotal(res.data.count)
             setLoading(false)
@@ -45,29 +44,20 @@ function ProfileFilms (props) {
     }  
 
     function getScore(film) {
-        return props.user.profile.film_scores.find(x => x.film === film).user_score
+        let items = props.item.profile.film_scores.filter(x => x.film === film)        
+        if (items.length > 0) {
+            return items[0].user_score
+        }
+        return undefined
     }
 
-    // function getGenres() {
-    //     axios({
-    //         method: 'GET',                        
-    //         url: api.genres
-    //     })
-    //     .then(res => {                        
-    //         setGenres(res.data.results);            
-    //     })        
-    //     .catch(err => {
-    //         console.log(err.message);
-    //     })        
-    // }
-
-    // function onSelectGenre (id) {
-        
-    // }
-
-    // function onSelectOrder (value) {
-            
-    // }
+    function getIsLiked(film) {
+        let items = props.item.profile.films_liked.filter(x => x === film)        
+        if (items.length > 0) {
+            return true
+        }
+        return undefined
+    }
 
     return (
         <div>
@@ -76,32 +66,7 @@ function ProfileFilms (props) {
                     <Spin tip="Ачааллаж байна..." />
                 </div>
             ) : (
-                <div>
-                    {/* <div>
-                        <Form form={form} layout="vertical">
-                            <Row gutter={[16, 0]}>
-                                <Col xs={24} sm={24} md={12}>
-                                    <Form.Item name="genre" label={<Typography.Title level={5} style={{ margin: 0 }}>Төрөл</Typography.Title>}>
-                                        <Select defaultValue={0} onSelect={onSelectGenre} style={{ width: '100%'}}>
-                                            <Select.Option key={0} value={0}>Бүгд</Select.Option>            
-                                            { genres ? genres.map(g => (
-                                                <Select.Option key={g.id} value={g.id}>{g.name}</Select.Option>
-                                            )) : []}                            
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={24} md={12}>
-                                    <Form.Item name="order" label={<Typography.Title level={5} style={{ margin: 0 }}>Эрэмбэлэх</Typography.Title>}>
-                                        <Select defaultValue="-created_at" onSelect={onSelectOrder} style={{ width: '100%'}}>
-                                            <Select.Option value="-created_at">Шинээр нэмэгдсэн</Select.Option>                            
-                                            <Select.Option value="-releasedate">Нээлтийн огноо</Select.Option>
-                                            <Select.Option value="-avg_score">Үнэлгээ</Select.Option>                    
-                                        </Select>
-                                    </Form.Item>
-                                </Col>                                                
-                            </Row>
-                        </Form>
-                    </div> */}
+                <div>                    
                     <List
                         grid={{
                             gutter: [16, 0],
@@ -115,7 +80,14 @@ function ProfileFilms (props) {
                         dataSource={films}
                         renderItem={film => (
                             <List.Item key={film.id}>
-                                <FilmCard action={props.action} score={props.action === "scores" ? getScore(film.id) : 0} film={film} user={props.profile} token={props.token} history={history} />
+                                <FilmCard                                     
+                                    film={film} 
+                                    user={props.user} 
+                                    token={props.token} 
+                                    history={history} 
+                                    userScore={getScore(film.id)}
+                                    userLiked={getIsLiked(film.id)}
+                                />
                             </List.Item>
                         )}
                     />      

@@ -39,8 +39,7 @@ function CustomMenu (props) {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${props.token}`
             }
-        }).then(res => {                    
-            console.log(res.data)
+        }).then(res => {                                
             setUser(res.data)
         }).catch(err => {
             console.log(err.message)
@@ -62,8 +61,8 @@ function CustomMenu (props) {
                     <Button className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                                    
                     {/* <Button icon={<FormOutlined />} type="primary" size="middle" href="writereview" style={{ marginRight: '16px' }}>Нийтлэл бичих</Button>                                        */}
                     { user ? (
-                        <Tooltip title="Profile">
-                            <a href="/profile">
+                        <Tooltip title="Профайл">
+                            <a href={`/users/${user.id}`}>
                                 {user.profile.avatar ? (
                                     <Avatar 
                                         className="profile-icon"
@@ -106,7 +105,7 @@ function CustomMenu (props) {
                         <Button block className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
                         <Button block className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Мэдээ</Button>                                                                       
                         { user ? (
-                            <a href="/profile">
+                            <a href={`/users/${user.id}`}>
                                 {user.profile.avatar ? (
                                     <Button block className={ current === 'profile' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/profile" onClick={() => handleMenuClick('profile')}>
                                         <Avatar 

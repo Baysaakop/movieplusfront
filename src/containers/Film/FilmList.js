@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Col, Form, Input, InputNumber, List, message, Pagination, Row, Select, Space, Spin, Typography } from "antd"
+import { Breadcrumb, Col, Form, Input, InputNumber, List, message, Pagination, Row, Select, Spin, Typography } from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../api"
@@ -7,8 +7,6 @@ import FilmCard from "./FilmCard"
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import moment from 'moment'
-import FilmListItem from "./FilmListItem"
-import { BarsOutlined, TableOutlined } from "@ant-design/icons"
 
 function FilmList (props) {    
     const history = useHistory()
@@ -18,9 +16,7 @@ function FilmList (props) {
     const [films, setFilms] = useState()    
     const [genres, setGenres] = useState()  
     const [page, setPage] = useState(1)    
-    const [total, setTotal] = useState()
-    const [isList, setIsList] = useState(false)
-    const [selected, setSelected] = useState()
+    const [total, setTotal] = useState()        
 
     useEffect(() => {                
         if (props.token && !user) {
@@ -37,8 +33,7 @@ function FilmList (props) {
         // let param_scorefrom = params.get('scorefrom')
         // let param_scoreto = params.get('scoreto')
         let param_page = params.get('page')
-        let param_order = params.get('order')
-        let param_islist = params.get('islist')
+        let param_order = params.get('order')        
         form.setFieldsValue({
             search: param_search && param_search !== null ? param_search : "",
             genre: param_genre && param_genre !== null ? parseInt(param_genre) : 0,
@@ -53,11 +48,6 @@ function FilmList (props) {
         } else {
             setPage(1)
         }       
-        if (param_islist && param_islist !== null && param_islist === "true") {
-            setIsList(true)
-        } else {
-            setIsList(false)
-        }
         getFilms(props.location.search)                
     }, [props.token, props.location.search]) // eslint-disable-line react-hooks/exhaustive-deps        
 
@@ -176,27 +166,10 @@ function FilmList (props) {
         params.append("page", 1)
         history.push(`/films?${params.toString()}`)        
     }
-    
-    function onSelectGrid() {
-        const params = new URLSearchParams(props.location.search)     
-        params.delete("islist")        
-        history.push(`/films?${params.toString()}`)        
-    }
-
-    function onSelectList() {
-        const params = new URLSearchParams(props.location.search)     
-        params.delete("islist")        
-        params.append("islist", true)
-        history.push(`/films?${params.toString()}`)        
-    }
 
     function showTotal() {
         return <Typography.Text style={{ fontWeight: 'bold' }}>Нийт {total}:</Typography.Text>;
     }  
-
-    function onSelect(id) {
-        setSelected(id)
-    }
 
     return (
         <div style={{ width: '100%', margin: 0, padding: 0 }}>
@@ -230,19 +203,19 @@ function FilmList (props) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={4}>
+                        {/* <Col xs={24} sm={24} md={4}>
                             <Typography.Title level={5} style={{ marginBottom: '8px' }}>Харагдац:</Typography.Title>
                             <Space size={[8, 8]}>
                                 <Button size="middle" type={ isList === false ? "ghost" : "text" } icon={<TableOutlined />} onClick={onSelectGrid} />
                                 <Button size="middle" type={ isList === true ? "ghost" : "text" } icon={<BarsOutlined />} onClick={onSelectList} />
                             </Space>
-                        </Col>
-                        <Col xs={24} sm={24} md={4}>
+                        </Col> */}
+                        <Col xs={24} sm={24} md={6}>
                             <Form.Item name="yearfrom" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (доод)</Typography.Title>}>
                                 <InputNumber defaultValue={1900} style={{ width: '100%' }} onChange={onSelectYearFrom} />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={4}>
+                        <Col xs={24} sm={24} md={6}>
                             <Form.Item name="yearto" label={<Typography.Title level={5} style={{ margin: 0 }}>Он (дээд)</Typography.Title>}>
                                 <InputNumber defaultValue={moment().year()} style={{ width: '100%' }} onChange={onSelectYearTo} />
                             </Form.Item>
@@ -278,35 +251,28 @@ function FilmList (props) {
                 </div>
             ) : (
                 <div className="filmlist">
-                    { isList === true ? (
-                        <List
-                            itemLayout="vertical"
-                            dataSource={films}                            
-                            renderItem={film => (
-                                <List.Item key={film.id}>
-                                    <FilmListItem film={film} user={user} token={props.token} history={history} />
-                                </List.Item>
-                            )}
-                        /> 
-                    ) : (                            
-                        <List
-                            grid={{
-                                gutter: [16, 0],
-                                xs: 2,
-                                sm: 3,
-                                md: 4,
-                                lg: 6,
-                                xl: 6,
-                                xxl: 6,
-                            }}
-                            dataSource={films}
-                            renderItem={film => (
-                                <List.Item key={film.id}>
-                                    <FilmCard selected={selected === film.id ? true : false} film={film} user={user} token={props.token} history={history} onSelect={onSelect} />
-                                </List.Item>
-                            )}
-                        />                                    
-                    )}                        
+                    <List
+                        grid={{
+                            gutter: [16, 0],
+                            xs: 2,
+                            sm: 3,
+                            md: 4,
+                            lg: 6,
+                            xl: 6,
+                            xxl: 6,
+                        }}
+                        dataSource={films}
+                        renderItem={film => (
+                            <List.Item key={film.id}>
+                                <FilmCard 
+                                    film={film} 
+                                    user={user} 
+                                    token={props.token} 
+                                    history={history} 
+                                />
+                            </List.Item>
+                        )}
+                    />                       
                     <Pagination                         
                         defaultCurrent={page}
                         total={total}

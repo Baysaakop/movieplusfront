@@ -1,6 +1,6 @@
-import { HeartOutlined, MoreOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { HeartOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined, PlusOutlined } from "@ant-design/icons";
 // import SaveIcon from '../../components/SaveIcon'
-import { Card, Typography, Button, Drawer, Tooltip, Popover, Rate, message, Spin, Avatar } from "antd";
+import { Card, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
 import { useEffect, useState } from "react";
 import './FilmCard.css'
 import blank from './blank.jpg'
@@ -14,12 +14,12 @@ function FilmCard (props) {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [user, setUser] = useState()
     const [film, setFilm] = useState()
+    const [action, setAction] = useState(false)
 
-    useEffect(() => {
-        setDrawerOpen(props.selected)
+    useEffect(() => {        
         setFilm(props.film)
-        setUser(props.user)
-    }, [props.film, props.user, props.selected])
+        setUser(props.user)      
+    }, [props.film, props.user]) // eslint-disable-line react-hooks/exhaustive-deps     
 
     function onLike () {
         if (user && props.token) {
@@ -138,20 +138,67 @@ function FilmCard (props) {
     }    
 
     function openDrawer () {        
-        props.onSelect(film.id)
+        setDrawerOpen(true)
     }   
 
     function closeDrawer () {        
-        props.onSelect(undefined)
+        setDrawerOpen(false)
     }   
+
+    function onBlur () {        
+        if (action === false) {            
+            setDrawerOpen(false)            
+        } else {
+            setAction(false)
+        }
+    }
+
+    function onMouseDown () {
+        setAction(true)
+    }
+
+    function isWatched () {
+        if (user && user.profile.films_watched.filter(x => x.film === film.id).length > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    function isLiked () {
+        if (user && user.profile.films_liked.filter(x => x === film.id).length > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    function isWatchlisted () {
+        if (user && user.profile.films_watchlist.filter(x => x === film.id).length > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    function isRated () {
+        if (user && user.profile.film_scores.filter(x => x.film === film.id).length > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
     
+    function getUserRating () {
+        return user.profile.film_scores.filter(x => x.film === film.id)[0].user_score
+    }
     return (
         <div className="film-card">
             { film ? (
-                <>
-                    <Card
-                        bordered={false}
-                        hoverable                                
+                <Tooltip title={`${film.title} (${moment(film.releasedate).year()})`}>
+                    <Card                                                                                    
+                        hoverable                          
+                        bordered={false}                    
                         cover={                   
                             <div className="film-poster-container">
                                 <a href={`/films/${film.id}`}>
@@ -162,23 +209,22 @@ function FilmCard (props) {
                                     </div>
                                 </a>
                                 <div className="film-score">
-                                    { props.action === "watched" ? (
-                                        <Avatar style={{ background: 'rgba(76, 209, 55, 1)' }} icon={<CheckOutlined />} />
-                                    ) : props.action === "liked" ? (
-                                        <Avatar style={{ background: 'rgba(231, 76, 60, 1)' }} icon={<HeartOutlined />} />
-                                    ) : props.action === "watchlist" ? (
-                                        <Avatar style={{ background: 'rgba(72, 52, 212, 1)' }} icon={<ClockCircleOutlined />} />
-                                    ) : props.action === "scores" ? (
-                                        <FilmScore type="card" score={props.score * 10} />
-                                    ) : (
-                                        <FilmScore type="card" score={film.avg_score} />
-                                    )}                                    
+                                    <FilmScore type="card" score={film.avg_score} />                                    
                                 </div>
-                                <div className="film-actions">
-                                    <Button size="middle" className="button-more" shape="circle" type="text" icon={<MoreOutlined />} onClick={openDrawer} />
+                                <div className="film-actions">                                    
+                                    { isLiked() ? 
+                                        <Button size="middle" className="button-more liked" type="text" icon={<HeartOutlined />} onClick={openDrawer} />
+                                    : isWatched() ? 
+                                        <Button size="middle" className="button-more watched" type="text" icon={<CheckOutlined />} onClick={openDrawer} />
+                                    : isWatchlisted() ? 
+                                        <Button size="middle" className="button-more watchlisted" type="text" icon={<ClockCircleOutlined />} onClick={openDrawer} />
+                                    :
+                                        <Button size="middle" className="button-more" type="text" icon={<PlusOutlined />} onClick={openDrawer} />
+                                    }
                                 </div>
                                 { film.is_released ? (
-                                    <Drawer        
+                                    <Drawer                  
+                                        onBlur={onBlur}                                                                
                                         className="drawer"                    
                                         placement="right"                            
                                         closable={false}
@@ -188,61 +234,59 @@ function FilmCard (props) {
                                         width={60}                            
                                     >
                                         <Tooltip title="Үзсэн" placement="right">
-                                            { user && user.profile.films_watched.filter(x => x.film === film.id).length > 0 ? 
-                                                <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                            { isWatched() ? 
+                                                <Button className="watched-fill" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} onMouseDown={onMouseDown} />
                                             :
-                                                <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} />
+                                                <Button className="watched" size="large" shape="circle" type="text" icon={<CheckOutlined />} onClick={onWatched} onMouseDown={onMouseDown} />
                                             }                                
                                         </Tooltip>
                                         <Tooltip title="Таалагдсан" placement="right">
-                                            { user && user.profile.films_liked.filter(x => x === film.id).length > 0 ? 
-                                                <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                            { isLiked() ? 
+                                                <Button className="like-fill" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} onMouseDown={onMouseDown} />
                                             : 
-                                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} />
+                                                <Button className="like" size="large" shape="circle" type="text" icon={<HeartOutlined />} onClick={onLike} onMouseDown={onMouseDown} />
                                             }                                                           
                                         </Tooltip>                                    
                                         <Tooltip title="Дараа үзэх" placement="right">
-                                            { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                            { isWatchlisted() ? 
+                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} onMouseDown={onMouseDown} />
                                             :
-                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} onMouseDown={onMouseDown} />
                                             }        
                                         </Tooltip>
-                                        {/* <Tooltip title="Жагсаалтад нэмэх" placement="right">
-                                            <Button className="addlist" size="large" shape="circle" type="text" icon={<AppstoreAddOutlined />} />                            
-                                        </Tooltip>                             */}
                                         <Tooltip title="Үнэлгээ өгөх" placement="right">
-                                            { user && user.profile.film_scores.filter(x => x.film === film.id).length > 0 ? 
+                                            { isRated() ? 
                                                 <Popover                                    
                                                     placement="right"
-                                                    title={<strong>Таны үнэлгээ: {user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</strong>}
-                                                    trigger="click"
+                                                    title={<strong>Таны үнэлгээ: {getUserRating()}</strong>}
+                                                    trigger="click"                                                    
                                                     content={
-                                                        <div>
-                                                            <Rate defaultValue={user.profile.film_scores.filter(x => x.film === film.id)[0].user_score / 2} allowHalf count={5} onChange={onRate} />
+                                                        <div onMouseDown={onMouseDown}>
+                                                            <Rate defaultValue={getUserRating() / 2} allowHalf count={5} onChange={onRate} />
                                                         </div>
                                                     }
                                                 >
-                                                    <Button className="rate-fill" size="large" shape="circle" type="text">{user.profile.film_scores.filter(x => x.film === film.id)[0].user_score}</Button> 
+                                                    <Button className="rate-fill" size="large" shape="circle" type="text" onMouseDown={onMouseDown}>{getUserRating()}</Button> 
                                                 </Popover>       
                                             : 
                                                 <Popover                                    
                                                     placement="right"
                                                     title={<strong>Үнэлгээ өгөх</strong>}
-                                                    trigger="click"
+                                                    trigger="click"                                                    
                                                     content={
-                                                        <div>
+                                                        <div onMouseDown={onMouseDown}>
                                                             <Rate allowHalf count={5} onChange={onRate} />
                                                         </div>
                                                     }
                                                 >
-                                                    <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} /> 
+                                                    <Button className="rate" size="large" shape="circle" type="text" icon={<StarOutlined />} onMouseDown={onMouseDown} /> 
                                                 </Popover>       
                                             }                
                                         </Tooltip>                                    
                                     </Drawer>
                                 ) : (
                                     <Drawer        
+                                        onBlur={onBlur}           
                                         className="drawer"                    
                                         placement="right"                            
                                         closable={false}
@@ -253,9 +297,9 @@ function FilmCard (props) {
                                     >
                                         <Tooltip title="Дараа үзэх" placement="right">
                                             { user && user.profile.films_watchlist.filter(x => x === film.id).length > 0 ? 
-                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                <Button className="watchlist-fill" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} onMouseDown={onMouseDown} />
                                             :
-                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} />
+                                                <Button className="watchlist" size="large" shape="circle" type="text" icon={<ClockCircleOutlined />} onClick={onWatchlist} onMouseDown={onMouseDown} />
                                             }        
                                         </Tooltip>
                                     </Drawer>
@@ -264,10 +308,23 @@ function FilmCard (props) {
                         }                       
                     >                    
                     </Card>
-                    <Typography.Paragraph className="film-title" ellipsis={{ rows: 2 }}>
-                        {film.title} ({moment(film.releasedate).year()})
-                    </Typography.Paragraph>
-                </>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            { props.userScore ? 
+                                <Rate className="rating-below-poster" allowHalf disabled defaultValue={props.userScore / 2} style={{ fontSize: '16px' }} />                        
+                            : 
+                                <></>
+                            }
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            { props.userLiked ? 
+                                <HeartOutlined style={{ color: 'rgba(231, 76, 60, 1)', fontSize: '16px' }} />
+                            :
+                                <></>
+                            }
+                        </div>
+                    </div>
+                </Tooltip>
             ) : (
                 <Spin />
             )}            

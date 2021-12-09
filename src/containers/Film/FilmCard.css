@@ -38,18 +38,31 @@
 
 .film-card .film-actions {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0px;
+  right: 0px;
 }
 
 .film-card .film-actions .button-more {
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(17, 24, 30, 0.75);
+  width: 36px;
+  height: 36px;
 }
 
-.film-card .film-actions .button-more:hover {
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
+.film-card .film-actions .button-more.liked {
+  background: rgba(231, 76, 60, 1);
+}
+
+.film-card .film-actions .button-more.watched {
+  background: rgba(76, 209, 55, 1);
+}
+
+.film-card .film-actions .button-more.watchlisted {
+  background: rgba(72, 52, 212, 1);
+}
+
+.film-card .film-actions:hover {
+  opacity: 0.6;
 }
 
 .film-poster-container .drawer {
@@ -121,4 +134,8 @@
   background: rgba(253, 204, 13, 1);
   color: #000;
   font-weight: bold;
+}
+
+.rating-below-poster .ant-rate-star:not(:last-child) {
+  margin-right: 4px;
 }

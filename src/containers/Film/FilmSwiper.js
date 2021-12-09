@@ -10,7 +10,7 @@ import { DoubleRightOutlined } from "@ant-design/icons"
 
 function FilmSwiper (props) {
     const [loading, setLoading] = useState(false)
-    const [films, setFilms] = useState()    
+    const [films, setFilms] = useState()        
 
     useEffect(() => {                
         getFilms()        
@@ -81,7 +81,14 @@ function FilmSwiper (props) {
                     scrollOnDevice={true}
                 >
                     {films ? films.map(film => (
-                        <FilmCard film={film} user={props.user} token={props.token} history={props.history} />
+                        <div id={film.id}>
+                            <FilmCard 
+                                film={film} 
+                                user={props.user} 
+                                token={props.token} 
+                                history={props.history}                                 
+                            />
+                        </div>
                     )) : []}  
                 </InfiniteCarousel>                                                      
             </div>

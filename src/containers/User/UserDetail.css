@@ -13,3 +13,23 @@
   font-size: 24px;
   font-family: "Rubik", sans-serif;
 }
+
+.user-detail-top .stats {
+  margin-right: 4px;
+  margin-left: 4px;
+  text-align: center;
+  width: 88px;
+}
+
+.user-detail-bot {
+  margin: 24px 0;
+}
+
+.user-detail-bot .film-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}

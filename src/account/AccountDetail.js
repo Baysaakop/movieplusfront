@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message, Row, Col } from 'antd';
-import { UserOutlined, EditOutlined, MobileOutlined, MailOutlined, FacebookFilled, InstagramOutlined, TwitterOutlined, YoutubeOutlined } from '@ant-design/icons';
+import { UserOutlined, EditOutlined, MobileOutlined, MailOutlined, FacebookFilled, InstagramOutlined, YoutubeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import api from '../api';
 import ImageUpload from '../components/ImageUpload';
@@ -18,7 +18,6 @@ function AccountDetail (props) {
                 description: props.user.profile.description,
                 phone_number: props.user.profile.phone_number,
                 facebook_channel: props.user.profile.facebook_channel,
-                twitter_channel: props.user.profile.twitter_channel,
                 instagram_channel: props.user.profile.instagram_channel,
                 youtube_channel: props.user.profile.youtube_channel,
             })              
@@ -31,27 +30,27 @@ function AccountDetail (props) {
         if (values.username && values.username !== props.user.username) {
             formData.append('username', values.username)
         }      
-        if (values.description && values.description !== props.user.profile.description) {
+        if (values.description !== props.user.profile.description) {
             formData.append('description', values.description)
         }        
-        if (values.phone_number && values.phone_number !== props.user.profile.phone_number) { 
+        if (values.phone_number !== props.user.profile.phone_number) { 
             formData.append('phone_number', values.phone_number);        
         }    
-        if (values.facebook_channel && values.facebook_channel !== props.user.profile.facebook_channel) { 
+        if (values.facebook_channel !== props.user.profile.facebook_channel) { 
             formData.append('facebook_channel', values.facebook_channel);        
         }     
-        if (values.instagram_channel && values.instagram_channel !== props.user.profile.instagram_channel) { 
+        if (values.instagram_channel !== props.user.profile.instagram_channel) { 
             formData.append('instagram_channel', values.instagram_channel);        
-        }     
-        if (values.twitter_channel && values.twitter_channel !== props.user.profile.twitter_channel) { 
-            formData.append('twitter_channel', values.twitter_channel);        
-        }     
-        if (values.youtube_channel && values.youtube_channel !== props.user.profile.youtube_channel) { 
+        }        
+        if (values.youtube_channel !== props.user.profile.youtube_channel) { 
             formData.append('youtube_channel', values.youtube_channel);        
         }        
         if (image && image !== props.user.profile.avatar) {
             formData.append('avatar', image);
         }                
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
         axios({
             method: 'PUT',
             url: `${api.users}/${props.user.id}/`,
@@ -95,7 +94,7 @@ function AccountDetail (props) {
                                 </Form.Item>                          
                             </Col>
                             <Col xs={24} sm={24} md={8}>
-                                <Form.Item name="username" label="Хэрэглэгчийн нэр:">
+                                <Form.Item name="username" label="Хэрэглэгчийн нэр:" rules={[{ required: true, message: 'Хэрэглэгчийн нэр хоосон байж болохгүй.' }]}>
                                     <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} />
                                 </Form.Item>   
                             </Col>
@@ -111,22 +110,17 @@ function AccountDetail (props) {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={24} sm={24} md={6}>                        
+                    <Col xs={24} sm={24} md={8}>                        
                         <Form.Item name="facebook_channel" label="Facebook:">
                             <Input prefix={<FacebookFilled />} />                            
                         </Form.Item> 
                     </Col>
-                    <Col xs={24} sm={24} md={6}>                        
+                    <Col xs={24} sm={24} md={8}>                        
                         <Form.Item name="instagram_channel" label="Instagram:">
                             <Input prefix={<InstagramOutlined />} />                            
                         </Form.Item> 
                     </Col>
-                    <Col xs={24} sm={24} md={6}>                        
-                        <Form.Item name="twitter_channel" label="Twitter:">
-                            <Input prefix={<TwitterOutlined />} />                            
-                        </Form.Item> 
-                    </Col>
-                    <Col xs={24} sm={24} md={6}>                        
+                    <Col xs={24} sm={24} md={8}>                        
                         <Form.Item name="youtube_channel" label="Youtube:">
                             <Input prefix={<YoutubeOutlined />} />                            
                         </Form.Item> 
