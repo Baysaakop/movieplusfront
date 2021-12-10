@@ -1,0 +1,10 @@
+.recent-article .article-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  transition: 0.2s ease-in;
+}
+
+.recent-article .article-thumbnail:hover {
+  opacity: 0.8;
+}

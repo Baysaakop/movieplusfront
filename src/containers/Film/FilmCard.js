@@ -1,6 +1,6 @@
 import { HeartOutlined, StarOutlined, CheckOutlined, ClockCircleOutlined, PlusOutlined } from "@ant-design/icons";
 // import SaveIcon from '../../components/SaveIcon'
-import { Card, Button, Drawer, Tooltip, Popover, Rate, message, Spin } from "antd";
+import { Card, Button, Drawer, Tooltip, Popover, Rate, message, Spin, Typography } from "antd";
 import { useEffect, useState } from "react";
 import './FilmCard.css'
 import blank from './blank.jpg'
@@ -308,22 +308,23 @@ function FilmCard (props) {
                         }                       
                     >                    
                     </Card>
+                    { props.userScore ? 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            { props.userScore ? 
-                                <Rate className="rating-below-poster" allowHalf disabled defaultValue={props.userScore / 2} style={{ fontSize: '16px' }} />                        
-                            : 
-                                <></>
-                            }
+                            <Rate className="rating-below-poster" allowHalf disabled defaultValue={props.userScore / 2} style={{ fontSize: '16px' }} />                        
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            { props.userLiked ? 
+                            {/* { props.userLiked ? 
                                 <HeartOutlined style={{ color: 'rgba(231, 76, 60, 1)', fontSize: '16px' }} />
                             :
                                 <></>
-                            }
+                            } */}
+                            <Typography.Text style={{ paddingTop: '2px', fontWeight: 'bold' }}>{props.userScore} / 10</Typography.Text>
                         </div>
                     </div>
+                    : 
+                        <></>
+                    }
                 </Tooltip>
             ) : (
                 <Spin />

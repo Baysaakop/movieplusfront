@@ -124,7 +124,9 @@ body {
 .layout-dark .ant-btn-text,
 .layout-dark .ant-list-item-meta-title > a,
 .layout-dark .ant-rate-text,
-.layout-dark .ant-statistic-content {
+.layout-dark .ant-statistic-content,
+.layout-dark .ant-form-item-label > label,
+.layout-dark .ant-upload {
   color: #fff;
 }
 
@@ -166,8 +168,13 @@ body {
 .layout-dark .ant-breadcrumb a,
 .layout-dark .ant-breadcrumb-separator,
 .layout-dark .ant-list-item-meta-description,
-.layout-dark .ant-statistic-title {
+.layout-dark .ant-statistic-title,
+.layout-dark .ant-menu-item-group-title {
   color: rgba(255, 255, 255, 0.45);
+}
+
+.layout-dark .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #11182a;
 }
 
 .layout-light div.container {
@@ -193,9 +200,20 @@ body {
 .layout-dark .ant-input-number-handler-wrap,
 .layout-dark .ant-pagination-item,
 .layout-dark .ant-pagination-item-link,
-.layout-dark .ant-table-cell {
+.layout-dark .ant-table-cell,
+.layout-dark .ant-input-affix-wrapper,
+.layout-dark .ant-upload.ant-upload-select-picture-card,
+.layout-dark .ant-picker,
+.layout-dark .ant-menu,
+.layout-dark .ant-card-actions {
   background-color: #11181e;
   color: #fff;
+}
+
+.layout-dark .ant-input-disabled,
+.layout-dark .ant-input-affix-wrapper-disabled {
+  background-color: #0d1117;
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .layout-dark .ant-table-thead > tr > th {

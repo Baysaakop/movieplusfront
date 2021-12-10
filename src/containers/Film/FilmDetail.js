@@ -210,13 +210,13 @@ function FilmDetail (props) {
                     setFilm(res.data.film)
                     if (res.data.flag === true) {
                         notification['success']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
+                            message: 'Жагсаалтанд нэмэгдлээ.',
+                            description: `${res.data.film.title} кино таны үзсэн киноны жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино үзсэн киноны жагсаалтаас хасагдлаа.`,                            
+                            message: 'Жагсаалтаас хасагдлаа.',
+                            description: `${res.data.film.title} кино таны үзсэн киноны жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                     setDateVisible(false)
@@ -252,13 +252,13 @@ function FilmDetail (props) {
                     setFilm(res.data.film)
                     if (res.data.flag === true) {
                         notification['success']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтанд нэмэгдлээ.`,                            
+                            message: 'Жагсаалтанд шинэчлэгдлээ.',
+                            description: `${res.data.film.title} кино таны таалагдсан киноны жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино таалагдсан киноны жагсаалтаас хасагдлаа.`,                            
+                            message: 'Жагсаалтаас хасагдлаа.',
+                            description: `${res.data.film.title} кино таны таалагдсан киноны жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                 }                                                         
@@ -292,13 +292,13 @@ function FilmDetail (props) {
                     setFilm(res.data.film)
                     if (res.data.flag === true) {
                         notification['success']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтанд нэмэгдлээ.`,                            
+                            message: 'Жагсаалтанд нэмэгдлээ',
+                            description: `${res.data.film.title} кино таны дараа үзэх киноны жагсаалтанд нэмэгдлээ.`,                            
                         });
                     } else {
                         notification['warning']({
-                            message: 'Жагсаалт шинэчлэгдлээ.',
-                            description: `${res.data.film.title} кино дараа үзэх киноны жагсаалтаас хасагдлаа.`,                            
+                            message: 'Жагсаалтаас хасагдлаа.',
+                            description: `${res.data.film.title} кино таны дараа үзэх киноны жагсаалтаас хасагдлаа.`,                            
                         });
                     }
                 }                                                        
@@ -396,16 +396,15 @@ function FilmDetail (props) {
                                 </div>
                             </div>
                             { film.trailer ? (
-                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
+                                <Button className="play-trailer" block size="large" type="primary" icon={<PlayCircleOutlined />} onClick={() => setTrailer(true)}>Трейлер үзэх</Button>
                             ) : (                                        
-                                <Button className="play-trailer" block size="large" type="ghost" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
+                                <Button className="play-trailer" block size="large" type="dashed" icon={<PlayCircleOutlined />}>Трейлер ороогүй</Button>
                             )}                                    
                             {trailer ? <Trailer title={film.title} trailer={film.trailer} hide={() => setTrailer(false)} /> : <></>} 
                             <List
                                 className="container"
-                                style={{ marginTop: '24px', padding: 0 }}
-                                header={<Typography.Title level={5} style={{ margin: 0 }}>Хаанаас үзэх вэ?</Typography.Title>}                                
-                                bordered
+                                style={{ marginTop: '24px', padding: '8px 16px' }}
+                                header={<Typography.Title level={5} style={{ margin: 0 }}>Хаанаас үзэх вэ?</Typography.Title>}                                                                
                                 dataSource={data}
                                 renderItem={item => (
                                     <List.Item key={item}>
