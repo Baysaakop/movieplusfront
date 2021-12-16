@@ -14,27 +14,6 @@ import GenreTag from "../../components/GenreTag"
 import FilmReviews from "./Review/FilmReviews"
 import FilmScore from "./FilmScore"
 
-const data = [
-    // 'PRIME CINEPLEX',
-    // 'URGOO',
-    // 'TENGIS', 
-    {
-        name: 'LOOKTV',
-        logo: 'https://looktv.mn/images/app_logo.svg',
-        background: '#07121b'
-    },
-    {
-        name: 'SKYGO',
-        logo: 'https://my.skygo.mn/app/images/skygo_logo_black.png',
-        background: 'linear-gradient(180deg,#5e6b80,#3e3a56 50%,#19203a)'
-    },
-    {
-        name: 'VOO',
-        logo: 'https://play-lh.googleusercontent.com/wKQnA8AT10Xa2T75OAcy-n_oRFoLKuqL2ELcVIV005eAy9N9cEUJYhzzApGMU9xrlcM',
-        background: '#000'
-    }
-];
-
 function FilmDetail (props) {
     const history = useHistory()
     const [user, setUser] = useState()
@@ -67,7 +46,7 @@ function FilmDetail (props) {
             }
         })
         .then(res => {                         
-            //console.log(res.data)           
+            console.log(res.data)           
             setFilm(res.data)                  
         })
         .catch(err => {
@@ -359,16 +338,16 @@ function FilmDetail (props) {
                         {film.title}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                { film.landscape ? (
+                {/* { film.landscape ? (
                     <div style={{ marginTop: '24px', position: 'relative' }}>
                         <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
                         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            {/* <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title> */}
+                            <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title> 
                         </div>
                     </div>
                 ) : (
                     <></>
-                )} 
+                )}  */}
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={8} lg={8} xl={6}>
                         <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -405,15 +384,15 @@ function FilmDetail (props) {
                                 className="container"
                                 style={{ marginTop: '24px', padding: '8px 16px' }}
                                 header={<Typography.Title level={5} style={{ margin: 0 }}>Хаанаас үзэх вэ?</Typography.Title>}                                                                
-                                dataSource={data}
+                                dataSource={film.platforms}
                                 renderItem={item => (
-                                    <List.Item key={item}>
-                                        <a href="/">
+                                    <List.Item key={item.id}>
+                                        <a href={item.url} target="_blank" rel="noreferrer">
                                             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                                <div style={{ background: item.background, width: '64px', height: '48px', padding: '0 8px', borderRadius: '5px', marginRight: '8px' }}>
-                                                    <img alt={item.name} src={item.logo} style={{ height: '100%', width: '100%', objectFit: 'scale-down' }} />
+                                                <div style={{ background: item.platform.background, width: '64px', height: '48px', padding: '0 8px', borderRadius: '5px', marginRight: '8px' }}>
+                                                    <img alt={item.platform.name} src={item.platform.logo} style={{ height: '100%', width: '100%', objectFit: 'scale-down' }} />
                                                 </div>
-                                                <Typography.Text>{item.name}</Typography.Text>
+                                                <Typography.Title level={5} style={{ margin: 0 }}>{item.platform.name}</Typography.Title>
                                             </div>
                                         </a>
                                     </List.Item>

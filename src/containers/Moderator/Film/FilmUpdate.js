@@ -185,10 +185,6 @@ function FilmUpdate (props) {
        return (getPosterWidth() / 2) * 3
     }
 
-    // const handleEditorChange = (content, editor) => {
-    //     setDescription(content)
-    // }
-
     function onSearch(val) {                
         let url = `${api.films}?title=${val}`
         axios({
@@ -204,6 +200,7 @@ function FilmUpdate (props) {
 
     function onSelect(e) {
         let film = films.find(x => x.id === parseInt(e))
+        console.log(film)
         form.setFieldsValue({
             title: film.title,
             genres: film.genres ? getGenreIDs(film.genres) : undefined,
@@ -364,8 +361,8 @@ function FilmUpdate (props) {
                                 <Form.Item name="plot" label="Агуулга:">
                                     <TextArea rows={10} />
                                 </Form.Item>  
-                            </Col>
-                        </Row>                                                                                                                                                 
+                            </Col>                            
+                        </Row>                                                                                                                                                                                                                      
                         <Form.Item>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Popconfirm title="Засах уу？" okText="Тийм" cancelText="Үгүй" onConfirm={form.submit}>

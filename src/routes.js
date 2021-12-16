@@ -18,8 +18,8 @@ import Moderator from './containers/Moderator/Moderator';
 // import ReviewWrite from './containers/Film/Review/ReviewWrite';
 // import ReviewDetail from './containers/Film/Review/ReviewDetail';
 // import ReviewList from './containers/Film/Review/ReviewList';
-import SeriesList from './containers/Series/SeriesList';
-import SeriesDetail from './containers/Series/SeriesDetail';
+// import SeriesList from './containers/Series/SeriesList';
+// import SeriesDetail from './containers/Series/SeriesDetail';
 import UserDetail from './containers/User/UserDetail';
 import ArticleWrite from './containers/Article/ArticleWrite';
 
@@ -31,8 +31,8 @@ function BaseRouter () {
             <Route exact path="/films" component={FilmList} />
             <Route exact path="/films/:id" component={FilmDetail} />       
             {/* Series */}
-            <Route exact path="/series" component={SeriesList} />     
-            <Route exact path="/series/:id" component={SeriesDetail} />       
+            {/* <Route exact path="/series" component={SeriesList} />     
+            <Route exact path="/series/:id" component={SeriesDetail} />        */}
             {/* Artist */}
             <Route exact path="/artists" component={ArtistList} />
             <Route exact path="/artists/:id" component={ArtistDetail} />

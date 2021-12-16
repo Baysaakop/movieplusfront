@@ -195,7 +195,7 @@ function FilmCard (props) {
     return (
         <div className="film-card">
             { film ? (
-                <Tooltip title={`${film.title} (${moment(film.releasedate).year()})`}>
+                <>
                     <Card                                                                                    
                         hoverable                          
                         bordered={false}                    
@@ -203,8 +203,10 @@ function FilmCard (props) {
                             <div className="film-poster-container">
                                 <a href={`/films/${film.id}`}>
                                     <div style={{ width: '100%', height: '100%' }}>
-                                        <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>                                
-                                            <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
+                                        <div style={{ position: 'relative', paddingBottom: '150%', width: '100%', height: '100%', overflow: 'hidden' }}>       
+                                            <Tooltip title={`${film.title} (${moment(film.releasedate).year()})`} placement="top">
+                                                <img className="film-poster" alt={film.title} src={film.poster ? film.poster : blank} />                                
+                                            </Tooltip>                         
                                         </div>
                                     </div>
                                 </a>
@@ -325,7 +327,7 @@ function FilmCard (props) {
                     : 
                         <></>
                     }
-                </Tooltip>
+                </>
             ) : (
                 <Spin />
             )}            

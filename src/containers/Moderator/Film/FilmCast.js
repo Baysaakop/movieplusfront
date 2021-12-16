@@ -132,18 +132,18 @@ function FilmCast (props) {
             </Row>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography.Title level={5} style={{ margin: '16px 0' }}>Жүжигчид</Typography.Title>
-                <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>
-                { modalCreate && selection ? 
-                    <FilmCastModalCreate 
-                        title="Артист нэмэх"
-                        film={selection.id}
-                        token={props.token} 
-                        hide={onModalCreateHide} 
-                    /> 
-                    : 
-                    <></> 
-                }                
+                <Button icon={<PlusOutlined />} type="dashed" onClick={() => setModalCreate(true)}>Шинээр нэмэх</Button>                
             </div>            
+            { modalCreate && selection ? 
+                <FilmCastModalCreate 
+                    title="Артист нэмэх"
+                    film={selection.id}
+                    token={props.token} 
+                    hide={onModalCreateHide} 
+                /> 
+                : 
+                <></> 
+            }                
             <Row gutter={[16, 16]}>                                                                           
                 <Col xs={24} sm={24} md={24} lg={6}>Артист</Col>
                 <Col xs={24} sm={24} md={24} lg={6}>Дүр</Col>

@@ -103,7 +103,7 @@ function CustomMenu (props) {
                         <Button block className={ current === 'films' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/films" onClick={() => handleMenuClick('films')}>Кино</Button>
                         <Button block className={ current === 'series' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/series" onClick={() => handleMenuClick('series')}>Цуврал</Button>
                         <Button block className={ current === 'artists' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/artists" onClick={() => handleMenuClick('artists')}>Хүмүүс</Button>
-                        <Button block className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Мэдээ</Button>                                                                       
+                        <Button block className={ current === 'articles' ? 'selected-menu-item' : 'menu-item' } size="large" type="text" href="/articles" onClick={() => handleMenuClick('articles')}>Нийтлэл</Button>                                                                       
                         { user ? (
                             <a href={`/users/${user.id}`}>
                                 {user.profile.avatar ? (

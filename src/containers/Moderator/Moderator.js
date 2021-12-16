@@ -18,6 +18,7 @@ import SeriesCrew from './Series/SeriesCrew';
 import SeriesCast from './Series/SeriesCast';
 import ArtistSeriesCrew from './Artist/ArtistSeriesCrew';
 import ArtistSeriesCast from './Artist/ArtistSeriesCast';
+import FilmPlatform from './Film/FilmPlatform';
 
 function Moderator (props) {
     const [loading, setLoading] = useState(false)
@@ -72,37 +73,42 @@ function Moderator (props) {
                                 <Menu.ItemGroup key="film1" title="Ерөнхий мэдээлэл">
                                     <Menu.Item key="1">Нэмэх</Menu.Item>
                                     <Menu.Item key="2">Засах / Устгах</Menu.Item>                                    
+                                    <Menu.Item key="3">Үзэх суваг</Menu.Item>
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="film2" title="Бүрэлдэхүүн">
-                                    <Menu.Item key="3">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="4">Дүр</Menu.Item>
-                                </Menu.ItemGroup>
+                                    <Menu.Item key="4">Баг бүрэлдэхүүн</Menu.Item>
+                                    <Menu.Item key="5">Дүр</Menu.Item>
+                                </Menu.ItemGroup>                                
                             </SubMenu>
                             <SubMenu key="series" title="Цуврал">
                                 <Menu.ItemGroup key="series1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="5">Нэмэх</Menu.Item>
-                                    <Menu.Item key="6">Засах / Устгах</Menu.Item>                                    
+                                    <Menu.Item key="6">Нэмэх</Menu.Item>
+                                    <Menu.Item key="7">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="series2" title="Бүрэлдэхүүн">
-                                    <Menu.Item key="7">Баг бүрэлдэхүүн</Menu.Item>
-                                    <Menu.Item key="8">Дүр</Menu.Item>                                    
+                                    <Menu.Item key="8">Баг бүрэлдэхүүн</Menu.Item>
+                                    <Menu.Item key="9">Дүр</Menu.Item>                                    
                                 </Menu.ItemGroup>
                             </SubMenu>
                             <SubMenu key="artists" title="Хүмүүс">
                                 <Menu.ItemGroup key="artists1" title="Ерөнхий мэдээлэл">
-                                    <Menu.Item key="9">Нэмэх</Menu.Item>
-                                    <Menu.Item key="10">Засах / Устгах</Menu.Item>                                    
+                                    <Menu.Item key="10">Нэмэх</Menu.Item>
+                                    <Menu.Item key="11">Засах / Устгах</Menu.Item>                                    
                                 </Menu.ItemGroup>
                                 <Menu.ItemGroup key="artists2" title="Уран бүтээл">
                                     <SubMenu key="artists-film" title="Кино">
-                                        <Menu.Item key="11">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="12">Дүр</Menu.Item>                                        
+                                        <Menu.Item key="12">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="13">Дүр</Menu.Item>                                        
                                     </SubMenu>
                                     <SubMenu key="artists-series" title="Цуврал">
-                                        <Menu.Item key="13">Баг бүрэлдэхүүн</Menu.Item>
-                                        <Menu.Item key="14">Дүр</Menu.Item>                                        
+                                        <Menu.Item key="14">Баг бүрэлдэхүүн</Menu.Item>
+                                        <Menu.Item key="15">Дүр</Menu.Item>                                        
                                     </SubMenu>                           
                                 </Menu.ItemGroup>
+                            </SubMenu>
+                            <SubMenu key="genres" title="Төрөл жанр">
+                                <Menu.Item key="16">Нэмэх</Menu.Item>
+                                <Menu.Item key="17">Засах / Устгах</Menu.Item>                
                             </SubMenu>
                         </Menu>
                     </Col>
@@ -113,29 +119,35 @@ function Moderator (props) {
                             ) : key === "2" ? (
                                 <FilmUpdate token={props.token} />
                             ) : key === "3" ? (
-                                <FilmCrew token={props.token} />
+                                <FilmPlatform token={props.token} />
                             ) : key === "4" ? (
-                                <FilmCast token={props.token} />
+                                <FilmCrew token={props.token} />
                             ) : key === "5" ? (
-                                <SeriesCreate token={props.token} />
+                                <FilmCast token={props.token} />
                             ) : key === "6" ? (
-                                <SeriesUpdate token={props.token} />
+                                <SeriesCreate token={props.token} />
                             ) : key === "7" ? (
-                                <SeriesCrew token={props.token} />
+                                <SeriesUpdate token={props.token} />
                             ) : key === "8" ? (
-                                <SeriesCast token={props.token} />
+                                <SeriesCrew token={props.token} />
                             ) : key === "9" ? (
-                                <ArtistCreate token={props.token} />
+                                <SeriesCast token={props.token} />
                             ) : key === "10" ? (
-                                <ArtistUpdate token={props.token} />
+                                <ArtistCreate token={props.token} />
                             ) : key === "11" ? (
-                                <ArtistFilmCrew token={props.token} />
+                                <ArtistUpdate token={props.token} />
                             ) : key === "12" ? (
-                                <ArtistFilmCast token={props.token} />
+                                <ArtistFilmCrew token={props.token} />
                             ) : key === "13" ? (
-                                <ArtistSeriesCrew token={props.token} />
+                                <ArtistFilmCast token={props.token} />
                             ) : key === "14" ? (
+                                <ArtistSeriesCrew token={props.token} />
+                            ) : key === "15" ? (
                                 <ArtistSeriesCast token={props.token} />
+                            ) : key === "16" ? (
+                                <>Genre add</>
+                            ) : key === "17" ? (
+                                <>Genre edit/delete</>
                             ) : (
                                 <></>
                             )}
