@@ -1,11 +1,10 @@
-import { Button, message, Spin, Typography } from "antd"
+import { message, Spin } from "antd"
 import axios from "axios"
 import React, { useState, useEffect } from "react"
 import api from "../../api"
-import FilmCard from "./FilmCard"
+import FilmCard from "../Film/FilmCard"
 import "./FilmSwiper.css"
 import InfiniteCarousel from 'react-leaf-carousel'
-import { DoubleRightOutlined } from "@ant-design/icons"
 
 
 function FilmSwiper (props) {
@@ -39,14 +38,6 @@ function FilmSwiper (props) {
             </div>
         ) : (
             <div>
-                <div className="film-swiper-header">
-                    <div className="film-swiper-title">
-                        <Typography.Title level={4} style={{ margin: 0 }}>{props.title}</Typography.Title>
-                    </div>
-                    <div>
-                        <Button type="ghost" icon={<DoubleRightOutlined />}>Бүгд</Button>
-                    </div>
-                </div>
                 <InfiniteCarousel
                     breakpoints={[
                     {
@@ -78,7 +69,7 @@ function FilmSwiper (props) {
                     slidesToScroll={2}
                     slidesToShow={6}
                     slidesSpacing={12}                    
-                    scrollOnDevice={true}
+                    scrollOnDevice={true}                    
                 >
                     {films ? films.map(film => (
                         <div id={film.id}>

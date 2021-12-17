@@ -1,4 +1,22 @@
 .home-landscape {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.home .list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.home .list-header .list-header-title {
+  border-left: 6px solid #000;
+  padding-left: 8px;
+}
+
+.layout-dark .home .list-header .list-header-title {
+  border-left: 6px solid #fff;
+  padding-left: 8px;
 }

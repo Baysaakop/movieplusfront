@@ -187,7 +187,7 @@ function FilmList (props) {
                         <Col xs={24} sm={24} md={12}>                                                                                                         
                             <Form.Item name="search" label={<Typography.Title level={5} style={{ margin: 0 }}>Кино хайх</Typography.Title>}>
                                 <Input.Search                                            
-                                    placeholder="Кино хайх..."                                     
+                                    placeholder="Киноны нэр"                                     
                                     onSearch={onSearch} 
                                     enterButton                                    
                                 />   

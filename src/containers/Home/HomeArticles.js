@@ -1,5 +1,4 @@
-import { DoubleRightOutlined } from "@ant-design/icons"
-import { Button, Spin, Typography } from "antd"
+import { Spin } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import api from "../../api"
@@ -38,15 +37,7 @@ function HomeArticles (props) {
                     <Spin tip="Ачааллаж байна..." />
                 </div>
             ) : (
-                <div className="news-list" style={{ marginTop: '24px' }}>
-                    <div className="film-swiper-header">
-                        <div className="film-list-title">
-                            <Typography.Title level={4} style={{ margin: 0 }}>Шинэ нийтлэл</Typography.Title>
-                        </div>
-                        <div>
-                            <Button type="ghost" icon={<DoubleRightOutlined />}>Бүгд</Button>
-                        </div>
-                    </div>
+                <div className="news-list">
                     <InfiniteCarousel
                         breakpoints={[
                             {

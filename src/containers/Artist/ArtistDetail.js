@@ -6,6 +6,7 @@ import { FacebookFilled, InstagramOutlined, TwitterOutlined, YoutubeFilled } fro
 import './ArtistDetail.css'
 import { connect } from "react-redux"
 import Filmography from "./Filmography"
+import moment from 'moment'
 
 function ArtistDetail (props) {
     const [user, setUser] = useState()
@@ -225,7 +226,7 @@ function ArtistDetail (props) {
                             </Typography.Text>
                             <Typography.Title level={5}>Төрсөн өдөр</Typography.Title>
                             <Typography.Text>
-                                {artist.birthday ? artist.birthday : '- Мэдээлэл байхгүй'}
+                                {artist.birthdate ? moment(artist.birthdate).format("YYYY оны MM сарын DD") : '- Мэдээлэл байхгүй'}
                             </Typography.Text>
                             <Typography.Title level={5} style={{ marginBottom: '4px' }}>Сошиал сувгууд</Typography.Title>
                             <div className="artist-social">     
@@ -273,8 +274,8 @@ function ArtistDetail (props) {
                                 </div>
                             </div>         */}
                         </div>
-                        <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>                            
-                            <Col xs={24} sm={24} md={24} lg={12}>
+                        <Row gutter={[24, 24]}>                            
+                            <Col xs={24} sm={24} md={24} lg={24}>
                             { filmCast && filmCast.length > 0 ? (                                
                                 <Filmography type="cast" mode="film" title="Кино дүрүүд" data={filmCast} />                                     
                             ) : []}
@@ -282,7 +283,7 @@ function ArtistDetail (props) {
                                 <Filmography type="crew" mode="film" title="Кино бүтээлүүд" data={filmCrew} />                                     
                             ) : []}
                             </Col> 
-                            <Col xs={24} sm={24} md={24} lg={12}>
+                            <Col xs={24} sm={24} md={24} lg={24}>
                             { seriesCast && seriesCast.length > 0 ? (                                
                                 <Filmography type="cast" mode="series" title="ТВ Цувралын дүрүүд" data={seriesCast} />                                     
                             ) : []}
