@@ -338,7 +338,7 @@ function FilmDetail (props) {
                         {film.title}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                {/* { film.landscape ? (
+                { film.landscape ? (
                     <div style={{ marginTop: '24px', position: 'relative' }}>
                         <img alt={film.title} src={film.landscape} style={{ width: '100%', height: 'auto', objectFit: 'cover', filter: 'blur(1px)' }} />
                         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, background: 'rgba(0, 0, 0, 0.6)', borderRadius: '4px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -346,8 +346,12 @@ function FilmDetail (props) {
                         </div>
                     </div>
                 ) : (
-                    <></>
-                )}  */}
+                    <div style={{ marginTop: '24px', position: 'relative' }}>
+                        <div style={{ background: '#11181e', borderRadius: '4px', width: '100%', height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography.Title style={{ color: '#fff', fontSize: '48px' }}>{film.title}</Typography.Title> 
+                        </div>
+                    </div>
+                )} 
                 <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
                     <Col xs={24} sm={24} md={8} lg={8} xl={6}>
                         <div style={{ position: 'relative', overflow: 'hidden' }}>
